@@ -1,0 +1,3 @@
+[submodule "Frameworks/SPUserResizableView"]
+	path = Frameworks/SPUserResizableView
+	url = git@github.com:spoletto/SPUserResizableView.git
