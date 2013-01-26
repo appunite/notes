@@ -32,7 +32,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 + (void)drawItem:(NTNotePathItem *)item rect:(CGRect)rect context:(CGContextRef)ctx {
-    [[UIColor whiteColor] set];
+    [[UIColor clearColor] set];
     UIRectFill(rect);
 
 	CGContextAddPath(ctx, item.path);

@@ -53,6 +53,21 @@
     }
     return self;
 }
+-(id)initWithContentViewFrame:(CGRect)frame{
+    self = [super init];
+    if (self) {
+        // create items mutable array
+        _items = [NSMutableArray new];
+
+        _contentViewFrame = frame;
+        
+        // create tap gestire recognizer, attached to note content view
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(tapGestureAction:)];
+        
+    }
+    return self;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)loadView {
@@ -60,15 +75,15 @@
     CGRect rect = [[UIScreen mainScreen] applicationFrame];
     
     // create main view
-    NTNoteScrollView* view = [[NTNoteScrollView alloc] initWithFrame:rect];
-    
+    NTNoteScrollView* view = [[NTNoteScrollView alloc] initWithFrame:_contentViewFrame];
+    [view setBackgroundColor:[UIColor clearColor]];
     // create main note view (take care of drawings)
-    NTNoteContentView* contentView = [[NTNoteContentView alloc] init];
+    NTNoteContentView* contentView = [[NTNoteContentView alloc] initWithFrame:_contentViewFrame];
     [contentView setDelegate:self];
-    
+    [contentView setBackgroundColor:[UIColor clearColor]];
     // add notes view
     [view setNotesView:contentView];
-
+    [view.notesView setBackgroundColor:[UIColor clearColor]];
     // add tap gesture recognizer to content view
     [contentView addGestureRecognizer:_tapGestureRecognizer];
     
@@ -215,14 +230,16 @@
 
         // create text item view
         _currentNoteView = [[NTTextView alloc] initWithItem:item];
+        [_currentNoteView setResizableViewDelegate:self];
     }
     
     else if ([item isKindOfClass:[NTNoteImageItem class]]) {
 
         // create image item view
         _currentNoteView = [[NTImageView alloc] initWithItem:item];
+        [_currentNoteView setResizableViewDelegate:self];
     }
-
+    
     // move to editing mode
     [item setEditingMode:YES];
     
@@ -250,7 +267,11 @@
     // redraw view
     [_contentView setNeedsDisplay];
 }
+-(void)viewDidChangePosition:(CGRect)frame{
+    
+    [_currentNoteView.item setRect:frame];
 
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)tapGestureAction:(UITapGestureRecognizer *)gestureRecognizer {
     // get touch point

@@ -46,5 +46,12 @@
     [super resizeUsingTouchLocation:touchPoint];
     [self setNeedsDisplay];
 }
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    // Notify the delegate we've ended our editing session.
+    if (self.delegate && [self.delegate respondsToSelector:@selector(userResizableViewDidEndEditing:)]) {
+        [self.delegate userResizableViewDidEndEditing:self];
+    }
+    [_resizableViewDelegate viewDidChangePosition:self.frame];
+}
 
 @end

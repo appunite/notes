@@ -11,9 +11,15 @@
 //Items
 #import "NTNoteItem.h"
 
+@protocol NTUserResizableViewDelegate <NSObject>
+
+-(void)viewDidChangePosition:(CGRect)frame;
+
+@end
+
 @interface NTUserResizableView : SPUserResizableView
 // keep model object
 @property (nonatomic, weak, readonly) NTNoteItem* item;
-
+@property id<NTUserResizableViewDelegate> resizableViewDelegate;
 - (id)initWithItem:(NTNoteItem *)item;
 @end

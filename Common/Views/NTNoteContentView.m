@@ -28,6 +28,7 @@ static const CGFloat kPointMinDistanceSquared = 10;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)init {
     return [self initWithFrame:CGRectZero];
+    [self setBackgroundColor:[UIColor clearColor]];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +55,7 @@ static const CGFloat kPointMinDistanceSquared = 10;
         CGContextRef ctx = UIGraphicsGetCurrentContext();
         
         // change background color
-        CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+        CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
         CGContextFillRect(ctx, rect);
         
         // iterate all items
@@ -73,6 +74,7 @@ static const CGFloat kPointMinDistanceSquared = 10;
                 
                 // draw item
                 [NTNoteTextItem drawItem:item rect:rect context:ctx];
+                
             }
             
             // draw image item
@@ -82,6 +84,7 @@ static const CGFloat kPointMinDistanceSquared = 10;
                 
                 // draw item
                 [NTNoteImageItem drawItem:item rect:rect context:ctx];
+                
             }
             
             // draw image item
@@ -92,6 +95,7 @@ static const CGFloat kPointMinDistanceSquared = 10;
                 // draw item
                 [NTNotePathItem drawItem:item rect:rect context:ctx];
             }
+            
             
             // restore context state
             CGContextRestoreGState(ctx);
@@ -164,5 +168,6 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
     
     [self setNeedsDisplayInRect:drawBox];
 }
+
 
 @end

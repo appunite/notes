@@ -20,7 +20,7 @@
         // setup scroll view
         [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         [self setDecelerationRate:UIScrollViewDecelerationRateFast];
-        [self setBackgroundColor:[UIColor whiteColor]];
+        [self setBackgroundColor:[UIColor clearColor]];
         [self setMinimumZoomScale:1.0];
         [self setMaximumZoomScale:3.0f];
         [self setDelegate:self];

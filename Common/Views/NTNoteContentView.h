@@ -13,6 +13,7 @@
 #import "NTNoteTextItem.h"
 #import "NTNoteImageItem.h"
 #import "NTNotePathItem.h"
+#import "NTUserResizableView.h"
 
 typedef NS_ENUM(NSUInteger, NTNoteContentMode) {
     NTNoteContentModeDrawing    = 0,
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSUInteger, NTNoteContentMode) {
 
 @protocol NTNoteContentViewDelegate;
 
-@interface NTNoteContentView : UIView
+@interface NTNoteContentView : UIView<NTUserResizableViewDelegate>
 
 // keep current content mode
 @property (nonatomic, assign) NTNoteContentMode noteContentMode;
