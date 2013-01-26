@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 //Views
-#import <AUNotes/NTNoteContentView.h>
+#import "NTNoteContentView.h"
 #import "NTUserResizableView.h"
 
 @interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate>
