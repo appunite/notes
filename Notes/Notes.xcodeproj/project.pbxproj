@@ -17,7 +17,6 @@
 		208489EE1668E6590071AAC4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 208489ED1668E6590071AAC4 /* Default.png */; };
 		208489F01668E6590071AAC4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 208489EF1668E6590071AAC4 /* Default@2x.png */; };
 		208489F21668E6590071AAC4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 208489F11668E6590071AAC4 /* Default-568h@2x.png */; };
-		208489F51668E6590071AAC4 /* NTNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 208489F41668E6590071AAC4 /* NTNoteViewController.m */; };
 		20848A0F1668EB790071AAC4 /* NTImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20848A0E1668EB790071AAC4 /* NTImageView.m */; };
 		20848AD1166920570071AAC4 /* NTNoteContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20848AD0166920570071AAC4 /* NTNoteContentView.m */; };
 		20848AD2166928410071AAC4 /* SPUserResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20848ACE16691FD70071AAC4 /* SPUserResizableView.m */; };
@@ -426,7 +425,6 @@
 				20848AD2166928410071AAC4 /* SPUserResizableView.m in Sources */,
 				208489E81668E6590071AAC4 /* main.m in Sources */,
 				208489EC1668E6590071AAC4 /* AppDelegate.m in Sources */,
-				208489F51668E6590071AAC4 /* NTNoteViewController.m in Sources */,
 				20848A0F1668EB790071AAC4 /* NTImageView.m in Sources */,
 				20848AD1166920570071AAC4 /* NTNoteContentView.m in Sources */,
 				20848AD916692E020071AAC4 /* NTUserResizableView.m in Sources */,

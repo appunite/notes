@@ -27,4 +27,5 @@
 
 @interface NTNoteTextItem (Draw)
 + (void)drawItem:(NTNoteTextItem *)item rect:(CGRect)rect context:(CGContextRef)ctx;
++ (void)drawItem:(NTNoteTextItem *)item rect:(CGRect)rect context:(CGContextRef)ctx color:(UIColor *)fontColor font:(UIFont *)font;
 @end

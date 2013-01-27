@@ -73,8 +73,7 @@ static const CGFloat kPointMinDistanceSquared = 10;
                 CGRect rect = [item rect];
                 
                 // draw item
-                [NTNoteTextItem drawItem:item rect:rect context:ctx];
-                
+                [NTNoteTextItem drawItem:item rect:rect context:ctx color:[item color] font:[item font]];
             }
             
             // draw image item

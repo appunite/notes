@@ -33,8 +33,6 @@
 @implementation NTNoteViewController {
     // Views
     __weak NTNoteContentView* _contentView;
-    NTUserResizableView* _currentNoteView;
-
     // Gestures
     UITapGestureRecognizer* _tapGestureRecognizer;
 }
@@ -249,6 +247,7 @@
     // add subview
     [_contentView addSubview:_currentNoteView];
     [_contentView setNeedsDisplay];
+    [_delegate editingModeIsOn];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -270,6 +269,12 @@
 -(void)viewDidChangePosition:(CGRect)frame{
     
     [_currentNoteView.item setRect:frame];
+
+}
+-(void)updateItems{
+
+    [_items replaceObjectAtIndex:[_items indexOfObject:_currentNoteView.item] withObject:_currentNoteView.item];
+    [_contentView setNeedsDisplay];
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////

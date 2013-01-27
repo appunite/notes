@@ -12,15 +12,20 @@
 //Views
 #import "NTNoteContentView.h"
 #import "NTUserResizableView.h"
+@protocol NTNoteDelegate
+-(void)editingModeIsOn;
+@end
 
 @interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate>
 
 // keep all drawing item objects
 @property (nonatomic, strong) NSMutableArray* items;
 @property (nonatomic) CGRect contentViewFrame;
+@property (nonatomic, strong) NTUserResizableView *currentNoteView;
+@property id <NTNoteDelegate> delegate;
 // load JSON file and fill items array
 - (BOOL)loadNoteItemsFromFile:(NSString *)file error:(NSError **)error;
 // init with scroll view frame
 -(id)initWithContentViewFrame:(CGRect)frame;
-
+-(void)updateItems;
 @end

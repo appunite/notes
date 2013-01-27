@@ -33,8 +33,9 @@
 //    CGContextTranslateCTM(ctx, 0, CGRectGetHeight(rect));
 //    CGContextScaleCTM(ctx, 1.0, -1.0);
     
+    
     // draw note item
-    [NTNoteTextItem drawItem:[self item] rect:rect context:ctx];
+    [NTNoteTextItem drawItem:[self item] rect:rect context:ctx color:[self.item color] font:[self.item font]];
 }
 
 

@@ -39,7 +39,7 @@
 #pragma mark - Draw
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-+ (void)drawItem:(NTNoteTextItem *)item rect:(CGRect)rect context:(CGContextRef)ctx {
++ (void)drawItem:(NTNoteTextItem *)item rect:(CGRect)rect context:(CGContextRef)ctx color:(UIColor *)fontColor font:(UIFont *)font{
     // get text
     NSString* text = [item text];
     //
@@ -49,12 +49,11 @@
     CGRect bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(rect), CGRectGetHeight(rect));
     
     // Convert UIFont to CTFontRef and add italic on Retina display
-    UIFont* font = [UIFont systemFontOfSize:16];
+    if(!font)font = [UIFont systemFontOfSize:16];
     CTFontRef sysUIFont = CTFontCreateWithName((__bridge CFStringRef)[font fontName], [font pointSize], NULL);
     //    CTFontRef sysUIFont = CTFontCreateCopyWithSymbolicTraits(ref, [font pointSize], NULL, kCTFontItalicTrait, kCTFontItalicTrait);
-    
-	// blue
-	CGColorRef color = [UIColor blackColor].CGColor;
+
+    CGColorRef color = fontColor.CGColor ? fontColor.CGColor : [UIColor blackColor].CGColor;
     
 	// pack it into attributes dictionary
 	NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
