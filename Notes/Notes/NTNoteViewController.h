@@ -14,6 +14,7 @@
 #import "NTUserResizableView.h"
 @protocol NTNoteDelegate
 -(void)editingModeIsOn;
+-(NSDictionary *)getBrushAtributes;
 @end
 
 @interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate>
@@ -28,4 +29,5 @@
 // init with scroll view frame
 -(id)initWithContentViewFrame:(CGRect)frame;
 -(void)updateItems;
+-(void)requestNewNoteImageItemWithPath:(NSString *)path;
 @end

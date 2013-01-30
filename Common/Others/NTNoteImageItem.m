@@ -41,7 +41,13 @@
     CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
     
     // get resource
-    UIImage* contentImage = [UIImage imageNamed:@"image.png"];
+    UIImage* contentImage;
+    if(item.resourcePath){
+    NSData *imageData= [NSData dataWithContentsOfFile:item.resourcePath];
+        contentImage = [UIImage imageWithData:imageData];
+        if (!contentImage) contentImage = [UIImage imageNamed:@"image.png"];
+    }
+    else contentImage = [UIImage imageNamed:@"image.png"];
     
     // draw content image
     if (contentImage) {

@@ -149,14 +149,37 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NTNotePathItem*)requestNewNotePathItem {
+    
+    // Get Brush Atrributes from Delegate
+    NSDictionary *brushAtr= [[NSDictionary alloc] initWithDictionary:[_delegate getBrushAtributes]];
+    
     // create new path item
-    NTNotePathItem* item = [[NTNotePathItem alloc] init];
+    NTNotePathItem* item = [[NTNotePathItem alloc] initWithBrushAttributes:brushAtr];
+
     // add to list
     [_items addObject:item];
     
     return item;
 }
+-(void)requestNewNoteImageItemWithPath:(NSString *)path{
+    
+    NTNoteImageItem* image = [[NTNoteImageItem alloc] init];
+    
+    // get height
+    CGFloat width = 200;
+    CGFloat height = 200;
+    
+    // change frame
+    CGRect rect = CGRectMake(100, 100, width, height);
+    [image setRect:rect];
+    
+    // change resource path
+    [image setResourcePath:path];
+    
+    // add item to array
+    [_items addObject:image];
 
+}
 #pragma mark - Private
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -287,7 +310,7 @@
 
         // check if rect of item contain touch point
         if (!item.editingMode &&  CGRectContainsPoint(item.rect, point)) {
-
+            
             // enter editimg mode with selected item
             [self enterEditModeOfItem:item];
 
