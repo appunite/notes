@@ -47,6 +47,7 @@
     //    UIFont* font = [item font];
     
     CGRect bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(rect), CGRectGetHeight(rect));
+    bounds = CGRectInset(bounds, 4.0f, 4.0f);
     
     // Convert UIFont to CTFontRef and add italic on Retina display
     if(!font)font = [UIFont systemFontOfSize:16];

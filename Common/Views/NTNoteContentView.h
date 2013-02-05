@@ -13,6 +13,7 @@
 #import "NTNoteTextItem.h"
 #import "NTNoteImageItem.h"
 #import "NTNotePathItem.h"
+#import "NTNoteAudioItem.h"
 #import "NTUserResizableView.h"
 
 typedef NS_ENUM(NSUInteger, NTNoteContentMode) {

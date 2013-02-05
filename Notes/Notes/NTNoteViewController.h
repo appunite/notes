@@ -28,6 +28,8 @@
 - (BOOL)loadNoteItemsFromFile:(NSString *)file error:(NSError **)error;
 // init with scroll view frame
 -(id)initWithContentViewFrame:(CGRect)frame;
--(void)updateItems;
+-(void)updateCurrentNoteView;
 -(void)requestNewNoteImageItemWithPath:(NSString *)path;
+-(void)requestNewNoteTextItem;
+-(void)requestNewNoteAudioItem;
 @end

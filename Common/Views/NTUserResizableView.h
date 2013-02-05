@@ -19,7 +19,7 @@
 
 @interface NTUserResizableView : SPUserResizableView
 // keep model object
-@property (nonatomic, weak, readonly) NTNoteItem* item;
+@property (nonatomic, weak) NTNoteItem* item;
 @property id<NTUserResizableViewDelegate> resizableViewDelegate;
 - (id)initWithItem:(NTNoteItem *)item;
 @end

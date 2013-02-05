@@ -114,7 +114,10 @@ enum type{
     UIRectFill(rect);
 
 	CGContextAddPath(ctx, item.path);
-    if(item.type == highlighter) CGContextSetLineCap(ctx, kCGLineCapSquare);
+    if(item.type == highlighter){
+     CGContextSetLineCap(ctx, kCGLineCapSquare);
+     CGContextSetBlendMode(ctx, kCGBlendModeColorBurn);
+    }
     else CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetAlpha(ctx, item.opacity);
     CGContextSetLineWidth(ctx, item.lineWidth);

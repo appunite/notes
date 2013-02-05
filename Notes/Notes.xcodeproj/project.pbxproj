@@ -60,6 +60,13 @@
 		24310BBD16B45F9F00587E65 /* NTTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 20848B1F166A23340071AAC4 /* NTTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24310BBE16B45F9F00587E65 /* NTImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 20848A0D1668EB790071AAC4 /* NTImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24310C3A16B460D200587E65 /* SPUserResizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 20848ACD16691FD70071AAC4 /* SPUserResizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24C42FC416C12BE800B39777 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D885B616BA878A001E9B07 /* AVFoundation.framework */; };
+		24D8858716BA80D6001E9B07 /* audio_note_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D8858516BA80D6001E9B07 /* audio_note_image.png */; };
+		24D8858816BA80D6001E9B07 /* audio_note_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D8858616BA80D6001E9B07 /* audio_note_image@2x.png */; };
+		24D885B516BA8781001E9B07 /* NTNoteAudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */; };
+		24D885B716BA878B001E9B07 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D885B616BA878A001E9B07 /* AVFoundation.framework */; };
+		24D885B816BA879D001E9B07 /* NTNoteAudioView.h in Headers */ = {isa = PBXBuildFile; fileRef = 24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24D885BA16BA9499001E9B07 /* NTNoteAudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -120,6 +127,11 @@
 		24310B9A16B45EE600587E65 /* AUNotes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AUNotes-Prefix.pch"; sourceTree = "<group>"; };
 		24310B9B16B45EE600587E65 /* AUNotes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUNotes.h; sourceTree = "<group>"; };
 		24310B9D16B45EE600587E65 /* AUNotes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUNotes.m; sourceTree = "<group>"; };
+		24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTNoteAudioView.h; path = ../../Common/Views/NTNoteAudioView.h; sourceTree = "<group>"; };
+		24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTNoteAudioView.m; path = ../../Common/Views/NTNoteAudioView.m; sourceTree = "<group>"; };
+		24D8858516BA80D6001E9B07 /* audio_note_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_note_image.png; sourceTree = "<group>"; };
+		24D8858616BA80D6001E9B07 /* audio_note_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio_note_image@2x.png"; sourceTree = "<group>"; };
+		24D885B616BA878A001E9B07 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24C42FC416C12BE800B39777 /* AVFoundation.framework in Frameworks */,
 				20848B23166A351D0071AAC4 /* CoreText.framework in Frameworks */,
 				208489DC1668E6590071AAC4 /* UIKit.framework in Frameworks */,
 				208489DE1668E6590071AAC4 /* Foundation.framework in Frameworks */,
@@ -138,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24D885B716BA878B001E9B07 /* AVFoundation.framework in Frameworks */,
 				24310BB216B45F7100587E65 /* CoreGraphics.framework in Frameworks */,
 				24310BB116B45F6D00587E65 /* CoreText.framework in Frameworks */,
 				24310BB016B45F6200587E65 /* UIKit.framework in Frameworks */,
@@ -151,6 +165,7 @@
 		208489CC1668E6590071AAC4 = {
 			isa = PBXGroup;
 			children = (
+				24D885B616BA878A001E9B07 /* AVFoundation.framework */,
 				20848B22166A351C0071AAC4 /* CoreText.framework */,
 				208489E11668E6590071AAC4 /* Classes */,
 				20848A041668E74A0071AAC4 /* Resources */,
@@ -213,6 +228,8 @@
 		20848A041668E74A0071AAC4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				24D8858516BA80D6001E9B07 /* audio_note_image.png */,
+				24D8858616BA80D6001E9B07 /* audio_note_image@2x.png */,
 				2000919D166E6E8F005C6DC8 /* image.png */,
 				20A359BF166A3F2000793AA0 /* test.json */,
 			);
@@ -240,6 +257,8 @@
 				20848B20166A23350071AAC4 /* NTTextView.m */,
 				20848A0D1668EB790071AAC4 /* NTImageView.h */,
 				20848A0E1668EB790071AAC4 /* NTImageView.m */,
+				24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */,
+				24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -315,6 +334,7 @@
 				24310BBC16B45F9F00587E65 /* NTNoteContentView.h in Headers */,
 				24310BBD16B45F9F00587E65 /* NTTextView.h in Headers */,
 				24310BBE16B45F9F00587E65 /* NTImageView.h in Headers */,
+				24D885B816BA879D001E9B07 /* NTNoteAudioView.h in Headers */,
 				24310C3A16B460D200587E65 /* SPUserResizableView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +416,8 @@
 				208489F21668E6590071AAC4 /* Default-568h@2x.png in Resources */,
 				20A359C0166A3F2000793AA0 /* test.json in Resources */,
 				2000919E166E6E8F005C6DC8 /* image.png in Resources */,
+				24D8858716BA80D6001E9B07 /* audio_note_image.png in Resources */,
+				24D8858816BA80D6001E9B07 /* audio_note_image@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +457,7 @@
 				20848B1B166A12500071AAC4 /* NTNoteAudioItem.m in Sources */,
 				20848B1E166A12620071AAC4 /* NTNotePathItem.m in Sources */,
 				20848B21166A23350071AAC4 /* NTTextView.m in Sources */,
+				24D885BA16BA9499001E9B07 /* NTNoteAudioView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24D885B516BA8781001E9B07 /* NTNoteAudioView.m in Sources */,
 				24310BAB16B45F4D00587E65 /* NTNoteScrollView.m in Sources */,
 				24310BAC16B45F4D00587E65 /* NTNoteContentView.m in Sources */,
 				24310BAD16B45F4D00587E65 /* NTTextView.m in Sources */,

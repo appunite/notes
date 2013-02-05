@@ -15,7 +15,11 @@
 //Items
 #import "NTNoteTextItem.h"
 
-@interface NTTextView : NTUserResizableView
+@interface NTTextView : NTUserResizableView<UITextViewDelegate>{
+    UITextView *_textView;
+}
 // redefine model object
 - (NTNoteTextItem*)item;
+-(void)allowUserTextEditing;
+-(void)updateTextView;
 @end

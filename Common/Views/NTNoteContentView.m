@@ -94,6 +94,14 @@ static const CGFloat kPointMinDistanceSquared = 10;
                 // draw item
                 [NTNotePathItem drawItem:item rect:rect context:ctx];
             }
+            else if ([item isKindOfClass:[NTNoteAudioItem class]]) {
+
+                CGRect rect = [item rect];
+                
+                [NTNoteAudioItem drawItem:item rect:rect context:ctx];
+                
+            }
+            
             
             
             // restore context state

@@ -7,12 +7,13 @@
 //
 
 #import "NTNoteViewController.h"
-
+#import <Foundation/Foundation.h>
 //Views
 #import "NTNoteScrollView.h"
 #import "NTImageView.h"
 #import "NTTextView.h"
 #import "NTImageView.h"
+#import "NTNoteAudioView.h"
 
 //Items
 #import "NTNoteTextItem.h"
@@ -95,13 +96,18 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    NTImageView* view = [[NTImageView alloc] initWithFrame:CGRectMake(40, 40, 420, 360)];
-//    [_noteView addSubview:view];
-    
+
     NSError* error = nil;
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"json"];
-    [self loadNoteItemsFromFile:path error:&error];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"test"];
+    
+    if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+
+    filePath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"json"];
+    }
+    [self loadNoteItemsFromFile:filePath error:&error];
     
     if (error) {
         NSLog(@"%@", error);
@@ -161,6 +167,9 @@
     
     return item;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 -(void)requestNewNoteImageItemWithPath:(NSString *)path{
     
     NTNoteImageItem* image = [[NTNoteImageItem alloc] init];
@@ -170,7 +179,7 @@
     CGFloat height = 200;
     
     // change frame
-    CGRect rect = CGRectMake(100, 100, width, height);
+    CGRect rect = CGRectMake(10.0f, 10.0f, width, height);
     [image setRect:rect];
     
     // change resource path
@@ -180,6 +189,55 @@
     [_items addObject:image];
 
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)requestNewNoteTextItem{
+    
+    NTNoteTextItem *item = [[NTNoteTextItem alloc] init];
+    
+    CGFloat width = 200.0f;
+    CGFloat height = 150.0f;
+    
+    CGRect rect = CGRectMake(10.0f, 10.0f, width, height);
+    
+    // set temporary text
+    [item setText:@"Enter your text here..."];
+    
+    //set rect
+    [item setRect:rect];
+    
+    //set default font
+    [item setFont:[UIFont systemFontOfSize:13]];
+    
+    // add item to array
+    [_items addObject:item];
+    
+    // reload content view
+    [_contentView setNeedsDisplay];
+    
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)requestNewNoteAudioItem{
+    
+    NTNoteAudioItem *item = [[NTNoteAudioItem alloc] init];
+    
+    CGFloat width = 200.0f;
+    CGFloat height = 150.0f;
+    
+    CGRect rect = CGRectMake(10.0f, 10.0f, width, height);
+    
+    [item setRect:rect];
+    
+    [_items addObject:item];
+    
+    [_contentView setNeedsDisplay];
+    
+    
+}
+
 #pragma mark - Private
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,8 +297,84 @@
             // add item to array
             [_items addObject:text];
         }
+        else if([type isEqualToString:@"voice"]){
+            
+            NTNoteAudioItem *voice = [[NTNoteAudioItem alloc] init];
+            
+            // change frame
+            CGRect rect = CGRectMake(x, y, 66.0f, 66.0f);
+            [voice setRect:rect];
+            
+            // change remote url
+            NSString* url = [item objectForKey:@"url"];
+            [voice setRemotePath:[NSURL URLWithString:url]];
+            
+            // change local path
+            NSString *path = [item objectForKey:@"local"];
+            [voice setLocalPath:path];
+            
+            // add item to array
+            [_items addObject:voice];
+
+            
+        }
     }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)saveNoteItems{
+
+    NSMutableString *jsonString = [[NSMutableString alloc] init];
+    [jsonString appendString:@"{\"elements\":["];
+    int i=0;
+    for(NTNoteItem *item in _items){
+                [jsonString appendString:@"{"];
+        if([item isKindOfClass:[NTNoteTextItem class]])
+        {
+            NTNoteTextItem *itemt = item;
+            [jsonString appendString:@"\"type\":\"html\","];
+            [jsonString appendFormat:@"\"html\":\"%@\",", itemt.text];
+            [jsonString appendFormat:@"\"textColor\":\"#%@\",", [self colorToWeb:itemt.color]];
+            [jsonString appendFormat:@"\"textSize\":\"%f\",", itemt.font.pointSize];
+        }
+        else if([item isKindOfClass:[NTNoteImageItem class]]){
+            NTNoteImageItem *itemt = item;
+            [jsonString appendString:@"\"type\":\"image\","];
+            [jsonString appendFormat:@"\"url\":\"%@\",", itemt.resourcePath];
+        }
+        else if([item isKindOfClass:[NTNoteAudioItem class]]){
+            NTNoteAudioItem *itemt = item;
+            [jsonString appendString:@"\"type\":\"voice\","];
+            [jsonString appendFormat:@"\"url\":\"%@\",", itemt.remotePath];
+            [jsonString appendFormat:@"\"local\":\"%@\",", itemt.localPath];
+        }
+        else if([item isKindOfClass:[NTNotePathItem class]]){
+            NTNotePathItem *itemt = item;
+            [jsonString appendString:@"\"type\":\"path\","];
+            [jsonString appendFormat:@"\"lineColor\":\"#%@\",", [self colorToWeb:itemt.lineColor]];
+            [jsonString appendFormat:@"\"lineWidth\":\"%.2f\",", itemt.lineWidth];
+            [jsonString appendFormat:@"\"lineWidth\":\"%.2f\"", itemt.opacity];
+        }
+        if(![item isKindOfClass:[NTNotePathItem class]]){
+        [jsonString appendFormat:@"\"x\":%.2f,", item.rect.origin.x];
+        [jsonString appendFormat:@"\"y\":%.2f,", item.rect.origin.y];
+        [jsonString appendFormat:@"\"width\":%.2f,", item.rect.size.width];
+        [jsonString appendFormat:@"\"height\":%.2f", item.rect.size.height];
+        }
+        [jsonString appendString:@"}"];
+        if(i<[_items count]-1) [jsonString appendString:@","];
+        i++;
+    }
+    [jsonString appendString:@"]}"];
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"test"];
+    
+    [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)enterEditModeOfItem:(NTNoteItem *)item {
@@ -252,12 +386,20 @@
         // create text item view
         _currentNoteView = [[NTTextView alloc] initWithItem:item];
         [_currentNoteView setResizableViewDelegate:self];
+        [(NTTextView *)_currentNoteView allowUserTextEditing];
     }
     
     else if ([item isKindOfClass:[NTNoteImageItem class]]) {
 
         // create image item view
         _currentNoteView = [[NTImageView alloc] initWithItem:item];
+        [_currentNoteView setResizableViewDelegate:self];
+    }
+    else if([item isKindOfClass:[NTNoteAudioItem class]]){
+        
+        //create audio view
+        [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 180.0f, 60.0f)];
+        _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:item];
         [_currentNoteView setResizableViewDelegate:self];
     }
     
@@ -279,6 +421,12 @@
     // exit editing mode
     [[_currentNoteView item] setEditingMode:NO];
 
+    if([[_currentNoteView item] isKindOfClass:[NTNoteAudioItem class]]){
+        
+        //create audio view
+        [[_currentNoteView item] setRect:CGRectMake(_currentNoteView.item.rect.origin.x, _currentNoteView.item.rect.origin.y, 66.0f, 66.0f)];
+    }
+    
     // hide blue dots
     [_currentNoteView hideEditingHandles];
     
@@ -288,16 +436,17 @@
 
     // redraw view
     [_contentView setNeedsDisplay];
+    
+    [self saveNoteItems];
 }
 -(void)viewDidChangePosition:(CGRect)frame{
     
     [_currentNoteView.item setRect:frame];
 
 }
--(void)updateItems{
+-(void)updateCurrentNoteView{
 
-    [_items replaceObjectAtIndex:[_items indexOfObject:_currentNoteView.item] withObject:_currentNoteView.item];
-    [_contentView setNeedsDisplay];
+    [(NTTextView *)_currentNoteView updateTextView];
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -325,6 +474,29 @@
             [self exitEditMode];
         }
     }];
+}
+#pragma mark - other
+
+-(NSString*)colorToWeb:(UIColor*)color
+{
+    NSString *webColor = nil;
+    
+    if (color &&
+        CGColorGetNumberOfComponents(color.CGColor) == 4)
+    {
+        const CGFloat *components = CGColorGetComponents(color.CGColor);
+        
+        // These components range from 0.0 till 1.0 and need to be converted to 0 till 255
+        CGFloat red, green, blue;
+        red = roundf(components[0] * 255.0);
+        green = roundf(components[1] * 255.0);
+        blue = roundf(components[2] * 255.0);
+        
+        // Convert with %02x (use 02 to always get two chars)
+        webColor = [[NSString alloc]initWithFormat:@"%02x%02x%02x", (int)red, (int)green, (int)blue];
+    }
+    
+    return webColor;
 }
 
 @end
