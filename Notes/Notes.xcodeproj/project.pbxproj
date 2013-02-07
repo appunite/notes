@@ -557,6 +557,7 @@
 				GCC_PREFIX_HEADER = "Notes/Notes-Prefix.pch";
 				INFOPLIST_FILE = "Notes/Notes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A1C4EEDD-BA56-4A51-98FB-77D1932ECA4F";
 				WRAPPER_EXTENSION = app;
@@ -584,6 +585,7 @@
 				DSTROOT = /tmp/AUNotes.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AUNotes/AUNotes-Prefix.pch";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRIVATE_HEADERS_FOLDER_PATH = include/AUNotes/private;
 				PRODUCT_NAME = "$(TARGET_NAME)";
