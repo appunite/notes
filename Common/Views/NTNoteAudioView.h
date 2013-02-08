@@ -12,16 +12,21 @@
 
 #import "NTUserResizableView.h"
 
-@interface NTNoteAudioView : NTUserResizableView <AVAudioPlayerDelegate, AVAudioRecorderDelegate>{
+
+
+@interface NTNoteAudioView : NTUserResizableView <AVAudioPlayerDelegate, AVAudioRecorderDelegate, UIAlertViewDelegate>{
     
     AVAudioRecorder *audioRecorder;
     AVAudioPlayer *audioPlayer;
     UIView *myView;
+    UILabel *_currentTime;
+    NSTimer * myTimer;
 }
 @property UIButton *playButton;
 @property UIButton *recordButton;
 @property UIButton *stopButton;
 @property UISegmentedControl *playerControl;
+@property NSURL *fileURL;
 
 // redefine model object
 -(NTNoteAudioItem *)item;

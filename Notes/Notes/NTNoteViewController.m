@@ -224,10 +224,10 @@
     
     NTNoteAudioItem *item = [[NTNoteAudioItem alloc] init];
     
-    CGFloat width = 200.0f;
-    CGFloat height = 150.0f;
+    CGFloat width = 60.0f;
+    CGFloat height = 60.0f;
     
-    CGRect rect = CGRectMake(10.0f, 10.0f, width, height);
+    CGRect rect = CGRectMake(100.0f, 100.0f, width, height);
     
     [item setRect:rect];
     
@@ -398,7 +398,7 @@
     else if([item isKindOfClass:[NTNoteAudioItem class]]){
         
         //create audio view
-        [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 180.0f, 60.0f)];
+        [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 200.0f, 80.0f)];
         _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:item];
         [_currentNoteView setResizableViewDelegate:self];
     }

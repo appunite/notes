@@ -14,7 +14,7 @@
 
 @interface NTNoteAudioItem : NTNoteItem
 
-@property (nonatomic, strong) NSURL *localPath;
+@property (nonatomic, strong) NSString *localPath;
 
 @property (nonatomic, strong) NSURL *remotePath;
 
