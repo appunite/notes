@@ -12,6 +12,7 @@
 //Views
 #import "NTNoteContentView.h"
 #import "NTUserResizableView.h"
+
 @protocol NTNoteDelegate
 -(void)editingModeIsOn;
 -(NSDictionary *)getBrushAtributes;
@@ -24,6 +25,7 @@
 @property (nonatomic) CGRect contentViewFrame;
 @property (nonatomic, strong) NTUserResizableView *currentNoteView;
 @property id <NTNoteDelegate> delegate;
+@property (strong, nonatomic) NSString *filePath;
 // load JSON file and fill items array
 - (BOOL)loadNoteItemsFromFile:(NSString *)file error:(NSError **)error;
 // init with scroll view frame

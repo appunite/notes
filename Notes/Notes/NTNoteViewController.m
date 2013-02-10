@@ -101,13 +101,12 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"test"];
-    
-    if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
-
-    filePath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"json"];
-    }
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
+    NSLog(@"%@", filePath);
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
     [self loadNoteItemsFromFile:filePath error:&error];
+    }
+    
     
     if (error) {
         NSLog(@"%@", error);
@@ -122,9 +121,10 @@
 
     // load data from file
     NSData* data = [[NSData alloc] initWithContentsOfFile:file options:NSDataReadingUncached error:error];
-    
+
     // exit, problem with loading data
 //    if (!data || error) {
+//        NSLog(@"%@", error);
 //        return NO;
 //    }
 
@@ -216,6 +216,8 @@
     // reload content view
     [_contentView setNeedsDisplay];
     
+    [self saveNoteItems];
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -235,6 +237,7 @@
     
     [_contentView setNeedsDisplay];
     
+    [self saveNoteItems];
     
 }
 
@@ -370,7 +373,7 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"test"];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
     
     [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
