@@ -80,6 +80,20 @@ enum type{
             // set opacity
             _opacity = 1.0f;
         }
+        if([attributes objectForKey:@"type"] == @"eraser"){
+            
+            // set brush type
+            _type = eraser;
+            
+            // set line width
+            _lineWidth = 15.0f;
+            
+            // set line color
+            _lineColor = [UIColor clearColor];
+            
+            // set opacity
+            _opacity = 1.0f;
+        }
         
         
         // if type is highlighter
@@ -114,6 +128,9 @@ enum type{
     UIRectFill(rect);
 
 	CGContextAddPath(ctx, item.path);
+    if(item.type == eraser){
+        CGContextSetBlendMode(ctx, kCGBlendModeClear);
+    }
     if(item.type == highlighter){
      CGContextSetLineCap(ctx, kCGLineCapSquare);
      CGContextSetBlendMode(ctx, kCGBlendModeColorBurn);
