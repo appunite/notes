@@ -120,61 +120,97 @@ static const CGFloat kPointMinDistanceSquared = 10;
 //    }
 
 }
+//
+//CGPoint midPoint(CGPoint p1, CGPoint p2) {
+//    return CGPointMake((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5);
+//}
+-(void)setNoteContentMode:(NTNoteContentMode)noteContentMode{
+    _noteContentMode=noteContentMode;
+    if(_noteContentMode == NTNoteContentModeDrawing){
+        _currentNotePathItem = [_delegate requestNewNotePathItem];
+        _currentDrawningView = [[NTPathView alloc] initWithItem:_currentNotePathItem];
 
-CGPoint midPoint(CGPoint p1, CGPoint p2) {
-    return CGPointMake((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5);
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    _currentNotePathItem = [_delegate requestNewNotePathItem];
-    
-    UITouch *touch = [touches anyObject];
-    
-    _previousPoint1 = [touch previousLocationInView:self];
-    _previousPoint2 = [touch previousLocationInView:self];
-    _currentPoint = [touch locationInView:self];
-    
-    [self touchesMoved:touches withEvent:event];
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-	
-	CGPoint point = [touch locationInView:self];
-	
-	/* check if the point is farther than min dist from previous */
-    CGFloat dx = point.x - _currentPoint.x;
-    CGFloat dy = point.y - _currentPoint.y;
-	
-    if ((dx * dx + dy * dy) < kPointMinDistanceSquared) {
-        return;
+        [self addSubview:_currentDrawningView];
+        [_currentDrawningView setBackgroundColor:[UIColor clearColor]];
+        [_currentDrawningView setFrame:CGRectMake(0, 0, 1000, 1000)];
+        [_currentDrawningView setCurrentNotePathItem:_currentNotePathItem];
     }
-    
-    
-    _previousPoint2 = _previousPoint1;
-    _previousPoint1 = [touch previousLocationInView:self];
-    _currentPoint = [touch locationInView:self];
-    
-    CGPoint mid1 = midPoint(_previousPoint1, _previousPoint2);
-    CGPoint mid2 = midPoint(_currentPoint, _previousPoint1);
-	CGMutablePathRef subpath = CGPathCreateMutable();
-    CGPathMoveToPoint(subpath, NULL, mid1.x, mid1.y);
-    CGPathAddQuadCurveToPoint(subpath, NULL, _previousPoint1.x, _previousPoint1.y, mid2.x, mid2.y);
-    CGRect bounds = CGPathGetBoundingBox(subpath);
-	
-	CGPathAddPath(_currentNotePathItem.path, NULL, subpath);
-	CGPathRelease(subpath);
-    
-    CGRect drawBox = bounds;
-    drawBox.origin.x -= _currentNotePathItem.lineWidth * 2.0;
-    drawBox.origin.y -= _currentNotePathItem.lineWidth * 2.0;
-    drawBox.size.width += _currentNotePathItem.lineWidth * 4.0;
-    drawBox.size.height += _currentNotePathItem.lineWidth * 4.0;             
-    
-    [self setNeedsDisplayInRect:drawBox];
+    else
+    {
+        [_currentDrawningView removeFromSuperview];
+        _currentDrawningView = nil;
+    }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//
+//    if(_noteContentMode == NTNoteContentModeDrawing){
+//    
+//        if(!_currentNotePathItem)
+//        {
+//            _currentNotePathItem = [_delegate requestNewNotePathItem];
+//            _currentDrawningView = [[NTPathView alloc] initWithItem:_currentNotePathItem];
+//            [_currentDrawningView setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+//            [_currentDrawningView setBackgroundColor:[UIColor redColor]];
+//            [self addSubview:_currentDrawningView];
+//        }
+//        else{
+//            _currentDrawningView = nil;
+//        }
+//    
+//    UITouch *touch = [touches anyObject];
+//    
+//    _previousPoint1 = [touch previousLocationInView:self];
+//    _previousPoint2 = [touch previousLocationInView:self];
+//    _currentPoint = [touch locationInView:self];
+//    
+//    [self touchesMoved:touches withEvent:event];
+//    }
+//    
+//}
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+//    
+//    if(_noteContentMode == NTNoteContentModeDrawing){
+//            
+//    UITouch *touch = [touches anyObject];
+//	
+//	CGPoint point = [touch locationInView:self];
+//	
+//	/* check if the point is farther than min dist from previous */
+//    CGFloat dx = point.x - _currentPoint.x;
+//    CGFloat dy = point.y - _currentPoint.y;
+//	
+//    if ((dx * dx + dy * dy) < kPointMinDistanceSquared) {
+//        return;
+//    }
+//    
+//    
+//    _previousPoint2 = _previousPoint1;
+//    _previousPoint1 = [touch previousLocationInView:self];
+//    _currentPoint = [touch locationInView:self];
+//    
+//    CGPoint mid1 = midPoint(_previousPoint1, _previousPoint2);
+//    CGPoint mid2 = midPoint(_currentPoint, _previousPoint1);
+//	CGMutablePathRef subpath = CGPathCreateMutable();
+//    CGPathMoveToPoint(subpath, NULL, mid1.x, mid1.y);
+//    CGPathAddQuadCurveToPoint(subpath, NULL, _previousPoint1.x, _previousPoint1.y, mid2.x, mid2.y);
+//    CGRect bounds = CGPathGetBoundingBox(subpath);
+//	
+//	CGPathAddPath(_currentNotePathItem.path, NULL, subpath);
+//	CGPathRelease(subpath);
+//    
+//    CGRect drawBox = bounds;
+//    drawBox.origin.x -= _currentNotePathItem.lineWidth * 2.0;
+//    drawBox.origin.y -= _currentNotePathItem.lineWidth * 2.0;
+//    drawBox.size.width += _currentNotePathItem.lineWidth * 4.0;
+//    drawBox.size.height += _currentNotePathItem.lineWidth * 4.0;             
+//    
+//    [self setNeedsDisplayInRect:drawBox];
+//        
+//    }
+//}
 
 
 @end

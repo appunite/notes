@@ -14,7 +14,7 @@
 #import "NTTextView.h"
 #import "NTImageView.h"
 #import "NTNoteAudioView.h"
-
+#import "NTPathView.h"
 //Items
 #import "NTNoteTextItem.h"
 #import "NTNoteImageItem.h"
@@ -240,7 +240,11 @@
     [self saveNoteItems];
     
 }
-
+-(void)setContentViewMode:(NSUInteger)mode{
+    
+    [_contentView setNoteContentMode:mode];
+    
+}
 #pragma mark - Private
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -405,7 +409,11 @@
         _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:item];
         [_currentNoteView setResizableViewDelegate:self];
     }
-    
+    else if([item isKindOfClass:[NTNotePathItem class]]){
+        _currentNoteView = [[NTPathView alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000)];
+        [(NTPathView *)_currentNoteView setCurrentNotePathItem:item];
+        [_currentNoteView setResizableViewDelegate:self];
+    }
     // move to editing mode
     [item setEditingMode:YES];
     
@@ -468,6 +476,17 @@
 
             // yeap, we found
             *stop = YES;
+        }
+        else if(!item.editingMode && [item isKindOfClass:[NTNotePathItem class]])
+        {
+            NTNotePathItem *pathItem = item;
+            if(CGPathContainsPoint(pathItem.path, nil, point, nil)){
+                // enter editimg mode with selected item
+                [self enterEditModeOfItem:item];
+            
+                // yeap, we found
+                *stop = YES;
+            }
         }
         
         // if last object

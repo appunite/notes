@@ -34,4 +34,5 @@
 -(void)requestNewNoteImageItemWithPath:(NSString *)path;
 -(void)requestNewNoteTextItem;
 -(void)requestNewNoteAudioItem;
+-(void)setContentViewMode:(NSUInteger)mode;
 @end
