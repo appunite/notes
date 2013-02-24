@@ -16,6 +16,7 @@
 // Model
 #import "NTNotePathItem.h"
 
+
 @interface NTPathView : NTUserResizableView
-@property (strong, nonatomic) NTNotePathItem* currentNotePathItem;
+- (NTNotePathItem*)item;
 @end
