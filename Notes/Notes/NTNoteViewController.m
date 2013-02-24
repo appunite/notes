@@ -240,6 +240,15 @@
     [self saveNoteItems];
     
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)saveCurrentNoteItemPath:(NTNotePathItem *)item{
+    [_items addObject:item];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 -(void)setContentViewMode:(NSUInteger)mode{
     
     [_contentView setNoteContentMode:mode];
@@ -410,8 +419,8 @@
         [_currentNoteView setResizableViewDelegate:self];
     }
     else if([item isKindOfClass:[NTNotePathItem class]]){
-        _currentNoteView = [[NTPathView alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000)];
-        [(NTPathView *)_currentNoteView setCurrentNotePathItem:item];
+        [_contentView.currentDrawningView removeFromSuperview];
+        _currentNoteView = [[NTPathView alloc] initWithItem:item];
         [_currentNoteView setResizableViewDelegate:self];
     }
     // move to editing mode

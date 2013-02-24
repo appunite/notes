@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 AppUnite.com. All rights reserved.
 //
 
-#import <AUNotes/AUNotes.h>
-//Views
 #import "NTUserResizableView.h"
 
 //Items
@@ -16,6 +14,7 @@
 // Model
 #import "NTNotePathItem.h"
 
+
 @interface NTPathView : NTUserResizableView
-@property (strong, nonatomic) NTNotePathItem* currentNotePathItem;
+- (NTNotePathItem*)item;
 @end

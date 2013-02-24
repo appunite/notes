@@ -124,6 +124,7 @@ enum type{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 + (void)drawItem:(NTNotePathItem *)item rect:(CGRect)rect context:(CGContextRef)ctx {
+    
 
 	CGContextAddPath(ctx, item.path);
     if(item.type == eraser){
