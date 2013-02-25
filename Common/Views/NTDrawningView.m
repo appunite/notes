@@ -96,7 +96,6 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
     
     CGRect itemRect = CGPathGetBoundingBox(_item.path);
     [_item setRect:itemRect];
-    NSLog(@"%f %f %f %f", itemRect.origin.x, itemRect.origin.y, itemRect.size.width, itemRect.size.height);
     
 }
 @end

@@ -18,4 +18,6 @@
 
 @interface NTPathView : NTUserResizableView
 - (NTNotePathItem*)item;
+@property CGFloat horizontalScale;
+@property CGFloat verticalScale;
 @end
