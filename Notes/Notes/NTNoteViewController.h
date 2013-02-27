@@ -35,4 +35,5 @@
 -(void)requestNewNoteTextItem;
 -(void)requestNewNoteAudioItem;
 -(void)setContentViewMode:(NSUInteger)mode;
+-(void)deleteCurrentPath;
 @end

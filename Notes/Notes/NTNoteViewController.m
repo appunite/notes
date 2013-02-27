@@ -240,6 +240,14 @@
     [self saveNoteItems];
     
 }
+-(void)deleteCurrentPath{
+    if([_currentNoteView isKindOfClass:[NTPathView class]]){
+        [_items removeObject:_currentNoteView.item];
+        [self exitEditMode];
+        [_contentView setNeedsDisplay];
+        
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 

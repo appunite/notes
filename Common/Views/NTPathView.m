@@ -24,36 +24,65 @@ static const CGFloat kPointMinDistanceSquared = 10;
     }
     return self;
 }
-- (void)drawRect:(CGRect)rect {
-          // get current context
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-        // draw item
-    _verticalScale = rect.size.height/self.item.rect.size.height;
-    _horizontalScale = rect.size.width/self.item.rect.size.width;
-    CGContextTranslateCTM(ctx, -self.item.rect.origin.x * _horizontalScale, -self.item.rect.origin.y * _verticalScale);
-    CGContextScaleCTM(ctx, _horizontalScale, _verticalScale);
 
+- (NTNotePathItem *)noteItem {
+    return (NTNotePathItem *) self.item;
+}
+
+- (void)drawRect:(CGRect)rect {
+
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    NTNotePathItem *item = self.noteItem;
+
+    CGContextSaveGState(ctx);
+    CGAffineTransform transform = [self getAffineTransformForRect:self.frame];
+    CGContextTranslateCTM(ctx, -self.frame.origin.x , -self.frame.origin.y);
+    CGContextConcatCTM(ctx, transform);
+    
    
-    [NTNotePathItem drawItem:self.item rect:rect context:ctx];
+    [NTNotePathItem drawItem:item rect:rect context:ctx];
+    
+    CGContextRestoreGState(ctx);
    
 }
-- (void)userResizableViewDidEndEditing:(SPUserResizableView *)userResizableView{
-   
-    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(_horizontalScale, _verticalScale);
-    CGAffineTransform translateTransform = CGAffineTransformMakeTranslation(-CGRectGetMidX(self.frame), -CGRectGetMidY(self.frame));
-    CGAffineTransform finalTransform = CGAffineTransformConcat(scaleTransform, translateTransform);
+- (void)userResizableViewDidBeginEditing:(SPUserResizableView *)userResizableView{
+    _previousFrame = userResizableView.frame;
+}
 
-    CGPathRef newPath = CGPathCreateMutableCopyByTransformingPath(self.item.path, &finalTransform);
+- (CGAffineTransform) getAffineTransformForRect: (CGRect) rect {
     
-    self.item.path = newPath;
-    [self.item setRect:userResizableView.frame];
+    NTNotePathItem *item = self.noteItem;
+    CGRect itemRect = item.rect;
+    
+    float sx = rect.size.width / itemRect.size.width;
+    float sy = rect.size.height / itemRect.size.height;
+    
+    CGAffineTransform translateTransform = CGAffineTransformMakeTranslation(0.0f, 0.0f);
+    translateTransform = CGAffineTransformTranslate(translateTransform, rect.origin.x, rect.origin.y );
+
+    translateTransform = CGAffineTransformScale(translateTransform, sx, sy);
+    translateTransform = CGAffineTransformTranslate(translateTransform, -itemRect.origin.x, -itemRect.origin.y);
+    return translateTransform;
+}
+
+- (void)userResizableViewDidEndEditing:(SPUserResizableView *)userResizableView{
+    CGRect nextFrame = userResizableView.frame;
+    CGAffineTransform transform = [self getAffineTransformForRect:nextFrame];
+    
+    NTNotePathItem *item = self.noteItem;
+
+    CGPathRef newPath = CGPathCreateMutableCopyByTransformingPath(item.path, &transform);
+    CGMutablePathRef mutable = CGPathCreateMutableCopy(newPath);
+    CGPathRelease(newPath);
+    CGPathRelease(item.path);
+
+    item.path = mutable;
+    CGRect rect = CGPathGetBoundingBox(mutable);
+    [item setRect:rect];
+    [self setFrame:rect];
     
 }
 #pragma mark - Getters
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-- (NTNotePathItem *)item {
-    return (NTNotePathItem *)[super item];
-}
 
 @end
