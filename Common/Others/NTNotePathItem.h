@@ -24,7 +24,15 @@
 
 
 @interface NTNotePathItem (Draw)
-+ (void)drawItem:(NTNotePathItem *)item rect:(CGRect)rect context:(CGContextRef)ctx;
+
 -(id)initWithBrushAttributes:(NSDictionary *)attributes;
+-(void)setBrushAttributes:(NSDictionary *)attributes;
+
+// create path From Points
++(CGMutablePathRef)pathFromPoints:(NSArray *)points;
+
+// draw Item
++ (void)drawItem:(NTNotePathItem *)item rect:(CGRect)rect context:(CGContextRef)ctx;
+
 @end
 

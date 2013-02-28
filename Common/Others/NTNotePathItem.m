@@ -33,6 +33,8 @@ enum type{
     }
     return self;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)initWithBrushAttributes:(NSDictionary *)attributes{
     self = [super init];
     if (self) {
@@ -41,90 +43,94 @@ enum type{
         _lineColor = DEFAULT_COLOR;
         _opacity = 1.0f;
         _type = brush;
-        
-        // if type is brush
-        if([attributes objectForKey:@"type"] == @"brush"){
-            
-        // set brush type
-        _type = brush;
-            
-        // set line width
-        if([attributes objectForKey:@"size"] == @"small")
-            _lineWidth = 2.0f;
-        if([attributes objectForKey:@"size"] == @"medium")
-            _lineWidth = 4.0f;
-        if([attributes objectForKey:@"size"] == @"large")
-            _lineWidth = 10.0f;
-
-        // set line color
-        if([attributes objectForKey:@"color"])
-            _lineColor = [attributes objectForKey:@"color"];
-        
-        // set opacity
-            _opacity = 1.0f;
-        }
-        
-        
-        //if type is pencil
-        if([attributes objectForKey:@"type"] == @"pencil"){
-
-            // set brush type
-            _type = pencil;
-            
-            // set line width
-            _lineWidth = 1.0f;
-            
-            // set line color
-            _lineColor = [UIColor blackColor];
-            
-            // set opacity
-            _opacity = 1.0f;
-        }
-        if([attributes objectForKey:@"type"] == @"eraser"){
-            
-            // set brush type
-            _type = eraser;
-            
-            // set line width
-            _lineWidth = 15.0f;
-            
-            // set line color
-            _lineColor = [UIColor clearColor];
-            
-            // set opacity
-            _opacity = 1.0f;
-        }
-        
-        
-        // if type is highlighter
-        if([attributes objectForKey:@"type"] == @"highlighter")
-        {
-            // set brush type
-            _type = highlighter;
-            
-            // set line width
-            _lineWidth = 20.0f;
-            
-            // set line color
-        if([attributes objectForKey:@"color"])
-            _lineColor = [attributes objectForKey:@"color"];
-            
-            // set opacity
-            _opacity = 0.3f;
-            
-        }
-
+       
+        [self setBrushAttributes:attributes];
+       
         // create new mutable path
         _path = CGPathCreateMutable();
     }
     return self;
 }
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+-(void)setBrushAttributes:(NSDictionary *)attributes{
+    // if type is brush
+    if([[attributes objectForKey:@"type"] isEqual:@"brush"]){
+        
+        // set brush type
+        _type = brush;
+        
+        // set line width
+        if([[attributes objectForKey:@"size"] isEqual:@"small"])
+            _lineWidth = 2.0f;
+        if([[attributes objectForKey:@"size"] isEqual:@"medium"])
+            _lineWidth = 4.0f;
+        if([[attributes objectForKey:@"size"] isEqual:@"large"])
+            _lineWidth = 10.0f;
+        
+        // set line color
+        if([attributes objectForKey:@"color"])
+            _lineColor = [attributes objectForKey:@"color"];
+        
+        // set opacity
+        _opacity = 1.0f;
+    }
+    
+    //if type is pencil
+    if([[attributes objectForKey:@"type"] isEqual:@"pencil"]){
+        
+        // set brush type
+        _type = pencil;
+        
+        // set line width
+        _lineWidth = 1.0f;
+        
+        // set line color
+        _lineColor = [UIColor blackColor];
+        
+        // set opacity
+        _opacity = 1.0f;
+    }
+    if([[attributes objectForKey:@"type"] isEqual:@"eraser"]){
+        
+        // set brush type
+        _type = eraser;
+        
+        // set line width
+        _lineWidth = 15.0f;
+        
+        // set line color
+        _lineColor = [UIColor clearColor];
+        
+        // set opacity
+        _opacity = 1.0f;
+    }
+    
+    // if type is highlighter
+    if([[attributes objectForKey:@"type"] isEqual:@"highlighter"])
+    {
+        // set brush type
+        _type = highlighter;
+        
+        // set line width
+        _lineWidth = 20.0f;
+        
+        // set line color
+        if([attributes objectForKey:@"color"])
+            _lineColor = [attributes objectForKey:@"color"];
+        
+        // set opacity
+        _opacity = 0.3f;
+        
+    }
+    
+}
+
 #pragma mark - Draw
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 + (void)drawItem:(NTNotePathItem *)item rect:(CGRect)rect context:(CGContextRef)ctx {
-    
 
 	CGContextAddPath(ctx, item.path);
     if(item.type == eraser){
@@ -139,6 +145,24 @@ enum type{
     CGContextSetLineWidth(ctx, item.lineWidth);
     CGContextSetStrokeColorWithColor(ctx, item.lineColor.CGColor);
     CGContextStrokePath(ctx);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
++(CGMutablePathRef)pathFromPoints:(NSArray *)points{
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    if (points && points.count > 0) {
+        CGPoint p = [(NSValue *)[points objectAtIndex:0] CGPointValue];
+        CGPathMoveToPoint(path, nil, p.x, p.y);
+        for (int i = 1; i < points.count; i++) {
+            p = [(NSValue *)[points objectAtIndex:i] CGPointValue];
+            CGPathAddLineToPoint(path, nil, p.x, p.y);
+        }
+    }
+    return path;
+    
+    CGPathRelease(path);
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

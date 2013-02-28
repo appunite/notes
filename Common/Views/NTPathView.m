@@ -82,7 +82,6 @@ static const CGFloat kPointMinDistanceSquared = 10;
     [self setFrame:rect];
     
 }
-#pragma mark - Getters
 
 
 @end

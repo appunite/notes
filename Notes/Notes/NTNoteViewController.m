@@ -19,6 +19,7 @@
 #import "NTNoteTextItem.h"
 #import "NTNoteImageItem.h"
 
+
 @interface NTNoteViewController ()
 //mapping items
 - (void)mapNoteItems:(NSArray *)jsonItems;
@@ -245,7 +246,6 @@
         [_items removeObject:_currentNoteView.item];
         [self exitEditMode];
         [_contentView setNeedsDisplay];
-        
     }
 }
 
@@ -342,8 +342,46 @@
 
             
         }
+        else if([type isEqualToString:@"path"]){
+            
+            // array for all point in path
+            NSMutableArray *points = [[NSMutableArray alloc] init];
+            
+            // create points and add to array
+            for (id obj in [item objectForKey:@"points"]){
+                
+                CGPoint point = CGPointMake([[obj objectForKey:@"x"] floatValue], [[obj objectForKey:@"y"] floatValue]);
+                [points addObject:[NSValue valueWithCGPoint:point]];
+                
+            }
+
+            NTNotePathItem *path = [[NTNotePathItem alloc] init];
+            
+            path.path = [NTNotePathItem pathFromPoints:points];
+            
+            // get height
+            CGFloat width = [[item objectForKey:@"width"] floatValue];
+            CGFloat height = [[item objectForKey:@"height"] floatValue];
+            
+            // change frame
+            CGRect rect = CGRectMake(x, y, width, height);
+            [path setRect:rect];
+            
+            // change Line Width
+            [path setLineWidth:[[item objectForKey:@"lineWidth"] floatValue]];
+            
+            // change line opacity
+            [path setOpacity:[[item objectForKey:@"opacity"] floatValue]];
+            
+            // change line color
+            [path setLineColor:[UIColor blackColor]];
+            
+            // add to items array
+            [_items addObject:path];
+        }
     }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -(void)saveNoteItems{
@@ -377,14 +415,15 @@
             [jsonString appendString:@"\"type\":\"path\","];
             [jsonString appendFormat:@"\"lineColor\":\"#%@\",", [self colorToWeb:itemt.lineColor]];
             [jsonString appendFormat:@"\"lineWidth\":\"%.2f\",", itemt.lineWidth];
-            [jsonString appendFormat:@"\"lineWidth\":\"%.2f\"", itemt.opacity];
+            [jsonString appendFormat:@"\"opacity\":\"%.2f\",", itemt.opacity];
+            [jsonString appendString:[self pointsFromPath:itemt.path]];
         }
-        if(![item isKindOfClass:[NTNotePathItem class]]){
-        [jsonString appendFormat:@"\"x\":%.2f,", item.rect.origin.x];
-        [jsonString appendFormat:@"\"y\":%.2f,", item.rect.origin.y];
-        [jsonString appendFormat:@"\"width\":%.2f,", item.rect.size.width];
-        [jsonString appendFormat:@"\"height\":%.2f", item.rect.size.height];
-        }
+       
+        [jsonString appendFormat:@"\"x\":\"%.2f\",", item.rect.origin.x];
+        [jsonString appendFormat:@"\"y\":\"%.2f\",", item.rect.origin.y];
+        [jsonString appendFormat:@"\"width\":\"%.2f\",", item.rect.size.width];
+        [jsonString appendFormat:@"\"height\":\"%.2f\"", item.rect.size.height];
+        
         [jsonString appendString:@"}"];
         if(i<[_items count]-1) [jsonString appendString:@","];
         i++;
@@ -395,10 +434,29 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
-    
+    NSLog(@"%@",jsonString);
     [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
+-(NSString *)pointsFromPath:(CGPathRef)path{
+    NSMutableString *resultString = [[NSMutableString alloc] init];
+    [resultString appendString:@"\"points\":\["];
 
+    NSMutableArray* a = [[NSMutableArray alloc] init];
+	CGPathApply(path, (__bridge void *)(a), &SaveCGPathApplierFunc);
+	if (a)
+	{
+        for (int i=0; i<[a count];i++) {
+            CGPoint myPoint = [[[a objectAtIndex:i] objectForKey:@"point"] CGPointValue];
+            [resultString appendFormat:@"\{ \"x\":\"%.2f\",\"y\":\"%.2f\"  \}", myPoint.x, myPoint.y];
+            if(i != [a count]-1){
+                [resultString appendString:@","];
+            }
+        }
+        [resultString appendString:@"],"];
+        return resultString;
+	}
+    return @"";
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)enterEditModeOfItem:(NTNoteItem *)item {
@@ -423,7 +481,7 @@
         
         //create audio view
         [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 200.0f, 80.0f)];
-        _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:item];
+        _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:(NTNoteAudioItem *)item];
         [_currentNoteView setResizableViewDelegate:self];
     }
     else if([item isKindOfClass:[NTNotePathItem class]]){
@@ -538,4 +596,29 @@
     return webColor;
 }
 
+
+void SaveCGPathApplierFunc(void *info, const CGPathElement *element)
+{
+    NSMutableArray* a = (__bridge NSMutableArray*) info;
+
+    int nPoints;
+    
+    if (element->type == kCGPathElementMoveToPoint) {
+        nPoints = 1;
+    } else if (element->type == kCGPathElementAddLineToPoint) {
+        nPoints = 1;
+    } else if (element->type == kCGPathElementAddQuadCurveToPoint) {
+        nPoints = 2;
+    } else if (element->type == kCGPathElementAddCurveToPoint) {
+        nPoints = 3;
+    } else if (element->type == kCGPathElementCloseSubpath) {
+        nPoints = 0;
+    }
+    else return;
+    CGPoint p = (CGPoint)element->points[0];
+
+    NSDictionary *singleElement =[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInt:nPoints],[NSValue valueWithCGPoint:p], nil] forKeys:[NSArray arrayWithObjects:@"type", @"point", nil]];
+    [a addObject:singleElement];
+
+}
 @end
