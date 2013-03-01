@@ -70,9 +70,6 @@
 		248D2A1416C3C7EC00166998 /* stop_button_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0E16C3C7EC00166998 /* stop_button_icon.png */; };
 		248D2A1516C3C7EC00166998 /* stop_button_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0F16C3C7EC00166998 /* stop_button_icon@2x.png */; };
 		24C42FC416C12BE800B39777 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D885B616BA878A001E9B07 /* AVFoundation.framework */; };
-		24CDECB416DA31B7005B9F3B /* NTDrawningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CDECB316DA31B6005B9F3B /* NTDrawningView.m */; };
-		24CDECB516DA31BD005B9F3B /* NTDrawningView.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CDECB216DA31B6005B9F3B /* NTDrawningView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		24CDECB616DA31C3005B9F3B /* NTDrawningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CDECB316DA31B6005B9F3B /* NTDrawningView.m */; };
 		24D8858716BA80D6001E9B07 /* audio_note_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D8858516BA80D6001E9B07 /* audio_note_image.png */; };
 		24D8858816BA80D6001E9B07 /* audio_note_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D8858616BA80D6001E9B07 /* audio_note_image@2x.png */; };
 		24D885B516BA8781001E9B07 /* NTNoteAudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */; };
@@ -147,8 +144,6 @@
 		248D2A0D16C3C7EC00166998 /* record_button_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record_button_icon@2x.png"; sourceTree = "<group>"; };
 		248D2A0E16C3C7EC00166998 /* stop_button_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop_button_icon.png; sourceTree = "<group>"; };
 		248D2A0F16C3C7EC00166998 /* stop_button_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop_button_icon@2x.png"; sourceTree = "<group>"; };
-		24CDECB216DA31B6005B9F3B /* NTDrawningView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTDrawningView.h; path = ../../Common/Views/NTDrawningView.h; sourceTree = "<group>"; };
-		24CDECB316DA31B6005B9F3B /* NTDrawningView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTDrawningView.m; path = ../../Common/Views/NTDrawningView.m; sourceTree = "<group>"; };
 		24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTNoteAudioView.h; path = ../../Common/Views/NTNoteAudioView.h; sourceTree = "<group>"; };
 		24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTNoteAudioView.m; path = ../../Common/Views/NTNoteAudioView.m; sourceTree = "<group>"; };
 		24D8858516BA80D6001E9B07 /* audio_note_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_note_image.png; sourceTree = "<group>"; };
@@ -283,8 +278,6 @@
 				20848AD0166920570071AAC4 /* NTNoteContentView.m */,
 				244A822E16D0421C007A279F /* NTPathView.h */,
 				244A822F16D0421C007A279F /* NTPathView.m */,
-				24CDECB216DA31B6005B9F3B /* NTDrawningView.h */,
-				24CDECB316DA31B6005B9F3B /* NTDrawningView.m */,
 				20848B1F166A23340071AAC4 /* NTTextView.h */,
 				20848B20166A23350071AAC4 /* NTTextView.m */,
 				20848A0D1668EB790071AAC4 /* NTImageView.h */,
@@ -369,7 +362,6 @@
 				24D885B816BA879D001E9B07 /* NTNoteAudioView.h in Headers */,
 				24310C3A16B460D200587E65 /* SPUserResizableView.h in Headers */,
 				244A823116D04226007A279F /* NTPathView.h in Headers */,
-				24CDECB516DA31BD005B9F3B /* NTDrawningView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,7 +491,6 @@
 				20848B21166A23350071AAC4 /* NTTextView.m in Sources */,
 				24D885BA16BA9499001E9B07 /* NTNoteAudioView.m in Sources */,
 				244A823016D0421C007A279F /* NTPathView.m in Sources */,
-				24CDECB416DA31B7005B9F3B /* NTDrawningView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +513,6 @@
 				24310BA816B45F0700587E65 /* NTNoteViewController.m in Sources */,
 				24310BA916B45F0700587E65 /* NTUserResizableView.m in Sources */,
 				244A823216D0422C007A279F /* NTPathView.m in Sources */,
-				24CDECB616DA31C3005B9F3B /* NTDrawningView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

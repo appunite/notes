@@ -15,7 +15,18 @@
 static const CGFloat kPointMinDistance = 5;
 static const CGFloat kPointMinDistanceSquared = 10;
 
-@implementation NTNoteContentView
+@implementation NTNoteContentView{
+    // points used for drawing mode
+    CGPoint _currentPoint;
+    CGPoint _previousPoint1;
+    CGPoint _previousPoint2;
+    
+}
+
+
+CGPoint midPoint(CGPoint p1, CGPoint p2) {
+    return CGPointMake((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)init {
@@ -102,19 +113,75 @@ static const CGFloat kPointMinDistanceSquared = 10;
 
 }
 
--(void)setNoteContentMode:(NTNoteContentMode)noteContentMode{
-    _noteContentMode=noteContentMode;
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+  
     if(_noteContentMode == NTNoteContentModeDrawing){
-        _currentNotePathItem = [_delegate requestNewNotePathItem];
-        [_currentNotePathItem setRect:self.frame];
-        _currentDrawningView = [[NTDrawningView alloc] initWithItem:_currentNotePathItem];
-        [self addSubview:_currentDrawningView];
+
+    _currentNotePathItem = [_delegate requestNewNotePathItem];
+    
+    UITouch *touch = [touches anyObject];
+    
+    _previousPoint1 = [touch previousLocationInView:self];
+    _previousPoint2 = [touch previousLocationInView:self];
+    _currentPoint = [touch locationInView:self];
+    
+    [self touchesMoved:touches withEvent:event];
+    
     }
-    else
-    {
-        [_currentDrawningView removeFromSuperview];
-        _currentDrawningView = nil;
+    
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    
+    UITouch *touch = [touches anyObject];
+    
+    CGPoint point = [touch locationInView:self];
+    
+    /* check if the point is farther than min dist from previous */
+    CGFloat dx = point.x - _currentPoint.x;
+    CGFloat dy = point.y - _currentPoint.y;
+    
+    if ((dx * dx + dy * dy) < kPointMinDistanceSquared) {
+        return;
     }
+    
+    
+    _previousPoint2 = _previousPoint1;
+    _previousPoint1 = [touch previousLocationInView:self];
+    _currentPoint = [touch locationInView:self];
+    
+    CGPoint mid1 = midPoint(_previousPoint1, _previousPoint2);
+    CGPoint mid2 = midPoint(_currentPoint, _previousPoint1);
+    CGMutablePathRef subpath = CGPathCreateMutable();
+    CGPathMoveToPoint(subpath, NULL, mid1.x, mid1.y);
+    CGPathAddQuadCurveToPoint(subpath, NULL, _previousPoint1.x, _previousPoint1.y, mid2.x, mid2.y);
+    CGRect bounds = CGPathGetBoundingBox(subpath);
+    
+    CGPathAddPath(_currentNotePathItem.path, NULL, subpath);
+    CGPathRelease(subpath);
+    
+    CGRect drawBox = bounds;
+    drawBox.origin.x -= _currentNotePathItem.lineWidth * 2.0;
+    drawBox.origin.y -= _currentNotePathItem.lineWidth * 2.0;
+    drawBox.size.width += _currentNotePathItem.lineWidth * 4.0;
+    drawBox.size.height += _currentNotePathItem.lineWidth * 4.0;
+    
+    [self setNeedsDisplayInRect:drawBox];
+    
+}
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+  
+    // get rect from current note path
+    CGRect rect = CGPathGetBoundingBox(_currentNotePathItem.path);
+
+    // save rect to item
+    [_currentNotePathItem setRect:rect];
+    
+    // save content view state
+    [_delegate saveCurrentNoteItemPath];
 }
 
 

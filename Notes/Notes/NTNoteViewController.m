@@ -103,7 +103,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
-    NSLog(@"%@", filePath);
+
     if([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
     [self loadNoteItemsFromFile:filePath error:&error];
     }
@@ -156,7 +156,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NTNotePathItem*)requestNewNotePathItem {
-    
+    NSLog(@"New Item created");
     // Get Brush Atrributes from Delegate
     NSDictionary *brushAtr= [[NSDictionary alloc] initWithDictionary:[_delegate getBrushAtributes]];
     
@@ -251,8 +251,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (void)saveCurrentNoteItemPath:(NTNotePathItem *)item{
-    [_items addObject:item];
+- (void)saveCurrentNoteItemPath{
+    [self exitEditMode];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -321,6 +321,7 @@
             // add item to array
             [_items addObject:text];
         }
+        // create audio note item
         else if([type isEqualToString:@"voice"]){
             
             NTNoteAudioItem *voice = [[NTNoteAudioItem alloc] init];
@@ -339,9 +340,9 @@
             
             // add item to array
             [_items addObject:voice];
-
             
         }
+        // create path note item
         else if([type isEqualToString:@"path"]){
             
             // array for all point in path
@@ -374,7 +375,7 @@
             [path setOpacity:[[item objectForKey:@"opacity"] floatValue]];
             
             // change line color
-            [path setLineColor:[UIColor blackColor]];
+            [path setLineColor:[self colorFromString:[item objectForKey:@"lineColor"]]];
             
             // add to items array
             [_items addObject:path];
@@ -434,7 +435,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
-    NSLog(@"%@",jsonString);
+
     [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 -(NSString *)pointsFromPath:(CGPathRef)path{
@@ -485,7 +486,6 @@
         [_currentNoteView setResizableViewDelegate:self];
     }
     else if([item isKindOfClass:[NTNotePathItem class]]){
-        [_contentView.currentDrawningView removeFromSuperview];
         _currentNoteView = [[NTPathView alloc] initWithItem:item];
         [_currentNoteView setResizableViewDelegate:self];
     }
@@ -551,19 +551,7 @@
 
             // yeap, we found
             *stop = YES;
-        }
-        else if(!item.editingMode && [item isKindOfClass:[NTNotePathItem class]])
-        {
-            NTNotePathItem *pathItem = item;
-            if(CGPathContainsPoint(pathItem.path, nil, point, nil)){
-                // enter editimg mode with selected item
-                [self enterEditModeOfItem:item];
-            
-                // yeap, we found
-                *stop = YES;
-            }
-        }
-        
+        }        
         // if last object
         else if (idx == [_items count] -1) {
 
@@ -595,7 +583,18 @@
     
     return webColor;
 }
-
+-(UIColor *)colorFromString:(NSString *)color{
+    
+    NSScanner *scanner = [NSScanner scannerWithString:color];
+    if ([scanner scanString:@"#" intoString:NULL]) {
+        unsigned int colorValue = 0;
+        if ([scanner scanHexInt:&colorValue]) {
+            NSLog(@"%d", colorValue);
+            
+        }
+    }
+    return [UIColor blackColor];
+}
 
 void SaveCGPathApplierFunc(void *info, const CGPathElement *element)
 {

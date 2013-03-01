@@ -16,7 +16,7 @@
 #import "NTNoteAudioItem.h"
 #import "NTUserResizableView.h"
 #import "NTPathView.h"
-#import "NTDrawningView.h"
+//#import "NTDrawningView.h"
 
 typedef NS_ENUM(NSUInteger, NTNoteContentMode) {
     NTNoteContentModeDrawing    = 0,
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, NTNoteContentMode) {
 // note items delegate object
 @property (nonatomic, weak) id<NTNoteContentViewDelegate> delegate;
 
-@property (nonatomic, strong) NTDrawningView *currentDrawningView;
+//@property (nonatomic, strong) NTDrawningView *currentDrawningView;
 @property (nonatomic, strong) NTNotePathItem *currentNotePathItem;
 @end
 
@@ -41,7 +41,8 @@ typedef NS_ENUM(NSUInteger, NTNoteContentMode) {
 @protocol NTNoteContentViewDelegate <NSObject>
 // get items to draw
 - (NSArray *)noteItemsForRect:(CGRect)rect;
-- (void)saveCurrentNoteItemPath:(NTNotePathItem *)item;
 // request for new path item
 - (NTNotePathItem*)requestNewNotePathItem;
+// save ContentView State
+-(void)saveCurrentNoteItemPath;
 @end
