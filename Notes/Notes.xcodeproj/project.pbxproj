@@ -221,6 +221,7 @@
 				208489EA1668E6590071AAC4 /* AppDelegate.h */,
 				208489EB1668E6590071AAC4 /* AppDelegate.m */,
 				2451649F16E4A7FD00166AE3 /* NTInteractionDelegate.h */,
+				245164F116E4B11800166AE3 /* Protocols */,
 				20848ADF166938620071AAC4 /* Models */,
 				20848A071668E8120071AAC4 /* Controllers */,
 				20848A081668E81F0071AAC4 /* Views */,
@@ -342,6 +343,14 @@
 				24310B9A16B45EE600587E65 /* AUNotes-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		245164F116E4B11800166AE3 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2451649F16E4A7FD00166AE3 /* NTInteractionDelegate.h */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
