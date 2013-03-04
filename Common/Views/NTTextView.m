@@ -27,11 +27,7 @@
 - (void)drawRect:(CGRect)rect {
     // get current context
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-//    // change CTM
-//    CGContextTranslateCTM(ctx, 0, CGRectGetHeight(rect));
-//    CGContextScaleCTM(ctx, 1.0, -1.0);
-    
+       
     if(_textView){
     CGContextClearRect(ctx, rect);
     }
@@ -91,4 +87,5 @@
     [self setNeedsDisplay];
     
 }
+
 @end

@@ -48,7 +48,6 @@
         [_currentTime setTextColor:[UIColor blackColor]];
         [self addSubview:_currentTime];
         
-        
         [self prepareToPlay];
         
     }
@@ -304,5 +303,7 @@
     _stopButton.enabled = NO;
     [_playButton setBackgroundColor:[UIColor grayColor]];
 }
+
+
 
 @end

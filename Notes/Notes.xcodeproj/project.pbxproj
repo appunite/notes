@@ -63,6 +63,7 @@
 		244A823016D0421C007A279F /* NTPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 244A822F16D0421C007A279F /* NTPathView.m */; };
 		244A823116D04226007A279F /* NTPathView.h in Headers */ = {isa = PBXBuildFile; fileRef = 244A822E16D0421C007A279F /* NTPathView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		244A823216D0422C007A279F /* NTPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 244A822F16D0421C007A279F /* NTPathView.m */; };
+		245164A016E4A80000166AE3 /* NTInteractionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 2451649F16E4A7FD00166AE3 /* NTInteractionDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		248D2A1016C3C7EC00166998 /* play_button_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0A16C3C7EC00166998 /* play_button_icon.png */; };
 		248D2A1116C3C7EC00166998 /* play_button_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0B16C3C7EC00166998 /* play_button_icon@2x.png */; };
 		248D2A1216C3C7EC00166998 /* record_button_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0C16C3C7EC00166998 /* record_button_icon.png */; };
@@ -138,6 +139,7 @@
 		24310B9D16B45EE600587E65 /* AUNotes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUNotes.m; sourceTree = "<group>"; };
 		244A822E16D0421C007A279F /* NTPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTPathView.h; path = ../../Common/Views/NTPathView.h; sourceTree = "<group>"; };
 		244A822F16D0421C007A279F /* NTPathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTPathView.m; path = ../../Common/Views/NTPathView.m; sourceTree = "<group>"; };
+		2451649F16E4A7FD00166AE3 /* NTInteractionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NTInteractionDelegate.h; path = Build/AUNotes/NTInteractionDelegate.h; sourceTree = SOURCE_ROOT; };
 		248D2A0A16C3C7EC00166998 /* play_button_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_button_icon.png; sourceTree = "<group>"; };
 		248D2A0B16C3C7EC00166998 /* play_button_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_button_icon@2x.png"; sourceTree = "<group>"; };
 		248D2A0C16C3C7EC00166998 /* record_button_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record_button_icon.png; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			children = (
 				208489EA1668E6590071AAC4 /* AppDelegate.h */,
 				208489EB1668E6590071AAC4 /* AppDelegate.m */,
+				2451649F16E4A7FD00166AE3 /* NTInteractionDelegate.h */,
 				20848ADF166938620071AAC4 /* Models */,
 				20848A071668E8120071AAC4 /* Controllers */,
 				20848A081668E81F0071AAC4 /* Views */,
@@ -362,6 +365,7 @@
 				24D885B816BA879D001E9B07 /* NTNoteAudioView.h in Headers */,
 				24310C3A16B460D200587E65 /* SPUserResizableView.h in Headers */,
 				244A823116D04226007A279F /* NTPathView.h in Headers */,
+				245164A016E4A80000166AE3 /* NTInteractionDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

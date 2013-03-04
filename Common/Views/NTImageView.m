@@ -44,6 +44,5 @@
 - (NTNoteImageItem *)item {
     return (NTNoteImageItem *)[super item];
 }
-
 @end
 

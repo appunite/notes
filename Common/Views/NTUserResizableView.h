@@ -11,15 +11,21 @@
 //Items
 #import "NTNoteItem.h"
 
+//Protocols
+#import "NTInteractionDelegate.h"
+
 @protocol NTUserResizableViewDelegate <NSObject>
 
 -(void)viewDidChangePosition:(CGRect)frame;
-
 @end
 
-@interface NTUserResizableView : SPUserResizableView
+@interface NTUserResizableView : SPUserResizableView{
+    UILongPressGestureRecognizer *_longPressGestureRecognizer;
+    UIButton *_deleteButton;
+}
 // keep model object
 @property (nonatomic, weak) NTNoteItem* item;
 @property id<NTUserResizableViewDelegate> resizableViewDelegate;
+@property id <NTInteractionDelegate> interactionDelegate;
 - (id)initWithItem:(NTNoteItem *)item;
 @end

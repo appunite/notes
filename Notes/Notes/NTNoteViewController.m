@@ -19,7 +19,6 @@
 #import "NTNoteTextItem.h"
 #import "NTNoteImageItem.h"
 
-
 @interface NTNoteViewController ()
 //mapping items
 - (void)mapNoteItems:(NSArray *)jsonItems;
@@ -37,6 +36,9 @@
     __weak NTNoteContentView* _contentView;
     // Gestures
     UITapGestureRecognizer* _tapGestureRecognizer;
+    BOOL hasSound;
+    BOOL hasPicture;
+    BOOL hasCalendar;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,6 +114,7 @@
     if (error) {
         NSLog(@"%@", error);
     }
+    
 }
 
 
@@ -156,7 +159,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NTNotePathItem*)requestNewNotePathItem {
-    NSLog(@"New Item created");
+
     // Get Brush Atrributes from Delegate
     NSDictionary *brushAtr= [[NSDictionary alloc] initWithDictionary:[_delegate getBrushAtributes]];
     
@@ -295,7 +298,11 @@
             
             // add item to array
             [_items addObject:image];
-        }
+            
+            //configure topic flags
+            hasPicture = YES;
+            
+            }
         
         // create text note item
         else if ([type isEqualToString:@"html"]) {
@@ -320,6 +327,7 @@
             
             // add item to array
             [_items addObject:text];
+
         }
         // create audio note item
         else if([type isEqualToString:@"voice"]){
@@ -341,6 +349,9 @@
             // add item to array
             [_items addObject:voice];
             
+            //configure topic flags
+            hasSound = YES;
+             
         }
         // create path note item
         else if([type isEqualToString:@"path"]){
@@ -375,13 +386,20 @@
             [path setOpacity:[[item objectForKey:@"opacity"] floatValue]];
             
             // change line color
-            [path setLineColor:[self colorFromString:[item objectForKey:@"lineColor"]]];
+
+            if([[item objectForKey:@"lineColor"] isEqual:@"(null)"]){
+                [path setLineColor:[UIColor blackColor]];
+            }
+            else{
+                [path setLineColor:[self colorFromHexString:[item objectForKey:@"lineColor"]]];
+            }
             
             // add to items array
             [_items addObject:path];
         }
     }
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -390,6 +408,12 @@
     NSMutableString *jsonString = [[NSMutableString alloc] init];
     [jsonString appendString:@"{\"elements\":["];
     int i=0;
+    
+    // reset topic flags
+    hasSound = NO;
+    hasPicture = NO;
+    hasCalendar = NO;
+    
     for(NTNoteItem *item in _items){
                 [jsonString appendString:@"{"];
         if([item isKindOfClass:[NTNoteTextItem class]])
@@ -404,17 +428,19 @@
             NTNoteImageItem *itemt = item;
             [jsonString appendString:@"\"type\":\"image\","];
             [jsonString appendFormat:@"\"url\":\"%@\",", itemt.resourcePath];
+            hasPicture = YES;
         }
         else if([item isKindOfClass:[NTNoteAudioItem class]]){
             NTNoteAudioItem *itemt = item;
             [jsonString appendString:@"\"type\":\"voice\","];
             [jsonString appendFormat:@"\"url\":\"%@\",", itemt.remotePath];
             [jsonString appendFormat:@"\"local\":\"%@\",", itemt.localPath];
+            hasSound = YES;
         }
         else if([item isKindOfClass:[NTNotePathItem class]]){
             NTNotePathItem *itemt = item;
             [jsonString appendString:@"\"type\":\"path\","];
-            [jsonString appendFormat:@"\"lineColor\":\"#%@\",", [self colorToWeb:itemt.lineColor]];
+            [jsonString appendFormat:@"\"lineColor\":\"%@\",", [self colorToWeb:itemt.lineColor]];
             [jsonString appendFormat:@"\"lineWidth\":\"%.2f\",", itemt.lineWidth];
             [jsonString appendFormat:@"\"opacity\":\"%.2f\",", itemt.opacity];
             [jsonString appendString:[self pointsFromPath:itemt.path]];
@@ -494,6 +520,9 @@
     
     // show blue dots
     [_currentNoteView showEditingHandles];
+    
+    //set interaction delegate
+    [_currentNoteView setInteractionDelegate:self];
 
     // add subview
     [_contentView addSubview:_currentNoteView];
@@ -560,7 +589,27 @@
         }
     }];
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#pragma mark - flags getters
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(BOOL)hasPicture{
+    return hasPicture;
+}
+-(BOOL)hasSound{
+    return hasSound;
+}
+-(BOOL)hasCalendar{
+    return hasCalendar;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #pragma mark - other
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -(NSString*)colorToWeb:(UIColor*)color
 {
@@ -583,18 +632,17 @@
     
     return webColor;
 }
--(UIColor *)colorFromString:(NSString *)color{
-    
-    NSScanner *scanner = [NSScanner scannerWithString:color];
-    if ([scanner scanString:@"#" intoString:NULL]) {
-        unsigned int colorValue = 0;
-        if ([scanner scanHexInt:&colorValue]) {
-            NSLog(@"%d", colorValue);
-            
-        }
-    }
-    return [UIColor blackColor];
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (UIColor *)colorFromHexString:(NSString *)hexString {
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    [scanner scanHexInt:&rgbValue];
+    return [[UIColor alloc] initWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0  blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void SaveCGPathApplierFunc(void *info, const CGPathElement *element)
 {
@@ -616,8 +664,17 @@ void SaveCGPathApplierFunc(void *info, const CGPathElement *element)
     else return;
     CGPoint p = (CGPoint)element->points[0];
 
-    NSDictionary *singleElement =[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInt:nPoints],[NSValue valueWithCGPoint:p], nil] forKeys:[NSArray arrayWithObjects:@"type", @"point", nil]];
+    NSDictionary *singleElement =[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInt:nPoints],[NSValue valueWithCGPoint:p], nil]
+                                                             forKeys:[NSArray arrayWithObjects:@"type", @"point", nil]];
     [a addObject:singleElement];
 
+}
+
+#pragma mark - Interaction Delegate
+
+-(void)deleteItem:(NTNoteItem *)item{
+    [_items removeObject:item];
+    [self exitEditMode];
+    [_contentView setNeedsDisplay];
 }
 @end

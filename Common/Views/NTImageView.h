@@ -16,6 +16,7 @@
 #import "NTNoteImageItem.h"
 
 @interface NTImageView : NTUserResizableView
+
 // redefine model object
 - (NTNoteImageItem *)item;
 @end

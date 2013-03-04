@@ -21,6 +21,7 @@
     UIView *myView;
     UILabel *_currentTime;
     NSTimer * myTimer;
+    
 }
 @property UIButton *playButton;
 @property UIButton *recordButton;

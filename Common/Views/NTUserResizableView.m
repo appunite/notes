@@ -15,6 +15,9 @@
     self = [self initWithFrame:CGRectZero];
     if (self) {
         _item = item;
+        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized)];
+        [self addGestureRecognizer:_longPressGestureRecognizer];
+
     }
     return self;
 }
@@ -25,6 +28,9 @@
     if (self) {
         self.minHeight = 180.0f;
         self.minWidth = 180.0f;
+        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized)];
+        [self addGestureRecognizer:_longPressGestureRecognizer];
+
     }
     return self;
 }
@@ -53,5 +59,20 @@
     }
     [_resizableViewDelegate viewDidChangePosition:self.frame];
 }
+#pragma mark - long press
 
+-(void)longPressRecognized{
+    
+    _deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25.0f, 30.0f)];
+    [_deleteButton setImage:[UIImage imageNamed:@"deleteNoteButton"] forState:UIControlStateNormal];
+    [_deleteButton setBackgroundColor:[UIColor clearColor]];
+    [_deleteButton setCenter:CGPointMake(CGRectGetWidth(self.frame)-10.0f, 8.0f)];
+    [_deleteButton addTarget:self action:@selector(deleteTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_deleteButton];
+    [self bringSubviewToFront:_deleteButton];
+    
+}
+-(void)deleteTapped{
+    [self.interactionDelegate deleteItem:self.item];
+}
 @end

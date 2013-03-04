@@ -15,7 +15,7 @@
 @interface NTNotePathItem : NTNoteItem
 // settings of path
 @property (nonatomic, assign) CGFloat lineWidth;
-@property (nonatomic, assign) UIColor* lineColor;
+@property (nonatomic, strong) UIColor* lineColor;
 @property (nonatomic, assign) CGFloat opacity;
 @property (nonatomic, assign) NSInteger type;
 // drawing path
@@ -27,6 +27,7 @@
 
 -(id)initWithBrushAttributes:(NSDictionary *)attributes;
 -(void)setBrushAttributes:(NSDictionary *)attributes;
+- (void)setColorFromHex:(NSString*)hex;
 
 // create path From Points
 +(CGMutablePathRef)pathFromPoints:(NSArray *)points;
