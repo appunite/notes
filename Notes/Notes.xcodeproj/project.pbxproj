@@ -631,6 +631,7 @@
 				DSTROOT = /tmp/AUNotes.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AUNotes/AUNotes-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRIVATE_HEADERS_FOLDER_PATH = include/AUNotes/private;
@@ -646,6 +647,7 @@
 				DSTROOT = /tmp/AUNotes.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AUNotes/AUNotes-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRIVATE_HEADERS_FOLDER_PATH = include/AUNotes/private;
 				PRODUCT_NAME = "$(TARGET_NAME)";
