@@ -264,9 +264,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)clearContent {
-    [self exitEditMode];
-    
     [_items removeAllObjects];
+    [self exitEditMode];
     [_contentView setNeedsDisplay];
 }
 
