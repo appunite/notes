@@ -196,14 +196,19 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)requestNewNoteTextItem {
+- (void)requestNewNoteTextItemWithFrame:(CGRect)frame {
     
     NTNoteTextItem *item = [[NTNoteTextItem alloc] init];
     
     CGFloat width = 200.0f;
     CGFloat height = 150.0f;
     
-    CGRect rect = CGRectMake(10.0f, 10.0f, width, height);
+    CGRect rect;
+    if (CGRectEqualToRect(frame, CGRectZero)) {
+        rect = CGRectMake(10.0f, 10.0f, width, height);
+    } else {
+        rect = frame;
+    }
     
     // set temporary text
     [item setText:@"Enter your text here..."];
@@ -222,6 +227,9 @@
     
     [self saveNoteItems];
     
+    // select item
+    [self enterEditModeOfItem:item];
+    [_currentNoteView selectAll:self];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

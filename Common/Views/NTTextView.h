@@ -24,4 +24,5 @@
 - (NTNoteTextItem*)item;
 -(void)allowUserTextEditing;
 -(void)updateTextView;
+-(void)selectAll:(id)sender;
 @end

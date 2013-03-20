@@ -36,13 +36,14 @@
 // init with scroll view frame
 -(id)initWithContentViewFrame:(CGRect)frame;
 
+/** If frame is CGRectZero, new textNote is saved to default frame **/
+-(void)requestNewNoteTextItemWithFrame:(CGRect)frame;
 -(void)updateCurrentNoteView;
 -(void)requestNewNoteImageItemWithPath:(NSString *)path;
--(void)requestNewNoteTextItem;
 -(void)requestNewNoteAudioItem;
 -(void)setContentViewMode:(NSUInteger)mode;
 -(void)deleteCurrentPath;
-- (void)clearContent;
+-(void)clearContent;
 
 // Flags getters
 -(BOOL)hasPicture;

@@ -75,6 +75,8 @@
     [_textView becomeFirstResponder];
     
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView{
     
     // set item text from UITextView
@@ -85,7 +87,11 @@
     
     // Draw context with new text
     [self setNeedsDisplay];
-    
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)selectAll:(id)sender {
+    [_textView selectAll:sender];
 }
 
 @end
