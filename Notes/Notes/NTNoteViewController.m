@@ -55,6 +55,8 @@
     }
     return self;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)initWithContentViewFrame:(CGRect)frame{
     self = [super init];
     if (self) {
@@ -173,8 +175,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
--(void)requestNewNoteImageItemWithPath:(NSString *)path{
+- (void)requestNewNoteImageItemWithPath:(NSString *)path {
     
     NTNoteImageItem* image = [[NTNoteImageItem alloc] init];
     
@@ -195,8 +196,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
--(void)requestNewNoteTextItem{
+- (void)requestNewNoteTextItem {
     
     NTNoteTextItem *item = [[NTNoteTextItem alloc] init];
     
@@ -225,8 +225,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
--(void)requestNewNoteAudioItem{
+- (void)requestNewNoteAudioItem {
     
     NTNoteAudioItem *item = [[NTNoteAudioItem alloc] init];
     
@@ -242,9 +241,10 @@
     [_contentView setNeedsDisplay];
     
     [self saveNoteItems];
-    
 }
--(void)deleteCurrentPath{
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)deleteCurrentPath {
     if([_currentNoteView isKindOfClass:[NTPathView class]]){
         [_items removeObject:_currentNoteView.item];
         [self exitEditMode];
@@ -253,18 +253,24 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 - (void)saveCurrentNoteItemPath{
     [self exitEditMode];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
--(void)setContentViewMode:(NSUInteger)mode{
-    
+- (void)setContentViewMode:(NSUInteger)mode {
     [_contentView setNoteContentMode:mode];
-    
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)clearContent {
+    [self exitEditMode];
+    
+    [_items removeAllObjects];
+    [_contentView setNeedsDisplay];
+}
+
+
 #pragma mark - Private
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -402,7 +408,6 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 -(void)saveNoteItems{
 
     NSMutableString *jsonString = [[NSMutableString alloc] init];
@@ -464,6 +469,8 @@
 
     [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(NSString *)pointsFromPath:(CGPathRef)path{
     NSMutableString *resultString = [[NSMutableString alloc] init];
     [resultString appendString:@"\"points\":\["];
@@ -554,16 +561,17 @@
     
     [self saveNoteItems];
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)viewDidChangePosition:(CGRect)frame{
-    
     [_currentNoteView.item setRect:frame];
-
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)updateCurrentNoteView{
-
     [(NTTextView *)_currentNoteView updateTextView];
-
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)tapGestureAction:(UITapGestureRecognizer *)gestureRecognizer {
     // get touch point
@@ -589,35 +597,33 @@
         }
     }];
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 #pragma mark - flags getters
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
--(BOOL)hasPicture{
+- (BOOL)hasPicture {
     return hasPicture;
-}
--(BOOL)hasSound{
-    return hasSound;
-}
--(BOOL)hasCalendar{
-    return hasCalendar;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+- (BOOL)hasSound {
+    return hasSound;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (BOOL)hasCalendar {
+    return hasCalendar;
+}
+
 
 #pragma mark - other
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
--(NSString*)colorToWeb:(UIColor*)color
-{
+-(NSString*)colorToWeb:(UIColor*)color {
     NSString *webColor = nil;
     
-    if (color &&
-        CGColorGetNumberOfComponents(color.CGColor) == 4)
-    {
+    if (color && CGColorGetNumberOfComponents(color.CGColor) == 4) {
         const CGFloat *components = CGColorGetComponents(color.CGColor);
         
         // These components range from 0.0 till 1.0 and need to be converted to 0 till 255
@@ -634,18 +640,16 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 - (UIColor *)colorFromHexString:(NSString *)hexString {
     unsigned rgbValue = 0;
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
     [scanner scanHexInt:&rgbValue];
+    
     return [[UIColor alloc] initWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0  blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void SaveCGPathApplierFunc(void *info, const CGPathElement *element)
-{
+void SaveCGPathApplierFunc(void *info, const CGPathElement *element) {
     NSMutableArray* a = (__bridge NSMutableArray*) info;
 
     int nPoints;
@@ -671,10 +675,12 @@ void SaveCGPathApplierFunc(void *info, const CGPathElement *element)
 }
 
 #pragma mark - Interaction Delegate
-
--(void)deleteItem:(NTNoteItem *)item{
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)deleteItem:(NTNoteItem *)item {
     [_items removeObject:item];
     [self exitEditMode];
     [_contentView setNeedsDisplay];
 }
+
+
 @end

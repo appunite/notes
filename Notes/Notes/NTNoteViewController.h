@@ -42,6 +42,7 @@
 -(void)requestNewNoteAudioItem;
 -(void)setContentViewMode:(NSUInteger)mode;
 -(void)deleteCurrentPath;
+- (void)clearContent;
 
 // Flags getters
 -(BOOL)hasPicture;
