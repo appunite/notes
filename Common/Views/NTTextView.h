@@ -15,6 +15,12 @@
 //Items
 #import "NTNoteTextItem.h"
 
+@class NTTextView;
+
+@protocol NTTextViewDelegate <NSObject>
+- (void)textViewDelegate:(NTTextView*)textView requestedRefreshingFrameOfItem:(NTNoteTextItem*)item;
+@end
+
 
 @interface NTTextView : NTUserResizableView<UITextViewDelegate>{
     UITextView *_textView;
@@ -25,4 +31,8 @@
 -(void)allowUserTextEditing;
 -(void)updateTextView;
 -(void)selectAll:(id)sender;
+
+@property (nonatomic, assign) CGRect maxRect;
+@property (nonatomic, weak) id noteViewDelegate;
+
 @end

@@ -12,8 +12,6 @@
 //Views
 #import "NTNoteContentView.h"
 #import "NTUserResizableView.h"
-
-//temp
 #import "NTTextView.h"
 
 @protocol NTNoteDelegate
@@ -22,7 +20,7 @@
 -(NSDictionary *)getBrushAtributes;
 @end
 
-@interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate, NTInteractionDelegate>
+@interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate, NTInteractionDelegate, NTTextViewDelegate>
 
 // keep all drawing item objects
 @property (nonatomic, strong) NSMutableArray* items;

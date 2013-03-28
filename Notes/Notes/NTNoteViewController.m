@@ -200,8 +200,8 @@
     
     NTNoteTextItem *item = [[NTNoteTextItem alloc] init];
     
-    CGFloat width = 200.0f;
-    CGFloat height = 150.0f;
+    CGFloat width = 250.0f;
+    CGFloat height = 50.0f;
     
     CGRect rect;
     if (CGRectEqualToRect(frame, CGRectZero)) {
@@ -217,7 +217,7 @@
     [item setRect:rect];
     
     //set default font
-    [item setFont:[UIFont systemFontOfSize:13]];
+    [item setFont:[UIFont systemFontOfSize:20]];
     
     // add item to array
     [_items addObject:item];
@@ -509,6 +509,8 @@
         // create text item view
         _currentNoteView = [[NTTextView alloc] initWithItem:item];
         [_currentNoteView setResizableViewDelegate:self];
+        [(NTTextView *)_currentNoteView setNoteViewDelegate:self];
+        [(NTTextView *)_currentNoteView setMaxRect:CGRectInset(self.view.frame, 20.0f, 20.0f)];
         [(NTTextView *)_currentNoteView allowUserTextEditing];
     }
     
@@ -687,6 +689,14 @@ void SaveCGPathApplierFunc(void *info, const CGPathElement *element) {
     [_items removeObject:item];
     [self exitEditMode];
     [_contentView setNeedsDisplay];
+}
+
+#pragma mark - NTTextView delegate
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)textViewDelegate:(NTTextView *)textView requestedRefreshingFrameOfItem:(NTNoteTextItem *)item {
+    if ([_currentNoteView.item isEqual:item]) {
+        [_currentNoteView setFrame:item.rect];
+    }
 }
 
 

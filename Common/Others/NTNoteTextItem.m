@@ -20,7 +20,7 @@
     
     // set default font
     if (!_font) {
-        _font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        _font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     }
 }
 
@@ -50,7 +50,7 @@
     bounds = CGRectInset(bounds, 4.0f, 4.0f);
     
     // Convert UIFont to CTFontRef and add italic on Retina display
-    if(!font)font = [UIFont systemFontOfSize:16];
+    if(!font)font = [UIFont systemFontOfSize:20];
     CTFontRef sysUIFont = CTFontCreateWithName((__bridge CFStringRef)[font fontName], [font pointSize], NULL);
     //    CTFontRef sysUIFont = CTFontCreateCopyWithSymbolicTraits(ref, [font pointSize], NULL, kCTFontItalicTrait, kCTFontItalicTrait);
 
