@@ -573,6 +573,37 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)viewDidChangePosition:(CGRect)frame{
+    if([_currentNoteView.item isKindOfClass:[NTNoteTextItem class]]) {
+        // you must input here lineHeight and baselineOffset - take upon consideration how you settled NTNoteViewController.view on lines view
+        CGFloat lineHeight = 24;
+        CGFloat baselineOffset = 75.0f;
+        
+        NSUInteger numberOfLines = (self.view.bounds.size.height - baselineOffset) / lineHeight;
+        int heightMin = 0; int heightMax = 0; int result = 0;
+        for (int x = 0; x < numberOfLines; x++) {
+            heightMax = lineHeight*x + baselineOffset;
+            
+            if (heightMax > CGRectGetMinY(frame)) {
+                // heightMax is farer than touchpoint
+                if (CGRectGetMinY(frame) - heightMin < heightMax - CGRectGetMinY(frame)) {
+                    result = heightMin;
+                } else {
+                    result = heightMax;
+                }
+                // we don't need to execute it any more
+                break;
+            } else {
+                // we need to keep previous height
+                heightMin = heightMax;
+            }
+        }
+        
+        // we need to lower txt by its height - you must input value, no idea how to count it
+        result += 13;
+        // apply value to our frame & save result
+        frame.origin.y = result;
+        [_currentNoteView setFrame:frame];
+    }
     [_currentNoteView.item setRect:frame];
 }
 
