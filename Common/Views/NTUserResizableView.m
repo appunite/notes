@@ -15,32 +15,36 @@
     self = [self initWithFrame:CGRectZero];
     if (self) {
         _item = item;
-        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized)];
-        [self addGestureRecognizer:_longPressGestureRecognizer];
-
     }
     return self;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:CGRectZero];
+    self = [super initWithFrame:CGRectZero viewIsResizable:NO showDotsOnEdit:NO showFrameOnEdit:YES];
     if (self) {
         self.minHeight = 180.0f;
         self.minWidth = 180.0f;
-        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized)];
-        [self addGestureRecognizer:_longPressGestureRecognizer];
-
+        
+        _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_deleteButton setImage:[UIImage imageNamed:@"deleteNoteButton"] forState:UIControlStateNormal];
+        [_deleteButton addTarget:self action:@selector(deleteTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_deleteButton];
     }
     return self;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    [_deleteButton setFrame:CGRectMake(-10, -15, 26.0f, 30.0f)];
+    [self bringSubviewToFront:_deleteButton];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)didMoveToSuperview {
     if (_item) {
-
-        // enlarged rect (for blue dots)
-//        CGRect rect = CGRectInset([_item rect], -20.0f, -20.0f);
         CGRect rect = [_item rect];
         
         self.frame = rect;
@@ -52,27 +56,37 @@
     [super resizeUsingTouchLocation:touchPoint];
     [self setNeedsDisplay];
 }
+
+#pragma mark - Touches
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+    NSLog(@"cancelled");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    NSLog(@"began");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    NSLog(@"ended");
     // Notify the delegate we've ended our editing session.
     if (self.delegate && [self.delegate respondsToSelector:@selector(userResizableViewDidEndEditing:)]) {
         [self.delegate userResizableViewDidEndEditing:self];
     }
     [_resizableViewDelegate viewDidChangePosition:self.frame];
 }
-#pragma mark - long press
 
--(void)longPressRecognized{
-    
-    _deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25.0f, 30.0f)];
-    [_deleteButton setImage:[UIImage imageNamed:@"deleteNoteButton"] forState:UIControlStateNormal];
-    [_deleteButton setBackgroundColor:[UIColor clearColor]];
-    [_deleteButton setCenter:CGPointMake(CGRectGetWidth(self.frame)-10.0f, 8.0f)];
-    [_deleteButton addTarget:self action:@selector(deleteTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_deleteButton];
-    [self bringSubviewToFront:_deleteButton];
-    
-}
--(void)deleteTapped{
+#pragma mark - Actions
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)deleteTapped:(id)sender {
     [self.interactionDelegate deleteItem:self.item];
 }
+
 @end

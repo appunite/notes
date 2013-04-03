@@ -200,24 +200,24 @@
     
     NTNoteTextItem *item = [[NTNoteTextItem alloc] init];
     
-    CGFloat width = 250.0f;
-    CGFloat height = 50.0f;
-    
-    CGRect rect;
-    if (CGRectEqualToRect(frame, CGRectZero)) {
-        rect = CGRectMake(10.0f, 10.0f, width, height);
-    } else {
-        rect = frame;
-    }
-    
     // set temporary text
     [item setText:@"Enter your text here..."];
     
-    //set rect
-    [item setRect:rect];
-    
     //set default font
     [item setFont:[UIFont systemFontOfSize:20]];
+    
+    // calculate rect
+    CGRect rect;
+    CGSize size = [item.text sizeWithFont:item.font constrainedToSize:CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+    size.width += 30.0f; size.height += 30.0f;
+    if (CGRectEqualToRect(frame, CGRectZero)) {
+        rect = CGRectMake(10.0f, 10.0f, size.width, size.height);
+    } else {
+        rect = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), size.width, size.height);
+    }
+    
+    //set rect
+    [item setRect:rect];
     
     // add item to array
     [_items addObject:item];
@@ -229,6 +229,11 @@
     
     // select item
     [self enterEditModeOfItem:item];
+    // set frame to match text size
+    [(NTTextView*)_currentNoteView recalculateFrame];
+    // set frame to match lines
+    [self viewDidChangePosition:rect];
+    // select text
     [_currentNoteView selectAll:self];
 }
 
@@ -510,7 +515,8 @@
         _currentNoteView = [[NTTextView alloc] initWithItem:item];
         [_currentNoteView setResizableViewDelegate:self];
         [(NTTextView *)_currentNoteView setNoteViewDelegate:self];
-        [(NTTextView *)_currentNoteView setMaxRect:CGRectInset(self.view.frame, 20.0f, 20.0f)];
+        [(NTTextView *)_currentNoteView setMaxRect:self.view.bounds];
+        
         [(NTTextView *)_currentNoteView allowUserTextEditing];
     }
     
@@ -573,13 +579,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)viewDidChangePosition:(CGRect)frame{
+    // set frame to match lines
     if([_currentNoteView.item isKindOfClass:[NTNoteTextItem class]]) {
         // you must input here lineHeight and baselineOffset - take upon consideration how you settled NTNoteViewController.view on lines view
         CGFloat lineHeight = 24;
-        CGFloat baselineOffset = 75.0f;
-        
+        CGFloat baselineOffset = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 0.0f : 18.0f;
+
         NSUInteger numberOfLines = (self.view.bounds.size.height - baselineOffset) / lineHeight;
-        int heightMin = 0; int heightMax = 0; int result = 0;
+        int heightMin = baselineOffset; int heightMax = 0; int result = 0;
         for (int x = 0; x < numberOfLines; x++) {
             heightMax = lineHeight*x + baselineOffset;
             
@@ -595,11 +602,10 @@
             } else {
                 // we need to keep previous height
                 heightMin = heightMax;
+                result = heightMax;
             }
         }
         
-        // we need to lower txt by its height - you must input value, no idea how to count it
-        result += 13;
         // apply value to our frame & save result
         frame.origin.y = result;
         [_currentNoteView setFrame:frame];

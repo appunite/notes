@@ -8,7 +8,9 @@
 
 #import "NTTextView.h"
 
-@implementation NTTextView
+@implementation NTTextView {
+    CGPoint _textViewOffset;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)init {
@@ -23,6 +25,7 @@
     }
     return self;
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)drawRect:(CGRect)rect {
     // get current context
@@ -47,7 +50,7 @@
 #pragma mark - Text Editing
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
--(void)updateTextView{
+- (void)updateTextView {
     // this method is called when user changes some text parameters, UITextView should reload
     [_textView setTextColor:[self.item color]];
     [_textView setFont:[self.item font]];
@@ -55,13 +58,13 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
--(void)allowUserTextEditing{
-    
+- (void)allowUserTextEditing {
     //clear context
     [self setNeedsDisplay];
     
     //init UITextView with parameters as item properties
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.item.rect.size.width - 5.0f, self.item.rect.size.height - 5.0f)];
+    _textViewOffset = CGPointMake(-4, -4);
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(_textViewOffset.x, _textViewOffset.y, self.item.rect.size.width, self.item.rect.size.height)];
     [_textView setBackgroundColor:[UIColor clearColor]];
     [_textView setTextColor:[self.item color]];
     [_textView setFont:[self.item font]];
@@ -69,38 +72,37 @@
     [_textView setDelegate:self];
     [self addSubview:_textView];
     
-    //send UITextView to back to allow view resizing and moving
-    [self sendSubviewToBack:_textView];
+#warning problem here - if we sendBack - cannot move; otherwise - cannot select text
+//    [self sendSubviewToBack:_textView];
     
     //show keyboard
     [_textView becomeFirstResponder];
-    
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)recalculateFrame {
     // get frame - consider minimal
-    CGRect frame = _textView.frame;
-    frame.size.height = ([_textView contentSize].height < 50.0f) ? 50.0f : [_textView contentSize].height;
-    frame.size.width = [_textView.text sizeWithFont:_textView.font constrainedToSize:CGSizeMake(CGRectGetWidth(_maxRect), CGRectGetHeight(_maxRect))].width + 30.0f;
-    if (CGRectGetWidth(frame) < 80.0f) {
-        frame.size.width = 80.0f;
+    CGRect textFrame = _textView.frame;
+    CGRect itemFrame = self.item.rect;
+    
+    // don't allow for: too small size
+    textFrame.size.height = ([_textView contentSize].height < 50.0f) ? 50.0f : [_textView contentSize].height;
+    textFrame.size.width = [_textView.text sizeWithFont:_textView.font constrainedToSize:CGSizeMake(CGRectGetWidth(_maxRect), CGRectGetHeight(_maxRect))].width + 30.0f;
+    if (CGRectGetWidth(textFrame) < 80.0f) {
+        textFrame.size.width = 80.0f;
     }
-    CGRect oldFrame = self.item.rect;
     
     // don't allow for: out of bounds
-    if (CGRectGetMaxX(_maxRect) < CGRectGetMaxX(oldFrame)) { // width
-        frame.size.width = CGRectGetMaxX(_maxRect) - CGRectGetMinX(oldFrame);
+    if ((CGRectGetMaxX(_maxRect) - 5.0f) < CGRectGetMaxX(itemFrame)) { // width
+        textFrame.size.width = CGRectGetMaxX(_maxRect) - CGRectGetMinX(itemFrame);
     }
-    if (CGRectGetMaxY(_maxRect) < CGRectGetMaxY(oldFrame)) { // height
-        frame.size.height = CGRectGetMaxY(_maxRect) - CGRectGetMinY(oldFrame);
+    if ((CGRectGetMaxY(_maxRect) - 5.0f) < CGRectGetMaxY(itemFrame)) { // height
+        textFrame.size.height = CGRectGetMaxY(_maxRect) - CGRectGetMinY(itemFrame);
     }
     
-    // change frame on view
-    _textView.frame = frame;
-    
-    // change frame of item
-    [self.item setRect:CGRectMake(CGRectGetMinX(oldFrame), CGRectGetMinY(oldFrame), CGRectGetWidth(frame), CGRectGetHeight(frame))];
+    // change frame on view & item
+    _textView.frame = textFrame;
+    [self.item setRect:CGRectMake(CGRectGetMinX(itemFrame), CGRectGetMinY(itemFrame), CGRectGetWidth(textFrame), CGRectGetHeight(textFrame))];
     
     // change frame border
     if ([_noteViewDelegate respondsToSelector:@selector(textViewDelegate:requestedRefreshingFrameOfItem:)]) {
@@ -116,8 +118,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
--(BOOL)textViewShouldEndEditing:(UITextView *)textView{
-    
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView{
     // set item text from UITextView
     [self.item setText:_textView.text];
     

@@ -20,7 +20,6 @@
 @end
 
 @interface NTUserResizableView : SPUserResizableView{
-    UILongPressGestureRecognizer *_longPressGestureRecognizer;
     UIButton *_deleteButton;
 }
 // keep model object
