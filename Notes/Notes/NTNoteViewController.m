@@ -112,11 +112,16 @@
     [self loadNoteItemsFromFile:filePath error:&error];
     }
     
-    
     if (error) {
         NSLog(@"%@", error);
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     
+    [self exitEditMode];
 }
 
 
@@ -340,7 +345,7 @@
 
             // change font name and size
             NSString* fontName = [item objectForKey:@"font"];
-            CGFloat size = [[item objectForKey:@"size"] floatValue];
+            CGFloat size = [[item objectForKey:@"textSize"] floatValue];
             [text setFont:[UIFont fontWithName:fontName size:size]];
             
             // add item to array
@@ -433,13 +438,19 @@
     
     for(NTNoteItem *item in _items){
                 [jsonString appendString:@"{"];
-        if([item isKindOfClass:[NTNoteTextItem class]])
-        {
+        if([item isKindOfClass:[NTNoteTextItem class]]) {
             NTNoteTextItem *itemt = item;
+            // save for json
+            NSString *stringJSON = itemt.text;
+            stringJSON = [stringJSON stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
+            stringJSON = [stringJSON stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+            stringJSON = [stringJSON stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+            
             [jsonString appendString:@"\"type\":\"html\","];
-            [jsonString appendFormat:@"\"html\":\"%@\",", itemt.text];
+            [jsonString appendFormat:@"\"html\":\"%@\",", stringJSON];
             [jsonString appendFormat:@"\"textColor\":\"#%@\",", [self colorToWeb:itemt.color]];
             [jsonString appendFormat:@"\"textSize\":\"%f\",", itemt.font.pointSize];
+            [jsonString appendFormat:@"\"font\":\"%@\",", itemt.font.fontName];
         }
         else if([item isKindOfClass:[NTNoteImageItem class]]){
             NTNoteImageItem *itemt = item;

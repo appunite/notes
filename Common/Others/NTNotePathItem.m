@@ -135,12 +135,12 @@ enum type{
 	CGContextAddPath(ctx, item.path);
     if(item.type == eraser){
         CGContextSetBlendMode(ctx, kCGBlendModeClear);
+    } else if(item.type == highlighter){
+        CGContextSetLineCap(ctx, kCGLineCapSquare);
+        CGContextSetBlendMode(ctx, kCGBlendModeColorBurn);
+    } else {
+        CGContextSetLineCap(ctx, kCGLineCapRound);
     }
-    if(item.type == highlighter){
-     CGContextSetLineCap(ctx, kCGLineCapSquare);
-     CGContextSetBlendMode(ctx, kCGBlendModeColorBurn);
-    }
-    else CGContextSetLineCap(ctx, kCGLineCapRound);
     CGContextSetAlpha(ctx, item.opacity);
     CGContextSetLineWidth(ctx, item.lineWidth);
     CGContextSetStrokeColorWithColor(ctx, item.lineColor.CGColor);
