@@ -74,6 +74,11 @@
 		AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
 		AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */; };
 		AEAD37A6170EE0B90049BDC4 /* NTAudioNoteTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */; };
+		AEBBBE1D170F44EA00726B5D /* libAURosetteViewLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */; };
+		AEBBBE1F170F452A00726B5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBBBE1E170F452A00726B5D /* QuartzCore.framework */; };
+		AEBBBE21170F453900726B5D /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBBBE20170F453900726B5D /* CoreImage.framework */; };
+		AEBBBE22170F45AE00726B5D /* NTNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 208489F41668E6590071AAC4 /* NTNoteViewController.m */; };
+		AEBBBE23170F45AE00726B5D /* NTAudioNoteTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */; };
 		AEF270CD1704E1CC00C54E0C /* libAURosetteViewLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */; };
 		AEF270CE1704E21B00C54E0C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270CB1704E1C100C54E0C /* libz.dylib */; };
 /* End PBXBuildFile section */
@@ -163,6 +168,8 @@
 		AE831BDB170E41F70097D2B4 /* NTRosetteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTRosetteView.m; path = ../../Common/Views/NTRosetteView.m; sourceTree = "<group>"; };
 		AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTAudioNoteTimeView.h; path = ../../Common/Views/NTAudioNoteTimeView.h; sourceTree = "<group>"; };
 		AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTAudioNoteTimeView.m; path = ../../Common/Views/NTAudioNoteTimeView.m; sourceTree = "<group>"; };
+		AEBBBE1E170F452A00726B5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AEBBBE20170F453900726B5D /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AURosetteView.xcodeproj; path = ../Frameworks/AURosetteView/AURosetteView.xcodeproj; sourceTree = "<group>"; };
 		AEF270CB1704E1C100C54E0C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -172,11 +179,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				208489E01668E6590071AAC4 /* CoreGraphics.framework in Frameworks */,
+				AEBBBE21170F453900726B5D /* CoreImage.framework in Frameworks */,
+				AEBBBE1F170F452A00726B5D /* QuartzCore.framework in Frameworks */,
+				AEBBBE1D170F44EA00726B5D /* libAURosetteViewLib.a in Frameworks */,
 				24C42FC416C12BE800B39777 /* AVFoundation.framework in Frameworks */,
 				20848B23166A351D0071AAC4 /* CoreText.framework in Frameworks */,
 				208489DC1668E6590071AAC4 /* UIKit.framework in Frameworks */,
 				208489DE1668E6590071AAC4 /* Foundation.framework in Frameworks */,
-				208489E01668E6590071AAC4 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,9 +210,7 @@
 		208489CC1668E6590071AAC4 = {
 			isa = PBXGroup;
 			children = (
-				AEF270CB1704E1C100C54E0C /* libz.dylib */,
-				24D885B616BA878A001E9B07 /* AVFoundation.framework */,
-				20848B22166A351C0071AAC4 /* CoreText.framework */,
+				AEBBBE20170F453900726B5D /* CoreImage.framework */,
 				208489E11668E6590071AAC4 /* Classes */,
 				20848A041668E74A0071AAC4 /* Resources */,
 				24310B9816B45EE600587E65 /* AUNotes */,
@@ -224,6 +232,10 @@
 		208489DA1668E6590071AAC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AEBBBE1E170F452A00726B5D /* QuartzCore.framework */,
+				AEF270CB1704E1C100C54E0C /* libz.dylib */,
+				24D885B616BA878A001E9B07 /* AVFoundation.framework */,
+				20848B22166A351C0071AAC4 /* CoreText.framework */,
 				AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */,
 				20848ACB16691FC90071AAC4 /* SPUserResizableView */,
 				208489DB1668E6590071AAC4 /* UIKit.framework */,
@@ -528,6 +540,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEBBBE22170F45AE00726B5D /* NTNoteViewController.m in Sources */,
+				AEBBBE23170F45AE00726B5D /* NTAudioNoteTimeView.m in Sources */,
 				20848AD2166928410071AAC4 /* SPUserResizableView.m in Sources */,
 				208489E81668E6590071AAC4 /* main.m in Sources */,
 				208489EC1668E6590071AAC4 /* AppDelegate.m in Sources */,
