@@ -31,6 +31,7 @@
 - (void)exitEditMode;
 @end
 
+
 @implementation NTNoteViewController {
     // Views
     __weak NTNoteContentView* _contentView;
@@ -206,7 +207,7 @@
     NTNoteTextItem *item = [[NTNoteTextItem alloc] init];
     
     // set temporary text
-    [item setText:@"Enter your text here..."];
+    [item setText:@""];
     
     //set default font
     [item setFont:[UIFont systemFontOfSize:20]];
@@ -440,6 +441,7 @@
                 [jsonString appendString:@"{"];
         if([item isKindOfClass:[NTNoteTextItem class]]) {
             NTNoteTextItem *itemt = item;
+            
             // save for json
             NSString *stringJSON = itemt.text;
             stringJSON = [stringJSON stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
@@ -565,27 +567,35 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)exitEditMode {
+    
+    if (_currentNoteView) {
+        // if is in text mode, have to break because this method will be called on textViewDidEndEditing:
+        if([_currentNoteView isKindOfClass:[NTTextView class]] && [_currentNoteView isFirstResponder]) {
+            [(NTTextView*)_currentNoteView resignFirstResponder];
+            return;
+        }
 
-    // exit editing mode
-    [[_currentNoteView item] setEditingMode:NO];
+        // exit editing mode
+        [[_currentNoteView item] setEditingMode:NO];
 
-    if([[_currentNoteView item] isKindOfClass:[NTNoteAudioItem class]]){
+        if([[_currentNoteView item] isKindOfClass:[NTNoteAudioItem class]]){
+            
+            //create audio view
+            [[_currentNoteView item] setRect:CGRectMake(_currentNoteView.item.rect.origin.x, _currentNoteView.item.rect.origin.y, 66.0f, 66.0f)];
+        }
         
-        //create audio view
-        [[_currentNoteView item] setRect:CGRectMake(_currentNoteView.item.rect.origin.x, _currentNoteView.item.rect.origin.y, 66.0f, 66.0f)];
+        // hide blue dots
+        [_currentNoteView hideEditingHandles];
+        
+        // remove view
+        [_currentNoteView removeFromSuperview];
+        _currentNoteView = nil;
+        
+        // redraw view
+        [_contentView setNeedsDisplay];
+        
+        [self saveNoteItems];
     }
-    
-    // hide blue dots
-    [_currentNoteView hideEditingHandles];
-    
-    // remove view
-    [_currentNoteView removeFromSuperview];
-    _currentNoteView = nil;
-
-    // redraw view
-    [_contentView setNeedsDisplay];
-    
-    [self saveNoteItems];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -745,6 +755,11 @@ void SaveCGPathApplierFunc(void *info, const CGPathElement *element) {
     if ([_currentNoteView.item isEqual:item]) {
         [_currentNoteView setFrame:item.rect];
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)textViewDelegate:(NTUserResizableView *)textView requestedEndEditionOfItem:(NTNoteTextItem *)item {
+    [self exitEditMode];
 }
 
 

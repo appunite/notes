@@ -27,6 +27,12 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)dealloc {
+    // remove TextView
+    [_textView removeFromSuperview];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)drawRect:(CGRect)rect {
     // get current context
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -110,6 +116,18 @@
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (BOOL)resignFirstResponder {
+    [_textView resignFirstResponder];
+    return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (BOOL)isFirstResponder {
+    return [_textView isFirstResponder];
+}
+
+
 #pragma mark - UITextView delegate
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,16 +136,20 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView{
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
     // set item text from UITextView
     [self.item setText:_textView.text];
     
-    // remove TextView
-    [_textView removeFromSuperview];
+    // remove other things like frame etc
+    if ([_noteViewDelegate respondsToSelector:@selector(textViewDelegate:requestedEndEditionOfItem:)]) {
+        [_noteViewDelegate textViewDelegate:self requestedEndEditionOfItem:self.item];
+    }
     
     // Draw context with new text
     [self setNeedsDisplay];
 }
+
 
 #pragma mark - TextView
 
@@ -135,5 +157,6 @@
 - (void)selectAll:(id)sender {
     [_textView selectAll:sender];
 }
+
 
 @end

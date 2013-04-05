@@ -18,7 +18,8 @@
 @class NTTextView;
 
 @protocol NTTextViewDelegate <NSObject>
-- (void)textViewDelegate:(NTTextView*)textView requestedRefreshingFrameOfItem:(NTNoteTextItem*)item;
+- (void)textViewDelegate:(NTUserResizableView*)textView requestedRefreshingFrameOfItem:(NTNoteTextItem*)item;
+- (void)textViewDelegate:(NTUserResizableView*)textView requestedEndEditionOfItem:(NTNoteTextItem*)item;
 @end
 
 
