@@ -8,13 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+
+#import "NTRosetteView.h"
+
 #import "NTNoteAudioItem.h"
-
 #import "NTUserResizableView.h"
+#import "NTAudioNoteTimeView.h"
 
+@class SPGripViewBorderView;
 
+@protocol NTUserResizableViewDelegate;
 
 @interface NTNoteAudioView : NTUserResizableView <AVAudioPlayerDelegate, AVAudioRecorderDelegate, UIAlertViewDelegate>{
+    
+    NTRosetteView * _rosetteView;
     
     AVAudioRecorder *audioRecorder;
     AVAudioPlayer *audioPlayer;
@@ -22,10 +29,20 @@
     UILabel *_currentTime;
     NSTimer * myTimer;
     
+    NTAudioNoteTimeView * _timeView;
+    
+    AURosetteItem* _playItem;
+    AURosetteItem* _recordItem;
+    AURosetteItem* _stopItem;
+    
+    BOOL _playItemEnabled;
+    BOOL _recordItemEnabled;
+    BOOL _stopItemEnabled;
+    
+    BOOL _playing;
+    BOOL _recording;
 }
-@property UIButton *playButton;
-@property UIButton *recordButton;
-@property UIButton *stopButton;
+
 @property UISegmentedControl *playerControl;
 @property NSURL *fileURL;
 

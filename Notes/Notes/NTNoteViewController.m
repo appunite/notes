@@ -273,6 +273,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)saveCurrentNoteItemPath{
+    if (![[_contentView gestureRecognizers] containsObject:_tapGestureRecognizer]) {
+        [_contentView addGestureRecognizer:_tapGestureRecognizer];
+    }
+    
     [self exitEditMode];
 }
 
@@ -542,8 +546,9 @@
     else if([item isKindOfClass:[NTNoteAudioItem class]]){
         
         //create audio view
-        [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 200.0f, 80.0f)];
+        [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 200.0f, 200.0f)];
         _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:(NTNoteAudioItem *)item];
+        [_contentView removeGestureRecognizer:_tapGestureRecognizer];
         [_currentNoteView setResizableViewDelegate:self];
     }
     else if([item isKindOfClass:[NTNotePathItem class]]){
@@ -659,6 +664,7 @@
         // if last object
         else if (idx == [_items count] -1) {
 
+            return;
             // egit edit mode
             [self exitEditMode];
         }

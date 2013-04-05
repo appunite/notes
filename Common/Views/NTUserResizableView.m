@@ -10,6 +10,8 @@
 
 @implementation NTUserResizableView
 
+@synthesize resizableViewDelegate = _resizableViewDelegate;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithItem:(NTNoteItem *)item {
     self = [self initWithFrame:CGRectZero];
@@ -25,13 +27,17 @@
     if (self) {
         self.minHeight = 180.0f;
         self.minWidth = 180.0f;
-        
-        _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_deleteButton setImage:[UIImage imageNamed:@"deleteNoteButton"] forState:UIControlStateNormal];
-        [_deleteButton addTarget:self action:@selector(deleteTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_deleteButton];
+        [self addDeleteButton];
     }
     return self;
+}
+
+- (void)addDeleteButton {
+    _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_deleteButton setBackgroundImage:[UIImage imageNamed:@"deleteNoteButton"] forState:UIControlStateNormal];
+    [_deleteButton addTarget:self action:@selector(deleteTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [_deleteButton setContentMode:UIViewContentModeScaleAspectFill];
+    [self addSubview:_deleteButton];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,9 +82,6 @@
     [super touchesEnded:touches withEvent:event];
     NSLog(@"ended");
     // Notify the delegate we've ended our editing session.
-    if (self.delegate && [self.delegate respondsToSelector:@selector(userResizableViewDidEndEditing:)]) {
-        [self.delegate userResizableViewDidEndEditing:self];
-    }
     [_resizableViewDelegate viewDidChangePosition:self.frame];
 }
 

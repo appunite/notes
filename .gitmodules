@@ -1,3 +1,6 @@
 [submodule "Frameworks/SPUserResizableView"]
 	path = Frameworks/SPUserResizableView
 	url = git@github.com:appunite/SPUserResizableView.git
+[submodule "Frameworks/AURosetteView"]
+	path = Frameworks/AURosetteView
+	url = https://github.com/emilwojtaszek/AURosetteView.git

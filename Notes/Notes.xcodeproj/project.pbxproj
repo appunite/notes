@@ -64,20 +64,36 @@
 		244A823016D0421C007A279F /* NTPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 244A822F16D0421C007A279F /* NTPathView.m */; };
 		244A823116D04226007A279F /* NTPathView.h in Headers */ = {isa = PBXBuildFile; fileRef = 244A822E16D0421C007A279F /* NTPathView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		244A823216D0422C007A279F /* NTPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 244A822F16D0421C007A279F /* NTPathView.m */; };
-		248D2A1016C3C7EC00166998 /* play_button_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0A16C3C7EC00166998 /* play_button_icon.png */; };
-		248D2A1116C3C7EC00166998 /* play_button_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0B16C3C7EC00166998 /* play_button_icon@2x.png */; };
-		248D2A1216C3C7EC00166998 /* record_button_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0C16C3C7EC00166998 /* record_button_icon.png */; };
-		248D2A1316C3C7EC00166998 /* record_button_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0D16C3C7EC00166998 /* record_button_icon@2x.png */; };
-		248D2A1416C3C7EC00166998 /* stop_button_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0E16C3C7EC00166998 /* stop_button_icon.png */; };
-		248D2A1516C3C7EC00166998 /* stop_button_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D2A0F16C3C7EC00166998 /* stop_button_icon@2x.png */; };
 		24C42FC416C12BE800B39777 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D885B616BA878A001E9B07 /* AVFoundation.framework */; };
-		24D8858716BA80D6001E9B07 /* audio_note_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D8858516BA80D6001E9B07 /* audio_note_image.png */; };
-		24D8858816BA80D6001E9B07 /* audio_note_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D8858616BA80D6001E9B07 /* audio_note_image@2x.png */; };
 		24D885B516BA8781001E9B07 /* NTNoteAudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */; };
 		24D885B716BA878B001E9B07 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D885B616BA878A001E9B07 /* AVFoundation.framework */; };
 		24D885B816BA879D001E9B07 /* NTNoteAudioView.h in Headers */ = {isa = PBXBuildFile; fileRef = 24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24D885BA16BA9499001E9B07 /* NTNoteAudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */; };
+		AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE831BDA170E41F70097D2B4 /* NTRosetteView.h */; };
+		AE831BDD170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
+		AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
+		AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */; };
+		AEAD37A6170EE0B90049BDC4 /* NTAudioNoteTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */; };
+		AEF270CD1704E1CC00C54E0C /* libAURosetteViewLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */; };
+		AEF270CE1704E21B00C54E0C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270CB1704E1C100C54E0C /* libz.dylib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AEF270C61704E1A000C54E0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 202955C215949B8500F1A26B;
+			remoteInfo = AURosetteView;
+		};
+		AEF270C81704E1A000C54E0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 202956531594AB1400F1A26B;
+			remoteInfo = AURosetteViewLib;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		24310B9416B45EE600587E65 /* CopyFiles */ = {
@@ -140,17 +156,15 @@
 		24310B9D16B45EE600587E65 /* AUNotes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUNotes.m; sourceTree = "<group>"; };
 		244A822E16D0421C007A279F /* NTPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTPathView.h; path = ../../Common/Views/NTPathView.h; sourceTree = "<group>"; };
 		244A822F16D0421C007A279F /* NTPathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTPathView.m; path = ../../Common/Views/NTPathView.m; sourceTree = "<group>"; };
-		248D2A0A16C3C7EC00166998 /* play_button_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_button_icon.png; sourceTree = "<group>"; };
-		248D2A0B16C3C7EC00166998 /* play_button_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_button_icon@2x.png"; sourceTree = "<group>"; };
-		248D2A0C16C3C7EC00166998 /* record_button_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record_button_icon.png; sourceTree = "<group>"; };
-		248D2A0D16C3C7EC00166998 /* record_button_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record_button_icon@2x.png"; sourceTree = "<group>"; };
-		248D2A0E16C3C7EC00166998 /* stop_button_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop_button_icon.png; sourceTree = "<group>"; };
-		248D2A0F16C3C7EC00166998 /* stop_button_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop_button_icon@2x.png"; sourceTree = "<group>"; };
 		24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTNoteAudioView.h; path = ../../Common/Views/NTNoteAudioView.h; sourceTree = "<group>"; };
 		24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTNoteAudioView.m; path = ../../Common/Views/NTNoteAudioView.m; sourceTree = "<group>"; };
-		24D8858516BA80D6001E9B07 /* audio_note_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_note_image.png; sourceTree = "<group>"; };
-		24D8858616BA80D6001E9B07 /* audio_note_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio_note_image@2x.png"; sourceTree = "<group>"; };
 		24D885B616BA878A001E9B07 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		AE831BDA170E41F70097D2B4 /* NTRosetteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTRosetteView.h; path = ../../Common/Views/NTRosetteView.h; sourceTree = "<group>"; };
+		AE831BDB170E41F70097D2B4 /* NTRosetteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTRosetteView.m; path = ../../Common/Views/NTRosetteView.m; sourceTree = "<group>"; };
+		AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTAudioNoteTimeView.h; path = ../../Common/Views/NTAudioNoteTimeView.h; sourceTree = "<group>"; };
+		AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTAudioNoteTimeView.m; path = ../../Common/Views/NTAudioNoteTimeView.m; sourceTree = "<group>"; };
+		AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AURosetteView.xcodeproj; path = ../Frameworks/AURosetteView/AURosetteView.xcodeproj; sourceTree = "<group>"; };
+		AEF270CB1704E1C100C54E0C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +184,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEF270CE1704E21B00C54E0C /* libz.dylib in Frameworks */,
+				AEF270CD1704E1CC00C54E0C /* libAURosetteViewLib.a in Frameworks */,
 				24D885B716BA878B001E9B07 /* AVFoundation.framework in Frameworks */,
 				24310BB216B45F7100587E65 /* CoreGraphics.framework in Frameworks */,
 				24310BB116B45F6D00587E65 /* CoreText.framework in Frameworks */,
@@ -184,6 +200,7 @@
 		208489CC1668E6590071AAC4 = {
 			isa = PBXGroup;
 			children = (
+				AEF270CB1704E1C100C54E0C /* libz.dylib */,
 				24D885B616BA878A001E9B07 /* AVFoundation.framework */,
 				20848B22166A351C0071AAC4 /* CoreText.framework */,
 				208489E11668E6590071AAC4 /* Classes */,
@@ -207,6 +224,7 @@
 		208489DA1668E6590071AAC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */,
 				20848ACB16691FC90071AAC4 /* SPUserResizableView */,
 				208489DB1668E6590071AAC4 /* UIKit.framework */,
 				208489DD1668E6590071AAC4 /* Foundation.framework */,
@@ -248,14 +266,6 @@
 		20848A041668E74A0071AAC4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				248D2A0A16C3C7EC00166998 /* play_button_icon.png */,
-				248D2A0B16C3C7EC00166998 /* play_button_icon@2x.png */,
-				248D2A0C16C3C7EC00166998 /* record_button_icon.png */,
-				248D2A0D16C3C7EC00166998 /* record_button_icon@2x.png */,
-				248D2A0E16C3C7EC00166998 /* stop_button_icon.png */,
-				248D2A0F16C3C7EC00166998 /* stop_button_icon@2x.png */,
-				24D8858516BA80D6001E9B07 /* audio_note_image.png */,
-				24D8858616BA80D6001E9B07 /* audio_note_image@2x.png */,
 				2000919D166E6E8F005C6DC8 /* image.png */,
 				20A359BF166A3F2000793AA0 /* test.json */,
 			);
@@ -287,6 +297,10 @@
 				20848A0E1668EB790071AAC4 /* NTImageView.m */,
 				24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */,
 				24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */,
+				AE831BDA170E41F70097D2B4 /* NTRosetteView.h */,
+				AE831BDB170E41F70097D2B4 /* NTRosetteView.m */,
+				AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */,
+				AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -352,6 +366,15 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		AEF270C21704E19F00C54E0C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AEF270C71704E1A000C54E0C /* AURosetteView.app */,
+				AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -374,6 +397,8 @@
 				24310C3A16B460D200587E65 /* SPUserResizableView.h in Headers */,
 				244A823116D04226007A279F /* NTPathView.h in Headers */,
 				240DBC4216E4B65B00F7D179 /* NTInteractionDelegate.h in Headers */,
+				AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */,
+				AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +460,12 @@
 			mainGroup = 208489CC1668E6590071AAC4;
 			productRefGroup = 208489D81668E6590071AAC4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = AEF270C21704E19F00C54E0C /* Products */;
+					ProjectRef = AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				208489D61668E6590071AAC4 /* Notes */,
@@ -442,6 +473,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		AEF270C71704E1A000C54E0C /* AURosetteView.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = AURosetteView.app;
+			remoteRef = AEF270C61704E1A000C54E0C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAURosetteViewLib.a;
+			remoteRef = AEF270C81704E1A000C54E0C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		208489D51668E6590071AAC4 /* Resources */ = {
@@ -454,14 +502,6 @@
 				208489F21668E6590071AAC4 /* Default-568h@2x.png in Resources */,
 				20A359C0166A3F2000793AA0 /* test.json in Resources */,
 				2000919E166E6E8F005C6DC8 /* image.png in Resources */,
-				24D8858716BA80D6001E9B07 /* audio_note_image.png in Resources */,
-				24D8858816BA80D6001E9B07 /* audio_note_image@2x.png in Resources */,
-				248D2A1016C3C7EC00166998 /* play_button_icon.png in Resources */,
-				248D2A1116C3C7EC00166998 /* play_button_icon@2x.png in Resources */,
-				248D2A1216C3C7EC00166998 /* record_button_icon.png in Resources */,
-				248D2A1316C3C7EC00166998 /* record_button_icon@2x.png in Resources */,
-				248D2A1416C3C7EC00166998 /* stop_button_icon.png in Resources */,
-				248D2A1516C3C7EC00166998 /* stop_button_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +543,7 @@
 				20848B21166A23350071AAC4 /* NTTextView.m in Sources */,
 				24D885BA16BA9499001E9B07 /* NTNoteAudioView.m in Sources */,
 				244A823016D0421C007A279F /* NTPathView.m in Sources */,
+				AE831BDD170E41F70097D2B4 /* NTRosetteView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +566,8 @@
 				24310BA816B45F0700587E65 /* NTNoteViewController.m in Sources */,
 				24310BA916B45F0700587E65 /* NTUserResizableView.m in Sources */,
 				244A823216D0422C007A279F /* NTPathView.m in Sources */,
+				AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */,
+				AEAD37A6170EE0B90049BDC4 /* NTAudioNoteTimeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +646,10 @@
 				GCC_PREFIX_HEADER = "Notes/Notes-Prefix.pch";
 				INFOPLIST_FILE = "Notes/Notes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/BYB-hcbdmbnjqdsrmueyppijlyhgrtuv/Build/Products/Debug-iphoneos\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A1C4EEDD-BA56-4A51-98FB-77D1932ECA4F";
@@ -619,6 +666,10 @@
 				GCC_PREFIX_HEADER = "Notes/Notes-Prefix.pch";
 				INFOPLIST_FILE = "Notes/Notes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/BYB-hcbdmbnjqdsrmueyppijlyhgrtuv/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A1C4EEDD-BA56-4A51-98FB-77D1932ECA4F";
 				WRAPPER_EXTENSION = app;

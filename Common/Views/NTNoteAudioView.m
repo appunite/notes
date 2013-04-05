@@ -12,41 +12,55 @@
 
 - (id)initWithAudioItem:(NTNoteAudioItem *)audioItem
 {
-    self = [super initWithFrame:CGRectZero];
+    self = [super initWithFrame:CGRectZero viewIsResizable:NO showDotsOnEdit:NO showFrameOnEdit:NO];
     if (self) {
         // Initialization code
-
         self.item =audioItem;
         
+        [self setAlpha:0.0];
         [self setFrame:[self.item rect]];
         [self setBackgroundColor:[UIColor clearColor]];
-        [self bringSubviewToFront:borderView];
+        
+        [self addDeleteButton];
+        [_deleteButton removeFromSuperview];
+        [_deleteButton setBackgroundImage:[UIImage imageNamed:@"audio_delete_icon"] forState:UIControlStateNormal];
 
+        _timeView = [[NTAudioNoteTimeView alloc] initWithFrame:CGRectMake(80, 65, 0, 49)];
+        [self addSubview:_timeView];
         
-        _playButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 60, 40)];
-        [_playButton setBackgroundColor:[UIColor grayColor]];
-        [_playButton addTarget:self action:@selector(playAudioNote) forControlEvents:UIControlEventTouchUpInside];
-        [_playButton setImage:[UIImage imageNamed:@"play_button_icon"] forState:UIControlStateNormal];
-        [self addSubview:_playButton];
+        _playItemEnabled = YES;
+        _recordItemEnabled = YES;
+        _stopItemEnabled = YES;
+        
+        UIImage* playImage = [UIImage imageNamed:@"play_button_icon"];
+        UIImage* recordImage = [UIImage imageNamed:@"record_button_icon"];
+        UIImage* stopImage = [UIImage imageNamed:@"stop_button_icon"];
+        
+        // create rosette items
+        _playItem = [[AURosetteItem alloc] initWithNormalImage:playImage
+                                              highlightedImage:nil
+                                                        target:self
+                                                        action:@selector(playButtonAction:)];
+        
+        _recordItem = [[AURosetteItem alloc] initWithNormalImage:recordImage
+                                                highlightedImage:nil
+                                                          target:self
+                                                          action:@selector(recordButtonAction:)];
+        
+        _stopItem = [[AURosetteItem alloc] initWithNormalImage:stopImage
+                                              highlightedImage:nil
+                                                        target:self
+                                                        action:@selector(stopButtonAction:)];
+        
+        // create rosette view
+        _rosetteView = [[NTRosetteView alloc] initWithItems: @[_playItem, _recordItem, _stopItem]];
+        [_rosetteView setCenter:CGPointMake(90.0f, 90.0f)];
+        [self addSubview:_rosetteView];
+        
+        [_rosetteView setOn:YES animated:YES];
 
-        
-        _stopButton = [[UIButton alloc] initWithFrame:CGRectMake(70, 30, 60, 40)];
-        [_stopButton setBackgroundColor:[UIColor grayColor]];
-        [_stopButton addTarget:self action:@selector(stopAudioNote) forControlEvents:UIControlEventTouchUpInside];
-        [_stopButton setImage:[UIImage imageNamed:@"stop_button_icon"] forState:UIControlStateNormal];
-        [self addSubview:_stopButton];
-        
-        _recordButton = [[UIButton alloc] initWithFrame:CGRectMake(130, 30, 60, 40)];
-        [_recordButton setImage:[UIImage imageNamed:@"record_button_icon"] forState:UIControlStateNormal];
-        [_recordButton addTarget:self action:@selector(recordButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-        [_recordButton setBackgroundColor:[UIColor grayColor]];
-        [self addSubview:_recordButton];
-        
-        _currentTime = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 180, 20)];
-        [_currentTime setBackgroundColor:[UIColor grayColor]];
-        [_currentTime setText:@"no audio item"];
-        [_currentTime setTextColor:[UIColor blackColor]];
-        [self addSubview:_currentTime];
+        UILongPressGestureRecognizer * longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(wheelButtonLongPress:)];
+        [_rosetteView.wheelButton addGestureRecognizer:longPressRecognizer];
         
         [self prepareToPlay];
         
@@ -55,7 +69,41 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setContentView:(UIView *)newContentView {
+    [super setContentView:newContentView];
+    [self hideEditingHandles];
+}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [_deleteButton removeFromSuperview];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)didMoveToSuperview {
+    
+    CGRect rect = [self.item rect];
+    self.frame = CGRectOffset(rect, -49, -63);
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self setAlpha:1.0];
+    }];
+    
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(userResizableViewDidEndEditing:)]) {
+        [self.delegate userResizableViewDidEndEditing:self];
+    }
+    
+    NSLog(@"ended");
+    // Notify the delegate we've ended our editing session.
+    [self.resizableViewDelegate viewDidChangePosition:CGRectOffset(self.frame, 49, 63)];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)prepareToPlay{
     
     if([self.item localPath]){
@@ -63,7 +111,6 @@
         // create NSURL from item localPath
         _fileURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         _fileURL = [_fileURL URLByAppendingPathComponent:[self.item localPath]];
-        
     }
     
     //check if resource is reachable 
@@ -86,7 +133,8 @@
             // save downloaded data to file
             [fileData writeToURL:_fileURL atomically:YES];
         }
-        
+    } else {
+        [self presentTimeViewForced:YES];
     }
     
     // update info about current audio note on timer
@@ -109,8 +157,44 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)presentTimeView {
+    [self presentTimeViewForced:NO];
+}
 
--(void)recordButtonTapped{
+- (void)presentTimeViewForced:(BOOL)forced {
+    
+    [_timeView setCurrentTime:_currentTime recording:_recording];
+    
+    CGRect newFrame = _timeView.frame;
+    newFrame.origin.x = (_recording || audioRecorder) ? -15 : (forced || _playing) ? -45 : 80;
+    newFrame.size.width = (_recording || audioRecorder) ? 90 : (forced || _playing) ? 130 : 0;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [_timeView setFrame:newFrame];
+    }];
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)recordButtonAction:(AURosetteItem*)sender{
+   
+    if (!_recordItemEnabled) return;
+    
+    _recording = !_recording;
+    _playing = NO;
+    
+    if (audioPlayer) {
+        [audioPlayer stop];
+    }
+    
+    if (audioRecorder) {
+        if (_recording) {
+            [audioRecorder record];
+        } else {
+            [audioRecorder pause];
+        }
+        [self updateButtons];
+        return;
+    }
     
     // check if item has previous record if yes warn user that he will be overridden
     if(audioPlayer.data){
@@ -124,6 +208,76 @@
     }
     else {
         [self recordAudioNote];
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)wheelButtonLongPress:(UILongPressGestureRecognizer*)gesture {
+    
+    [_deleteButton removeFromSuperview];
+    [_rosetteView addSubview:_deleteButton];
+    [_deleteButton setFrame:CGRectIntegral(_rosetteView.wheelButton.frame)];
+    [self bringSubviewToFront:_deleteButton];
+ 
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)playButtonAction:(AURosetteItem*)sender{
+    
+    if (!_playItemEnabled) return;
+   
+    _playing = !_playing;
+    
+    [self updateButtons];
+    
+    if (_playing) {
+        [self playAudioNote];
+    } else {
+        [audioPlayer pause];
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)stopButtonAction:(AURosetteItem*)sender{
+
+    if (!_stopItemEnabled) return;
+    
+    if (audioPlayer) {
+        [audioPlayer stop];
+    }
+    
+    _playing = NO;
+    _recording = NO;
+    
+    [self stopAudioNote];
+    [self updateButtons];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)updateButtons {
+    [self presentTimeView];
+    
+    BOOL pulse = (audioRecorder && !_recording);
+    
+    [_rosetteView updateImageAtIndex:0 image:[UIImage imageNamed:_playing ? @"pause_button_icon" : @"play_button_icon"]];
+    [_rosetteView updateImageAtIndex:1 image:[UIImage imageNamed:_recording ? @"pause_record_button_icon" : @"record_button_icon"] pulse:pulse];
+    [_rosetteView updateImageAtIndex:2 image:[UIImage imageNamed:audioRecorder || _recording ? @"stop_record_button_icon" :  @"stop_button_icon"]];
+    
+    if (pulse) {
+        CABasicAnimation *opacityBlink = [CABasicAnimation animationWithKeyPath:@"opacity" ];
+        opacityBlink.delegate = self;
+        [opacityBlink setFromValue:[NSNumber numberWithFloat:0.0]];
+        [opacityBlink setToValue:[NSNumber numberWithFloat:1.0]];
+        [opacityBlink setDuration:0.5f];
+        opacityBlink.repeatCount = CGFLOAT_MAX;
+        opacityBlink.autoreverses = YES;
+        [_timeView.timeLabel.layer addAnimation:opacityBlink forKey:@"opacity"];
+    } else {
+        [_timeView.timeLabel.layer removeAnimationForKey:@"opacity"];
     }
 }
 
@@ -144,6 +298,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)recordAudioNote
 {
+    [self updateButtons];
     
     NSDictionary *recordSettings = [NSDictionary
                                     dictionaryWithObjectsAndKeys:
@@ -183,11 +338,10 @@
     
     if (!audioRecorder.recording)
     {
-        _playButton.enabled = NO;
-        _stopButton.enabled = YES;
+        _playItemEnabled = NO;
+        _stopItemEnabled = YES;
 
         [audioRecorder record];
-        [_recordButton setBackgroundColor:[UIColor redColor]];
         
         [myTimer invalidate];
         myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
@@ -203,12 +357,9 @@
 -(void)stopAudioNote
 {
     
-    _stopButton.enabled = NO;
-    _playButton.enabled = YES;
-    _recordButton.enabled = YES;
-    
-    [_recordButton setBackgroundColor:[UIColor grayColor]];
-    [_playButton setBackgroundColor:[UIColor grayColor]];
+    _stopItemEnabled = YES;
+    _playItemEnabled = YES;
+    _recordItemEnabled = YES;
     
     if (audioRecorder.recording)
     {
@@ -217,6 +368,8 @@
         [audioPlayer stop];
     }
     
+    audioRecorder = nil;
+    [myTimer invalidate];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -226,15 +379,13 @@
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
-    [_playButton setBackgroundColor:[UIColor redColor]];
+
     if (!audioRecorder.recording)
     {
         
-    _stopButton.enabled = YES;
-    _recordButton.enabled = NO;
+    _stopItemEnabled = YES;
+    _recordItemEnabled = YES;
 
-        
     NSData *data = [NSData dataWithContentsOfURL:_fileURL];
         
     NSError *error;
@@ -267,8 +418,9 @@
     NSInteger endMinutes = floor(audioPlayer.duration/60);
     NSInteger endSeconds = round(audioPlayer.duration - endMinutes * 60);
 
-    [_currentTime setText:[NSString stringWithFormat:@"%d:%02d / %d:%02d", minutes, seconds, endMinutes, endSeconds]];
-    
+    NSString * currentTime = [NSString stringWithFormat:@"%d:%02d / %d:%02d", minutes, seconds, endMinutes, endSeconds];
+    [_timeView setCurrentTime:currentTime recording:_recording];
+ 
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -278,8 +430,8 @@
     NSInteger endMinutes = floor(audioRecorder.currentTime/60);
     NSInteger endSeconds = round(audioRecorder.currentTime - endMinutes * 60);
     
-    [_currentTime setText:[NSString stringWithFormat:@"%d:%02d", endMinutes, endSeconds]];
-    
+    NSString * currentTime = [NSString stringWithFormat:@"%d:%02d", endMinutes, endSeconds];
+    [_timeView setCurrentTime:currentTime recording:_recording];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -299,9 +451,12 @@
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
-    _recordButton.enabled = YES;
-    _stopButton.enabled = NO;
-    [_playButton setBackgroundColor:[UIColor grayColor]];
+    _recordItemEnabled = YES;
+    _stopItemEnabled = NO;
+    _playing = NO;
+    _recording = NO;
+    
+    [self updateButtons];
 }
 
 

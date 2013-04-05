@@ -15,7 +15,6 @@
 #import "NTInteractionDelegate.h"
 
 @protocol NTUserResizableViewDelegate <NSObject>
-
 -(void)viewDidChangePosition:(CGRect)frame;
 @end
 
@@ -24,7 +23,8 @@
 }
 // keep model object
 @property (nonatomic, weak) NTNoteItem* item;
-@property id<NTUserResizableViewDelegate> resizableViewDelegate;
+@property (weak) id<NTUserResizableViewDelegate> resizableViewDelegate;
 @property id <NTInteractionDelegate> interactionDelegate;
 - (id)initWithItem:(NTNoteItem *)item;
+- (void)addDeleteButton;
 @end

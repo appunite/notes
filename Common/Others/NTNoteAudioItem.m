@@ -36,7 +36,7 @@
         CGContextScaleCTM(ctx, 1.0, -1.0);
         
         // draw image
-        CGContextDrawImage(ctx, CGRectMake(CGRectGetMinX(imageRect), 0, CGRectGetWidth(imageRect), CGRectGetHeight(imageRect)), contentImage.CGImage);
+        CGContextDrawImage(ctx, CGRectMake(CGRectGetMinX(imageRect), 0, 65, 65), contentImage.CGImage);
         CGContextRestoreGState(ctx);
     }
 }
