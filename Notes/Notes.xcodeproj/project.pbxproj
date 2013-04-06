@@ -74,31 +74,18 @@
 		AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
 		AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */; };
 		AEAD37A6170EE0B90049BDC4 /* NTAudioNoteTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */; };
-		AEBBBE1D170F44EA00726B5D /* libAURosetteViewLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */; };
 		AEBBBE1F170F452A00726B5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBBBE1E170F452A00726B5D /* QuartzCore.framework */; };
 		AEBBBE21170F453900726B5D /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBBBE20170F453900726B5D /* CoreImage.framework */; };
 		AEBBBE22170F45AE00726B5D /* NTNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 208489F41668E6590071AAC4 /* NTNoteViewController.m */; };
 		AEBBBE23170F45AE00726B5D /* NTAudioNoteTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */; };
-		AEF270CD1704E1CC00C54E0C /* libAURosetteViewLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */; };
+		AEBBBE3B1710595E00726B5D /* AURosetteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = AEBBBE371710595E00726B5D /* AURosetteItem.h */; };
+		AEBBBE3C1710595E00726B5D /* AURosetteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBBBE381710595E00726B5D /* AURosetteItem.m */; };
+		AEBBBE3D1710595E00726B5D /* AURosetteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBBBE381710595E00726B5D /* AURosetteItem.m */; };
+		AEBBBE3E1710595E00726B5D /* AURosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEBBBE391710595E00726B5D /* AURosetteView.h */; };
+		AEBBBE3F1710595E00726B5D /* AURosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBBBE3A1710595E00726B5D /* AURosetteView.m */; };
+		AEBBBE401710595E00726B5D /* AURosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBBBE3A1710595E00726B5D /* AURosetteView.m */; };
 		AEF270CE1704E21B00C54E0C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270CB1704E1C100C54E0C /* libz.dylib */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		AEF270C61704E1A000C54E0C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 202955C215949B8500F1A26B;
-			remoteInfo = AURosetteView;
-		};
-		AEF270C81704E1A000C54E0C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 202956531594AB1400F1A26B;
-			remoteInfo = AURosetteViewLib;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		24310B9416B45EE600587E65 /* CopyFiles */ = {
@@ -170,7 +157,10 @@
 		AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTAudioNoteTimeView.m; path = ../../Common/Views/NTAudioNoteTimeView.m; sourceTree = "<group>"; };
 		AEBBBE1E170F452A00726B5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AEBBBE20170F453900726B5D /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AURosetteView.xcodeproj; path = ../Frameworks/AURosetteView/AURosetteView.xcodeproj; sourceTree = "<group>"; };
+		AEBBBE371710595E00726B5D /* AURosetteItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AURosetteItem.h; path = ../Frameworks/AURosetteView/AURosetteView/RosetteView/AURosetteItem.h; sourceTree = "<group>"; };
+		AEBBBE381710595E00726B5D /* AURosetteItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AURosetteItem.m; path = ../Frameworks/AURosetteView/AURosetteView/RosetteView/AURosetteItem.m; sourceTree = "<group>"; };
+		AEBBBE391710595E00726B5D /* AURosetteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AURosetteView.h; path = ../Frameworks/AURosetteView/AURosetteView/RosetteView/AURosetteView.h; sourceTree = "<group>"; };
+		AEBBBE3A1710595E00726B5D /* AURosetteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AURosetteView.m; path = ../Frameworks/AURosetteView/AURosetteView/RosetteView/AURosetteView.m; sourceTree = "<group>"; };
 		AEF270CB1704E1C100C54E0C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -182,7 +172,6 @@
 				208489E01668E6590071AAC4 /* CoreGraphics.framework in Frameworks */,
 				AEBBBE21170F453900726B5D /* CoreImage.framework in Frameworks */,
 				AEBBBE1F170F452A00726B5D /* QuartzCore.framework in Frameworks */,
-				AEBBBE1D170F44EA00726B5D /* libAURosetteViewLib.a in Frameworks */,
 				24C42FC416C12BE800B39777 /* AVFoundation.framework in Frameworks */,
 				20848B23166A351D0071AAC4 /* CoreText.framework in Frameworks */,
 				208489DC1668E6590071AAC4 /* UIKit.framework in Frameworks */,
@@ -195,7 +184,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEF270CE1704E21B00C54E0C /* libz.dylib in Frameworks */,
-				AEF270CD1704E1CC00C54E0C /* libAURosetteViewLib.a in Frameworks */,
 				24D885B716BA878B001E9B07 /* AVFoundation.framework in Frameworks */,
 				24310BB216B45F7100587E65 /* CoreGraphics.framework in Frameworks */,
 				24310BB116B45F6D00587E65 /* CoreText.framework in Frameworks */,
@@ -232,11 +220,11 @@
 		208489DA1668E6590071AAC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AEBBBE361710594800726B5D /* AURosetteView */,
 				AEBBBE1E170F452A00726B5D /* QuartzCore.framework */,
 				AEF270CB1704E1C100C54E0C /* libz.dylib */,
 				24D885B616BA878A001E9B07 /* AVFoundation.framework */,
 				20848B22166A351C0071AAC4 /* CoreText.framework */,
-				AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */,
 				20848ACB16691FC90071AAC4 /* SPUserResizableView */,
 				208489DB1668E6590071AAC4 /* UIKit.framework */,
 				208489DD1668E6590071AAC4 /* Foundation.framework */,
@@ -378,13 +366,15 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
-		AEF270C21704E19F00C54E0C /* Products */ = {
+		AEBBBE361710594800726B5D /* AURosetteView */ = {
 			isa = PBXGroup;
 			children = (
-				AEF270C71704E1A000C54E0C /* AURosetteView.app */,
-				AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */,
+				AEBBBE371710595E00726B5D /* AURosetteItem.h */,
+				AEBBBE381710595E00726B5D /* AURosetteItem.m */,
+				AEBBBE391710595E00726B5D /* AURosetteView.h */,
+				AEBBBE3A1710595E00726B5D /* AURosetteView.m */,
 			);
-			name = Products;
+			name = AURosetteView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,6 +401,8 @@
 				240DBC4216E4B65B00F7D179 /* NTInteractionDelegate.h in Headers */,
 				AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */,
 				AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */,
+				AEBBBE3B1710595E00726B5D /* AURosetteItem.h in Headers */,
+				AEBBBE3E1710595E00726B5D /* AURosetteView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,12 +464,6 @@
 			mainGroup = 208489CC1668E6590071AAC4;
 			productRefGroup = 208489D81668E6590071AAC4 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = AEF270C21704E19F00C54E0C /* Products */;
-					ProjectRef = AEF270C11704E19F00C54E0C /* AURosetteView.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				208489D61668E6590071AAC4 /* Notes */,
@@ -485,23 +471,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		AEF270C71704E1A000C54E0C /* AURosetteView.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = AURosetteView.app;
-			remoteRef = AEF270C61704E1A000C54E0C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		AEF270C91704E1A000C54E0C /* libAURosetteViewLib.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAURosetteViewLib.a;
-			remoteRef = AEF270C81704E1A000C54E0C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		208489D51668E6590071AAC4 /* Resources */ = {
@@ -558,6 +527,8 @@
 				24D885BA16BA9499001E9B07 /* NTNoteAudioView.m in Sources */,
 				244A823016D0421C007A279F /* NTPathView.m in Sources */,
 				AE831BDD170E41F70097D2B4 /* NTRosetteView.m in Sources */,
+				AEBBBE3C1710595E00726B5D /* AURosetteItem.m in Sources */,
+				AEBBBE3F1710595E00726B5D /* AURosetteView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +553,8 @@
 				244A823216D0422C007A279F /* NTPathView.m in Sources */,
 				AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */,
 				AEAD37A6170EE0B90049BDC4 /* NTAudioNoteTimeView.m in Sources */,
+				AEBBBE3D1710595E00726B5D /* AURosetteItem.m in Sources */,
+				AEBBBE401710595E00726B5D /* AURosetteView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 AppUnite.com. All rights reserved.
 //
 
-#import <AURosetteView/AURosetteView.h>
+#import "AURosetteView.h"
 
 @interface NTRosetteView : AURosetteView
 - (void)updateImageAtIndex:(NSUInteger)index image:(UIImage*)image;
