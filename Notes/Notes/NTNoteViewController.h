@@ -29,6 +29,8 @@
 @property id <NTNoteDelegate> delegate;
 @property (strong, nonatomic) NSString *filePath;
 
+// setFilePath
+- (void)setFilePath:(NSString *)filePath saveCurrent:(BOOL)saveCurrent;
 // load JSON file and fill items array
 - (BOOL)loadNoteItemsFromFile:(NSString *)file error:(NSError **)error;
 // init with scroll view frame

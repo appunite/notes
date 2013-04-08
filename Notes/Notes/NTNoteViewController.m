@@ -100,17 +100,31 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)setFilePath:(NSString *)filePath {
+    [self setFilePath:filePath saveCurrent:(_filePath && ![_filePath isEqualToString:@""])];
+}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setFilePath:(NSString *)filePath saveCurrent:(BOOL)saveCurrent {
+    // if it is refresh not init
+    if (saveCurrent) {
+        // exit&save any edited file
+        [self exitEditMode];
+    }
+    // remove old notes
+    [_items removeAllObjects];
+    // reload view
+    [_contentView setNeedsDisplay];
+    
+    _filePath = filePath;
     NSError* error = nil;
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
-
-    if([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
-    [self loadNoteItemsFromFile:filePath error:&error];
+    NSString *documentFilePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:documentFilePath]) {
+        [self loadNoteItemsFromFile:documentFilePath error:&error];
     }
     
     if (error) {
@@ -663,8 +677,6 @@
         }        
         // if last object
         else if (idx == [_items count] -1) {
-
-            return;
             // egit edit mode
             [self exitEditMode];
         }
