@@ -649,8 +649,14 @@
         // apply value to our frame & save result
         frame.origin.y = result;
         [_currentNoteView setFrame:frame];
+        [_currentNoteView.item setRect:frame];
+        
+        return;
+    } else {
+        [_currentNoteView.item setRect:CGRectInset(frame, -20.0f, -20.0f)];
+        
+        [self exitEditMode];
     }
-    [_currentNoteView.item setRect:frame];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

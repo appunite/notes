@@ -15,6 +15,8 @@
 static const CGFloat kPointMinDistance = 5;
 static const CGFloat kPointMinDistanceSquared = 10;
 
+static const CGFloat kInsetBox = 20.0f;
+
 @implementation NTNoteContentView{
     // points used for drawing mode
     CGPoint _currentPoint;
@@ -178,7 +180,7 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
     CGRect rect = CGPathGetBoundingBox(_currentNotePathItem.path);
 
     // save rect to item
-    [_currentNotePathItem setRect:rect];
+    [_currentNotePathItem setRect:CGRectInset(rect, -kInsetBox, -kInsetBox)];
     
     // save content view state
     [_delegate saveCurrentNoteItemPath];

@@ -23,7 +23,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:CGRectZero viewIsResizable:NO showDotsOnEdit:NO showFrameOnEdit:YES];
+    self = [super initWithFrame:CGRectZero viewIsResizable:NO showDotsOnEdit:NO showFrameOnEdit:NO];
     if (self) {
         self.minHeight = 180.0f;
         self.minWidth = 180.0f;
@@ -32,6 +32,7 @@
     return self;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)addDeleteButton {
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_deleteButton setBackgroundImage:[UIImage imageNamed:@"deleteNoteButton"] forState:UIControlStateNormal];
@@ -44,7 +45,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [_deleteButton setFrame:CGRectMake(-10, -15, 26.0f, 30.0f)];
+    [_deleteButton setFrame:CGRectMake(0, 0, 26.0f, 30.0f)];
     [self bringSubviewToFront:_deleteButton];
 }
 
@@ -89,7 +90,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)deleteTapped:(id)sender {
-    [self.interactionDelegate deleteItem:self.item];
+    if ([self.interactionDelegate respondsToSelector:@selector(deleteItem:)]) {
+        [self.interactionDelegate deleteItem:self.item];
+    }
 }
 
 @end
