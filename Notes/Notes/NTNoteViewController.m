@@ -213,6 +213,8 @@
     // add item to array
     [_items addObject:image];
 
+    // reload content view
+    [_contentView setNeedsDisplay];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -651,7 +653,9 @@
         [_currentNoteView setFrame:frame];
         [_currentNoteView.item setRect:frame];
         
-        return;
+    } else if([_currentNoteView.item isKindOfClass:[NTNoteImageItem class]]) {
+        [_currentNoteView.item setRect:frame];
+        
     } else {
         [_currentNoteView.item setRect:CGRectInset(frame, -20.0f, -20.0f)];
         
