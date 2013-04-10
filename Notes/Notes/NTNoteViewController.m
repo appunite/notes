@@ -603,6 +603,13 @@
             
             //create audio view
             [[_currentNoteView item] setRect:CGRectMake(_currentNoteView.item.rect.origin.x, _currentNoteView.item.rect.origin.y, 66.0f, 66.0f)];
+            
+        } else if ([_currentNoteView isKindOfClass:[NTTextView class]]) {
+            if ([[(NTTextView*)_currentNoteView getText] isEqualToString:@""]) {
+                [_currentNoteView resignFirstResponder];
+                [_items removeObject:_currentNoteView.item];
+                [_contentView setNeedsDisplay];
+            }
         }
         
         // hide blue dots

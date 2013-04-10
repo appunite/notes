@@ -7,6 +7,7 @@
 //
 
 #import "NTUserResizableView.h"
+#import "NTTextView.h"
 
 @implementation NTUserResizableView
 
@@ -34,11 +35,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)addDeleteButton {
-    _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_deleteButton setBackgroundImage:[UIImage imageNamed:@"deleteNoteButton"] forState:UIControlStateNormal];
-    [_deleteButton addTarget:self action:@selector(deleteTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [_deleteButton setContentMode:UIViewContentModeScaleAspectFill];
-    [self addSubview:_deleteButton];
+    if (![self isKindOfClass:[NTTextView class]]) {
+        _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_deleteButton setBackgroundImage:[UIImage imageNamed:@"deleteNoteButton"] forState:UIControlStateNormal];
+        [_deleteButton addTarget:self action:@selector(deleteTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [_deleteButton setContentMode:UIViewContentModeScaleAspectFill];
+        [self addSubview:_deleteButton];
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

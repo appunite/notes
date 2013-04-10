@@ -33,6 +33,7 @@
 -(void)updateTextView;
 -(void)selectAll:(id)sender;
 -(void)recalculateFrame;
+-(NSString*)getText;
 
 @property (nonatomic, assign) CGRect maxRect;
 @property (nonatomic, weak) id noteViewDelegate;
