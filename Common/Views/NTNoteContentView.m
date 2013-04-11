@@ -120,23 +120,27 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
   
     if(_noteContentMode == NTNoteContentModeDrawing){
 
-    _currentNotePathItem = [_delegate requestNewNotePathItem];
-    
-    UITouch *touch = [touches anyObject];
-    
-    _previousPoint1 = [touch previousLocationInView:self];
-    _previousPoint2 = [touch previousLocationInView:self];
-    _currentPoint = [touch locationInView:self];
-    
-    [self touchesMoved:touches withEvent:event];
-    
+        _currentNotePathItem = [_delegate requestNewNotePathItem];
+        
+        UITouch *touch = [touches anyObject];
+        
+        _previousPoint1 = [touch previousLocationInView:self];
+        _previousPoint2 = [touch previousLocationInView:self];
+        _currentPoint = [touch locationInView:self];
+        
+        [self touchesMoved:touches withEvent:event];
+    } else if ([_delegate respondsToSelector:@selector(touchesBegan:withEvent:)]) {
+        [_delegate performSelector:@selector(touchesBegan:withEvent:) withObject:touches withObject:event];
     }
-    
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     
+    if (_noteContentMode != NTNoteContentModeDrawing && ([_delegate respondsToSelector:@selector(touchesMoved:withEvent:)])) {
+        [_delegate performSelector:@selector(touchesMoved:withEvent:) withObject:touches withObject:event];
+        return;
+    }
     
     UITouch *touch = [touches anyObject];
     
@@ -175,6 +179,11 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
     
 }
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    if (_noteContentMode != NTNoteContentModeDrawing && ([_delegate respondsToSelector:@selector(touchesEnded:withEvent:)])) {
+        [_delegate performSelector:@selector(touchesEnded:withEvent:) withObject:touches withObject:event];
+        return;
+    }
   
     // get rect from current note path
     CGRect rect = CGPathGetBoundingBox(_currentNotePathItem.path);

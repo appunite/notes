@@ -20,7 +20,9 @@
 -(NSDictionary *)getBrushAtributes;
 @end
 
-@interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate, NTInteractionDelegate, NTTextViewDelegate>
+@interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate, NTInteractionDelegate, NTTextViewDelegate> {
+    UIView * _draggedItem;
+}
 
 // keep all drawing item objects
 @property (nonatomic, strong) NSMutableArray* items;

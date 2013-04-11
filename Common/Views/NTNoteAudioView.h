@@ -28,6 +28,7 @@
     UIView *myView;
     UILabel *_currentTime;
     NSTimer * myTimer;
+    CGPoint _offsetFromParent;
     
     NTAudioNoteTimeView * _timeView;
     

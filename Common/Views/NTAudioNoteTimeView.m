@@ -42,7 +42,7 @@
 }
 
 - (void)layoutSubviews {
-    [_timeLabel setFrame:CGRectOffset(CGRectInset(self.bounds, 5, 0), -7, 0)];
+    [_timeLabel setFrame:CGRectOffset(CGRectInset(self.bounds, 5, 0), -9, 0)];
 }
 
 - (void)setCurrentTime:(NSString *)time recording:(BOOL)recording {

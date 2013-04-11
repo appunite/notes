@@ -21,11 +21,13 @@
         [self setFrame:[self.item rect]];
         [self setBackgroundColor:[UIColor clearColor]];
         
+        _offsetFromParent = CGPointMake(113, 75);
+        
         [self addDeleteButton];
         [_deleteButton removeFromSuperview];
         [_deleteButton setBackgroundImage:[UIImage imageNamed:@"audio_delete_icon"] forState:UIControlStateNormal];
 
-        _timeView = [[NTAudioNoteTimeView alloc] initWithFrame:CGRectMake(80, 65, 0, 49)];
+        _timeView = [[NTAudioNoteTimeView alloc] initWithFrame:CGRectMake(158, 75, 0, 49)];
         [self addSubview:_timeView];
         
         _playItemEnabled = YES;
@@ -54,7 +56,7 @@
         
         // create rosette view
         _rosetteView = [[NTRosetteView alloc] initWithItems: @[_playItem, _recordItem, _stopItem]];
-        [_rosetteView setCenter:CGPointMake(90.0f, 90.0f)];
+        [_rosetteView setCenter:CGPointMake(154.0f, 100.0f)];
         [self addSubview:_rosetteView];
         
         [_rosetteView setOn:YES animated:YES];
@@ -84,7 +86,7 @@
 - (void)didMoveToSuperview {
     
     CGRect rect = [self.item rect];
-    self.frame = CGRectOffset(rect, -49, -63);
+    self.frame = CGRectOffset(rect, - _offsetFromParent.x, -_offsetFromParent.y);
     
     [UIView animateWithDuration:0.2 animations:^{
         [self setAlpha:1.0];
@@ -99,8 +101,9 @@
     }
     
     NSLog(@"ended");
+    
     // Notify the delegate we've ended our editing session.
-    [self.resizableViewDelegate viewDidChangePosition:CGRectOffset(self.frame, 49, 63)];
+    [self.resizableViewDelegate viewDidChangePosition:CGRectOffset(self.frame, _offsetFromParent.x, _offsetFromParent.y)];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,7 +169,7 @@
     [_timeView setCurrentTime:_currentTime recording:_recording];
     
     CGRect newFrame = _timeView.frame;
-    newFrame.origin.x = (_recording || audioRecorder) ? -15 : (forced || _playing) ? -45 : 80;
+    newFrame.origin.x = (_recording || audioRecorder) ? 53 : (forced || _playing) ? 23 : 148;
     newFrame.size.width = (_recording || audioRecorder) ? 90 : (forced || _playing) ? 130 : 0;
     
     [UIView animateWithDuration:0.3 animations:^{

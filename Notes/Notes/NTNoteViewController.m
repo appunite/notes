@@ -562,7 +562,7 @@
     else if([item isKindOfClass:[NTNoteAudioItem class]]){
         
         //create audio view
-        [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 200.0f, 200.0f)];
+        [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 264.0f, 220.0f)];
         _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:(NTNoteAudioItem *)item];
         [_contentView removeGestureRecognizer:_tapGestureRecognizer];
         [_currentNoteView setResizableViewDelegate:self];
@@ -622,6 +622,10 @@
         // redraw view
         [_contentView setNeedsDisplay];
         
+        if (![[_contentView gestureRecognizers] containsObject:_tapGestureRecognizer]) {
+            [_contentView addGestureRecognizer:_tapGestureRecognizer];
+        }
+        
         [self saveNoteItems];
     }
 }
@@ -660,7 +664,7 @@
         [_currentNoteView setFrame:frame];
         [_currentNoteView.item setRect:frame];
         
-    } else if([_currentNoteView.item isKindOfClass:[NTNoteImageItem class]]) {
+    } else if([_currentNoteView.item isKindOfClass:[NTNoteImageItem class]] || [_currentNoteView.item isKindOfClass:[NTNoteAudioItem class]]) {
         [_currentNoteView.item setRect:frame];
         
     } else {
@@ -680,18 +684,26 @@
     // get touch point
     CGPoint point = [gestureRecognizer locationInView:_contentView];
     
+    [self handleActionForPoint:point edit:YES];
+}
+
+- (void)handleActionForPoint:(CGPoint)point edit:(BOOL)edit {
+       
     // enumerate all items
     [_items enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NTNoteItem* item, NSUInteger idx, BOOL *stop) {
-
+        
         // check if rect of item contain touch point
         if (!item.editingMode &&  CGRectContainsPoint(item.rect, point)) {
             
+            if (edit) {
             // enter editimg mode with selected item
-            [self enterEditModeOfItem:item];
-
+                [self enterEditModeOfItem:item];
+            } else {
+                _draggedItem = item;
+            }
             // yeap, we found
             *stop = YES;
-        }        
+        }
         // if last object
         else if (idx == [_items count] -1) {
             // egit edit mode
@@ -700,6 +712,38 @@
     }];
 }
 
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+   
+    [super touchesBegan:touches withEvent:event];
+   
+    _draggedItem = nil;
+    
+    CGPoint point = [[touches anyObject] locationInView:_contentView];
+    [self handleActionForPoint:point edit:NO];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+ 
+    [super touchesMoved:touches withEvent:event];
+    
+    CGPoint point = [[touches anyObject] locationInView:_contentView];
+    UIEdgeInsets insets = UIEdgeInsetsMake(70, 130, 70, 80);
+    
+    if ((point.x > insets.left) && (point.x + insets.right < CGRectGetWidth(_contentView.frame)) && (point.y > insets.top) && (point.y + insets.bottom < CGRectGetHeight(_contentView.frame)) && [_draggedItem isKindOfClass:[NTNoteAudioItem class]]) {
+        CGRect frame = [(NTNoteAudioItem*)_draggedItem rect];
+        frame.origin.x = floorf(point.x - CGRectGetWidth(frame) * 0.5);
+        frame.origin.y = floorf(point.y - CGRectGetHeight(frame) * 0.5);
+        [(NTNoteAudioItem*)_draggedItem setRect:frame];
+        [_contentView setNeedsDisplay];
+    }
+    
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    _draggedItem = nil;
+}
 
 #pragma mark - flags getters
 
