@@ -218,7 +218,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)requestNewNoteTextItemWithFrame:(CGRect)frame {
+- (void)requestNewNoteTextItemWithFrame:(CGRect)frame selectText:(BOOL)selectText {
     
     NTNoteTextItem *item = [[NTNoteTextItem alloc] init];
     
@@ -233,7 +233,7 @@
     CGSize size = [item.text sizeWithFont:item.font constrainedToSize:CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     size.width += 30.0f; size.height += 30.0f;
     if (CGRectEqualToRect(frame, CGRectZero)) {
-        rect = CGRectMake(10.0f, 10.0f, size.width, size.height);
+        rect = CGRectMake(5.0f, 10.0f, size.width, size.height);
     } else {
         rect = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), size.width, size.height);
     }
@@ -256,7 +256,7 @@
     // set frame to match lines
     [self viewDidChangePosition:rect];
     // select text
-    [_currentNoteView selectAll:self];
+    if (selectText) [_currentNoteView selectAll:self];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

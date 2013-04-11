@@ -37,7 +37,7 @@
 -(id)initWithContentViewFrame:(CGRect)frame;
 
 /** If frame is CGRectZero, new textNote is saved to default frame **/
--(void)requestNewNoteTextItemWithFrame:(CGRect)frame;
+-(void)requestNewNoteTextItemWithFrame:(CGRect)frame selectText:(BOOL)selectText;
 -(void)updateCurrentNoteView;
 -(void)requestNewNoteImageItemWithPath:(NSString *)path;
 -(void)requestNewNoteAudioItem;
