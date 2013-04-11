@@ -136,7 +136,7 @@
 #pragma mark - UITextView delegate
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)textViewDidChange:(UITextView *)textView {
+- (void)textViewWillChange:(UITextView *)textView {
     [self recalculateFrame];
 }
 
