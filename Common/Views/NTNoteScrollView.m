@@ -22,7 +22,7 @@
         [self setDecelerationRate:UIScrollViewDecelerationRateFast];
         [self setBackgroundColor:[UIColor clearColor]];
         [self setMinimumZoomScale:1.0];
-        [self setMaximumZoomScale:3.0f];
+        [self setMaximumZoomScale:1.0f];
         [self setDelegate:self];
     }
     return self;

@@ -76,6 +76,7 @@
     [_textView setFont:[self.item font]];
     [_textView setText:[self.item text]];
     [_textView setDelegate:self];
+    [_textView setScrollEnabled:NO];
     [self addSubview:_textView];
     
 #warning problem here - if we sendBack - cannot move; otherwise - cannot select text
@@ -92,6 +93,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)recalculateFrame {
+    _textView.contentOffset = CGPointZero;
+    
     // get frame - consider minimal
     CGRect textFrame = _textView.frame;
     CGRect itemFrame = self.item.rect;
@@ -136,7 +139,7 @@
 #pragma mark - UITextView delegate
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)textViewWillChange:(UITextView *)textView {
+- (void)textViewDidChange:(UITextView *)textView {
     [self recalculateFrame];
 }
 
