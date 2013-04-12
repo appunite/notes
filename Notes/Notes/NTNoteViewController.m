@@ -684,16 +684,25 @@
     // get touch point
     CGPoint point = [gestureRecognizer locationInView:_contentView];
     
-    [self handleActionForPoint:point edit:YES];
+    // hack for iOS 5.1
+    UIView * view = [self.view hitTest:point withEvent:nil];
+    
+    [self handleActionForPoint:point edit:YES delete:[view isKindOfClass:[UIButton class]]];
 }
 
-- (void)handleActionForPoint:(CGPoint)point edit:(BOOL)edit {
+- (void)handleActionForPoint:(CGPoint)point edit:(BOOL)edit delete:(BOOL)delete {
        
     // enumerate all items
     [_items enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NTNoteItem* item, NSUInteger idx, BOOL *stop) {
         
         // check if rect of item contain touch point
-        if (!item.editingMode &&  CGRectContainsPoint(item.rect, point)) {
+        if ((!item.editingMode || delete) &&  CGRectContainsPoint(item.rect, point)) {
+            
+            if (delete) {
+                [self deleteItem:item];
+                *stop = YES;
+                return;
+            }
             
             if (edit) {
             // enter editimg mode with selected item
@@ -702,7 +711,7 @@
                 _draggedItem = item;
             }
             // yeap, we found
-            *stop = YES;
+            
         }
         // if last object
         else if (idx == [_items count] -1) {
@@ -720,7 +729,7 @@
     _draggedItem = nil;
     
     CGPoint point = [[touches anyObject] locationInView:_contentView];
-    [self handleActionForPoint:point edit:NO];
+    [self handleActionForPoint:point edit:NO delete:NO];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {

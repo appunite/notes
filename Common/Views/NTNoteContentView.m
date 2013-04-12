@@ -115,7 +115,7 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
 
 }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
   
     if(_noteContentMode == NTNoteContentModeDrawing){
