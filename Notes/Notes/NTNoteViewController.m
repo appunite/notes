@@ -309,6 +309,7 @@
     [_items removeAllObjects];
     [self exitEditMode];
     [_contentView setNeedsDisplay];
+    [self saveNoteItems];
 }
 
 
