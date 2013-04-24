@@ -20,8 +20,11 @@
 -(NSDictionary *)getBrushAtributes;
 @end
 
+@protocol NTTextViewDelegate;
+
 @interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate, NTInteractionDelegate, NTTextViewDelegate> {
     UIView * _draggedItem;
+    NSData * _fileContents;
 }
 
 // keep all drawing item objects
@@ -30,6 +33,7 @@
 @property (nonatomic, strong) NTUserResizableView *currentNoteView;
 @property id <NTNoteDelegate> delegate;
 @property (strong, nonatomic) NSString *filePath;
+@property (strong, nonatomic) NSData *fileContents;
 
 // setFilePath
 - (void)setFilePath:(NSString *)filePath saveCurrent:(BOOL)saveCurrent;

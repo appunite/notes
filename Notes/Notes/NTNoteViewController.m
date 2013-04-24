@@ -132,6 +132,32 @@
     }
 }
 
+- (void) setFileContents:(NSData *)fileContents {
+    _fileContents = fileContents;
+    
+    NSError *error = nil;
+    
+    // serialize JSON
+    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:self.fileContents options:0 error:&error];
+    
+    // exit, problem with JSON serialization
+    //    if (!json || error) {
+    //        return  NO;
+    //    }
+    
+    // get items array
+    NSArray* elements = [json objectForKey:@"elements"];
+    
+    // map notes
+    [self mapNoteItems:elements];
+}
+
+- (NSData *)fileContents {
+    [self exitEditMode];
+    
+    return _fileContents;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -146,7 +172,7 @@
 - (BOOL)loadNoteItemsFromFile:(NSString *)file error:(NSError **)error {
 
     // load data from file
-    NSData* data = [[NSData alloc] initWithContentsOfFile:file options:NSDataReadingUncached error:error];
+    _fileContents = [[NSData alloc] initWithContentsOfFile:file options:NSDataReadingUncached error:error];
 
     // exit, problem with loading data
 //    if (!data || error) {
@@ -155,7 +181,7 @@
 //    }
 
     // serialize JSON
-    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:error];
+    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:self.fileContents options:0 error:error];
     
     // exit, problem with JSON serialization
 //    if (!json || error) {
@@ -511,12 +537,16 @@
     }
     [jsonString appendString:@"]}"];
     
+    if (_filePath) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
+        
+        [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        
+    }
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:_filePath];
-
-    [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    _fileContents = [jsonString dataUsingEncoding:NSStringEncodingConversionExternalRepresentation];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -630,6 +660,7 @@
             [_contentView addGestureRecognizer:_tapGestureRecognizer];
         }
         
+        // save contents of file
         [self saveNoteItems];
     }
 }
