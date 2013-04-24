@@ -711,6 +711,7 @@
             if (edit) {
             // enter editimg mode with selected item
                 [self enterEditModeOfItem:item];
+                *stop = YES;
             } else {
                 _draggedItem = item;
             }
