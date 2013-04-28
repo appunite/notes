@@ -234,11 +234,16 @@
     [image setRect:rect];
     
     // change resource path
-    [image setResourcePath:path];
+    [image setLocalPath:path];
     
     // add item to array
     [_items addObject:image];
 
+    // inform controller that photo was added
+    if ([self.delegate respondsToSelector:@selector(willUpdateNoteItem:)]) {
+        [self.delegate willUpdateNoteItem:image];
+    }
+    
     // reload content view
     [_contentView setNeedsDisplay];
 }
@@ -367,8 +372,14 @@
             [image setRect:rect];
 
             // change resource path
-            NSString* url = [item objectForKey:@"url"];
-            [image setResourcePath:url];
+            NSString* localPath = [item objectForKey:@"local"];
+            [image setLocalPath:localPath];
+            
+            NSString* remotePath = [item objectForKey:@"remote"];
+            [image setRemotePath:remotePath];
+            
+            NSString* uid = [item objectForKey:@"id"];
+            [image setUid:uid];
             
             // add item to array
             [_items addObject:image];
@@ -419,6 +430,10 @@
             // change local path
             NSString *path = [item objectForKey:@"local"];
             [voice setLocalPath:path];
+            
+            // change uid
+            NSString* uid = [item objectForKey:@"id"];
+            [voice setUid:uid];
             
             // add item to array
             [_items addObject:voice];
@@ -507,12 +522,15 @@
         else if([item isKindOfClass:[NTNoteImageItem class]]){
             NTNoteImageItem *itemt = item;
             [jsonString appendString:@"\"type\":\"image\","];
-            [jsonString appendFormat:@"\"url\":\"%@\",", itemt.resourcePath];
+            [jsonString appendFormat:@"\"id\":\"%@\",", itemt.uid];
+            [jsonString appendFormat:@"\"url\":\"%@\",", itemt.remotePath];
+            [jsonString appendFormat:@"\"local\":\"%@\",", itemt.localPath];
             hasPicture = YES;
         }
         else if([item isKindOfClass:[NTNoteAudioItem class]]){
             NTNoteAudioItem *itemt = item;
             [jsonString appendString:@"\"type\":\"voice\","];
+            [jsonString appendFormat:@"\"id\":\"%@\",", itemt.uid];
             [jsonString appendFormat:@"\"url\":\"%@\",", itemt.remotePath];
             [jsonString appendFormat:@"\"local\":\"%@\",", itemt.localPath];
             hasSound = YES;
@@ -624,6 +642,10 @@
 - (void)exitEditMode {
     
     if (_currentNoteView) {
+        if ([self.delegate respondsToSelector:@selector(willUpdateNoteItem:)]) {
+            [self.delegate willUpdateNoteItem:_currentNoteView.item];
+        }
+        
         // if is in text mode, have to break because this method will be called on textViewDidEndEditing:
         if([_currentNoteView isKindOfClass:[NTTextView class]] && [_currentNoteView isFirstResponder]) {
             [(NTTextView*)_currentNoteView resignFirstResponder];
@@ -734,6 +756,9 @@
         if ((!item.editingMode || delete) &&  CGRectContainsPoint(item.rect, point)) {
             
             if (delete) {
+                if ([self.delegate respondsToSelector:@selector(willDeleteNoteItem:)]) {
+                    [self.delegate willDeleteNoteItem:item];
+                }
                 [self deleteItem:item];
                 *stop = YES;
                 return;

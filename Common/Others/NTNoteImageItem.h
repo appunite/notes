@@ -15,7 +15,10 @@
 @interface NTNoteImageItem : NTNoteItem
 
 // keep respurce path of image
-@property (nonatomic, strong) NSString* resourcePath;
+@property (nonatomic, strong) NSString* localPath;
+
+// keep respurce path of image
+@property (nonatomic, strong) NSString* remotePath;
 @end
 
 

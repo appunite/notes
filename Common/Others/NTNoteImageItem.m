@@ -42,8 +42,8 @@
     
     // get resource
     UIImage* contentImage;
-    if(item.resourcePath){
-    NSData *imageData= [NSData dataWithContentsOfFile:item.resourcePath];
+    if(item.localPath){
+        NSData *imageData= [NSData dataWithContentsOfFile:item.localPath];
         contentImage = [UIImage imageWithData:imageData];
         if (!contentImage) contentImage = [UIImage imageNamed:@"image.png"];
     }

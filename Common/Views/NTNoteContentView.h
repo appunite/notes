@@ -45,4 +45,7 @@ typedef NS_ENUM(NSUInteger, NTNoteContentMode) {
 - (NTNotePathItem*)requestNewNotePathItem;
 // save ContentView State
 -(void)saveCurrentNoteItemPath;
+
+// user requested delete of media
+- (void) willDeleteNoteItem:(NTNoteItem *)item;
 @end

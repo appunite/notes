@@ -14,10 +14,13 @@
 #import "NTUserResizableView.h"
 #import "NTTextView.h"
 
-@protocol NTNoteDelegate
+@protocol NTNoteDelegate <NSObject>
 
 -(void)editingModeIsOn;
 -(NSDictionary *)getBrushAtributes;
+-(void)willDeleteNoteItem:(NTNoteItem *)noteItem;
+-(void)willUpdateNoteItem:(NTNoteItem *)noteItem;
+
 @end
 
 @protocol NTTextViewDelegate;
@@ -50,6 +53,7 @@
 -(void)setContentViewMode:(NSUInteger)mode;
 -(void)deleteCurrentPath;
 -(void)clearContent;
+-(void)saveNoteItems;
 
 // Flags getters
 -(BOOL)hasPicture;
