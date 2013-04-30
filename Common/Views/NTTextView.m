@@ -110,7 +110,7 @@
     if ((CGRectGetMaxX(_maxRect) - 5.0f) < CGRectGetMaxX(itemFrame)) { // width
         textFrame.size.width = CGRectGetMaxX(_maxRect) - CGRectGetMinX(itemFrame);
     }
-    if ((CGRectGetMaxY(_maxRect) - 5.0f) < CGRectGetMaxY(itemFrame)) { // height
+    if ((CGRectGetMaxY(_maxRect) - 5.0f) < (CGRectGetMinY(itemFrame) + CGRectGetHeight(textFrame))) { // height
         textFrame.size.height = CGRectGetMaxY(_maxRect) - CGRectGetMinY(itemFrame);
     }
     

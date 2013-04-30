@@ -58,6 +58,11 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setContentViewFrame:(CGRect)contentViewFrame {
+    _contentViewFrame = contentViewFrame;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)initWithContentViewFrame:(CGRect)frame{
     self = [super init];
     if (self) {
@@ -691,9 +696,9 @@
 -(void)viewDidChangePosition:(CGRect)frame{
     // set frame to match lines
     if([_currentNoteView.item isKindOfClass:[NTNoteTextItem class]]) {
-        // you must input here lineHeight and baselineOffset - take upon consideration how you settled NTNoteViewController.view on lines view
+        // there surely is better method to get lineHeight in pixels; baselineOffset is top offset
         CGFloat lineHeight = 24;
-        CGFloat baselineOffset = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 0.0f : 18.0f;
+        CGFloat baselineOffset = 0.0f;
 
         NSUInteger numberOfLines = (self.view.bounds.size.height - baselineOffset) / lineHeight;
         int heightMin = baselineOffset; int heightMax = 0; int result = 0;
