@@ -108,40 +108,15 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)prepareToPlay{
-    
-    if([self.item localPath]){
-        
-        // create NSURL from item localPath
-        _fileURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-        _fileURL = [_fileURL URLByAppendingPathComponent:[self.item localPath]];
-    }
-    
-    //check if resource is reachable 
-    if (!_fileURL || [_fileURL checkResourceIsReachableAndReturnError:nil] == NO){
-        
-        // download remote data
-        NSData *fileData = [NSData dataWithContentsOfURL:[self.item remotePath]];
-        
-        // create local path component
-        NSString *temporaryPath = [self createPathForNewAudio];
-        
-        // create new local url
-        _fileURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-        _fileURL = [_fileURL URLByAppendingPathComponent:temporaryPath];
-        
-        // save new localPath to item
-        [self.item setLocalPath:temporaryPath];
-        
-        if(fileData){
-            // save downloaded data to file
-            [fileData writeToURL:_fileURL atomically:YES];
-        }
-    } else {
+
+    NSData * audioFile = [self itemContent];
+   
+    if (audioFile) {
         [self presentTimeViewForced:YES];
     }
     
     // update info about current audio note on timer
-    audioPlayer = [[AVAudioPlayer alloc] initWithData:[NSData dataWithContentsOfURL:_fileURL] error:nil];
+    audioPlayer = [[AVAudioPlayer alloc] initWithData:audioFile error:nil];
     [self updateTimeLeftWhenPlaying];
     
 }
@@ -320,10 +295,11 @@
     
     NSError *error = nil;
     
-    audioRecorder = [[AVAudioRecorder alloc] initWithURL:_fileURL settings:recordSettings error:&error];
+    [self itemContent];
+    
+    audioRecorder = [[AVAudioRecorder alloc] initWithURL:self.fileURL settings:recordSettings error:&error];
     [audioRecorder setDelegate:self];
     [audioRecorder prepareToRecord];
-    
     
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -389,10 +365,8 @@
     _stopItemEnabled = YES;
     _recordItemEnabled = YES;
 
-    NSData *data = [NSData dataWithContentsOfURL:_fileURL];
-        
     NSError *error;
-    audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
+    audioPlayer = [[AVAudioPlayer alloc] initWithData:[self itemContent] error:&error];
     [audioPlayer prepareToPlay];
     audioPlayer.delegate = self;
         

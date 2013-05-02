@@ -10,18 +10,11 @@
 #import <Foundation/Foundation.h>
 
 //Others
-#import "NTNoteItem.h"
+#import "NTNoteDownloadableItem.h"
 
-@interface NTNoteImageItem : NTNoteItem
-
-// keep respurce path of image
-@property (nonatomic, strong) NSString* localPath;
-
-// keep respurce path of image
-@property (nonatomic, strong) NSString* remotePath;
+@interface NTNoteImageItem : NTNoteDownloadableItem
 @end
 
-
 @interface NTNoteImageItem (Draw)
-+ (void)drawItem:(NTNoteImageItem *)item rect:(CGRect)rect context:(CGContextRef)ctx;
++ (void)drawItem:(NTNoteImageItem *)item image:(NSData*)image rect:(CGRect)rect context:(CGContextRef)ctx;
 @end

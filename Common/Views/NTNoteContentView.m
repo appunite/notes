@@ -86,9 +86,9 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
                 // get item rect
                 CGRect rect = [item rect];
                 
+                NTImageView * imageView = [[NTImageView alloc] initWithItem:item];
                 // draw item
-                [NTNoteImageItem drawItem:item rect:rect context:ctx];
-                
+                [NTNoteImageItem drawItem:item image:[imageView itemContent] rect:rect context:ctx];
             }
             
             // draw path item

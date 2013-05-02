@@ -13,7 +13,7 @@
 #pragma mark - Draw
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-+ (void)drawItem:(NTNoteImageItem *)item rect:(CGRect)rect context:(CGContextRef)ctx {
++ (void)drawItem:(NTNoteImageItem *)item image:(NSData *)image rect:(CGRect)rect context:(CGContextRef)ctx {
     
     // set clear background color
     CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
@@ -41,13 +41,7 @@
     CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
     
     // get resource
-    UIImage* contentImage;
-    if(item.localPath){
-        NSData *imageData= [NSData dataWithContentsOfFile:item.localPath];
-        contentImage = [UIImage imageWithData:imageData];
-        if (!contentImage) contentImage = [UIImage imageNamed:@"image.png"];
-    }
-    else contentImage = [UIImage imageNamed:@"image.png"];
+    UIImage* contentImage = image ? [UIImage imageWithData:image] : [UIImage imageNamed:@"image.png"];
     
     // draw content image
     if (contentImage) {

@@ -34,7 +34,7 @@
 //    CGContextScaleCTM(ctx, 1.0, -1.0);
 
     // draw note item
-    [NTNoteImageItem drawItem:[self item] rect:rect context:ctx];
+    [NTNoteImageItem drawItem:[self item] image:[self itemContent] rect:rect context:ctx];
 }
 
 

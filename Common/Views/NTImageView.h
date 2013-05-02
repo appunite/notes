@@ -11,11 +11,12 @@
 
 //Views
 #import "NTUserResizableView.h"
+#import "NTSelfDownloadingView.h"
 
 //Items
 #import "NTNoteImageItem.h"
 
-@interface NTImageView : NTUserResizableView
+@interface NTImageView : NTSelfDownloadingView
 
 // redefine model object
 - (NTNoteImageItem *)item;

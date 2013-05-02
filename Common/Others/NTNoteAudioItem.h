@@ -10,18 +10,11 @@
 #import <Foundation/Foundation.h>
 
 //Others
-#import "NTNoteItem.h"
+#import "NTNoteDownloadableItem.h"
 
-@interface NTNoteAudioItem : NTNoteItem
-
-@property (nonatomic, strong) NSString *localPath;
-
-@property (nonatomic, strong) NSURL *remotePath;
-
+@interface NTNoteAudioItem : NTNoteDownloadableItem
 @end
 
 @interface NTNoteAudioItem (Draw)
-
 + (void)drawItem:(NTNoteAudioItem *)item rect:(CGRect)rect context:(CGContextRef)ctx;
-
 @end

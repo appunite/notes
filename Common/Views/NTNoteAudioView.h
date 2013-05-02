@@ -12,14 +12,14 @@
 #import "NTRosetteView.h"
 
 #import "NTNoteAudioItem.h"
-#import "NTUserResizableView.h"
+#import "NTSelfDownloadingView.h"
 #import "NTAudioNoteTimeView.h"
 
 @class SPGripViewBorderView;
 
 @protocol NTUserResizableViewDelegate;
 
-@interface NTNoteAudioView : NTUserResizableView <AVAudioPlayerDelegate, AVAudioRecorderDelegate, UIAlertViewDelegate>{
+@interface NTNoteAudioView : NTSelfDownloadingView <AVAudioPlayerDelegate, AVAudioRecorderDelegate, UIAlertViewDelegate>{
     
     NTRosetteView * _rosetteView;
     
@@ -45,7 +45,6 @@
 }
 
 @property UISegmentedControl *playerControl;
-@property NSURL *fileURL;
 
 // redefine model object
 -(NTNoteAudioItem *)item;

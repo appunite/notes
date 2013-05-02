@@ -72,6 +72,10 @@
 		AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE831BDA170E41F70097D2B4 /* NTRosetteView.h */; };
 		AE831BDD170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
 		AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
+		AEA1F39717301F550083BE59 /* NTSelfDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA1F39617301F550083BE59 /* NTSelfDownloadingView.m */; };
+		AEA1F39A17301FB00083BE59 /* NTNoteDownloadableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA1F39917301FAF0083BE59 /* NTNoteDownloadableItem.m */; };
+		AEA1F39B173028840083BE59 /* NTNoteDownloadableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA1F39917301FAF0083BE59 /* NTNoteDownloadableItem.m */; };
+		AEA1F39C173028890083BE59 /* NTSelfDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA1F39617301F550083BE59 /* NTSelfDownloadingView.m */; };
 		AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */; };
 		AEAD37A6170EE0B90049BDC4 /* NTAudioNoteTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */; };
 		AEBBBE1F170F452A00726B5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBBBE1E170F452A00726B5D /* QuartzCore.framework */; };
@@ -153,6 +157,10 @@
 		24D885B616BA878A001E9B07 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AE831BDA170E41F70097D2B4 /* NTRosetteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTRosetteView.h; path = ../../Common/Views/NTRosetteView.h; sourceTree = "<group>"; };
 		AE831BDB170E41F70097D2B4 /* NTRosetteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTRosetteView.m; path = ../../Common/Views/NTRosetteView.m; sourceTree = "<group>"; };
+		AEA1F39517301F550083BE59 /* NTSelfDownloadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTSelfDownloadingView.h; path = ../../Common/Views/NTSelfDownloadingView.h; sourceTree = "<group>"; };
+		AEA1F39617301F550083BE59 /* NTSelfDownloadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTSelfDownloadingView.m; path = ../../Common/Views/NTSelfDownloadingView.m; sourceTree = "<group>"; };
+		AEA1F39817301FAF0083BE59 /* NTNoteDownloadableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTNoteDownloadableItem.h; path = ../../Common/Others/NTNoteDownloadableItem.h; sourceTree = "<group>"; };
+		AEA1F39917301FAF0083BE59 /* NTNoteDownloadableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTNoteDownloadableItem.m; path = ../../Common/Others/NTNoteDownloadableItem.m; sourceTree = "<group>"; };
 		AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTAudioNoteTimeView.h; path = ../../Common/Views/NTAudioNoteTimeView.h; sourceTree = "<group>"; };
 		AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTAudioNoteTimeView.m; path = ../../Common/Views/NTAudioNoteTimeView.m; sourceTree = "<group>"; };
 		AEBBBE1E170F452A00726B5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -301,6 +309,8 @@
 				AE831BDB170E41F70097D2B4 /* NTRosetteView.m */,
 				AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */,
 				AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */,
+				AEA1F39517301F550083BE59 /* NTSelfDownloadingView.h */,
+				AEA1F39617301F550083BE59 /* NTSelfDownloadingView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -336,6 +346,8 @@
 				20848B1A166A12500071AAC4 /* NTNoteAudioItem.m */,
 				20848B1C166A12620071AAC4 /* NTNotePathItem.h */,
 				20848B1D166A12620071AAC4 /* NTNotePathItem.m */,
+				AEA1F39817301FAF0083BE59 /* NTNoteDownloadableItem.h */,
+				AEA1F39917301FAF0083BE59 /* NTNoteDownloadableItem.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -529,6 +541,8 @@
 				AE831BDD170E41F70097D2B4 /* NTRosetteView.m in Sources */,
 				AEBBBE3C1710595E00726B5D /* AURosetteItem.m in Sources */,
 				AEBBBE3F1710595E00726B5D /* AURosetteView.m in Sources */,
+				AEA1F39717301F550083BE59 /* NTSelfDownloadingView.m in Sources */,
+				AEA1F39A17301FB00083BE59 /* NTNoteDownloadableItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +569,8 @@
 				AEAD37A6170EE0B90049BDC4 /* NTAudioNoteTimeView.m in Sources */,
 				AEBBBE3D1710595E00726B5D /* AURosetteItem.m in Sources */,
 				AEBBBE401710595E00726B5D /* AURosetteView.m in Sources */,
+				AEA1F39B173028840083BE59 /* NTNoteDownloadableItem.m in Sources */,
+				AEA1F39C173028890083BE59 /* NTSelfDownloadingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

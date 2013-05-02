@@ -380,8 +380,8 @@
             NSString* localPath = [item objectForKey:@"local"];
             [image setLocalPath:localPath];
             
-            NSString* remotePath = [item objectForKey:@"remote"];
-            [image setRemotePath:remotePath];
+            NSString* remotePath = [item objectForKey:@"url"];
+            [image setRemotePath:[NSURL URLWithString:remotePath]];
             
             NSString* uid = [item objectForKey:@"id"];
             [image setUid:uid];
@@ -528,7 +528,7 @@
             NTNoteImageItem *itemt = item;
             [jsonString appendString:@"\"type\":\"image\","];
             [jsonString appendFormat:@"\"id\":\"%@\",", itemt.uid];
-            [jsonString appendFormat:@"\"url\":\"%@\",", itemt.remotePath];
+            [jsonString appendFormat:@"\"url\":\"%@\",", [itemt.remotePath absoluteString]];
             [jsonString appendFormat:@"\"local\":\"%@\",", itemt.localPath];
             hasPicture = YES;
         }
@@ -536,7 +536,7 @@
             NTNoteAudioItem *itemt = item;
             [jsonString appendString:@"\"type\":\"voice\","];
             [jsonString appendFormat:@"\"id\":\"%@\",", itemt.uid];
-            [jsonString appendFormat:@"\"url\":\"%@\",", itemt.remotePath];
+            [jsonString appendFormat:@"\"url\":\"%@\",", [itemt.remotePath absoluteString]];
             [jsonString appendFormat:@"\"local\":\"%@\",", itemt.localPath];
             hasSound = YES;
         }
