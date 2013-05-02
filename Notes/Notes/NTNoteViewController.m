@@ -137,13 +137,14 @@
     }
 }
 
-- (void) setFileContents:(NSData *)fileContents {
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setFileContents:(NSData *)fileContents {
     _fileContents = fileContents;
     
     NSError *error = nil;
     
     // serialize JSON
-    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:self.fileContents options:0 error:&error];
+    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:_fileContents options:0 error:&error];
     
     // exit, problem with JSON serialization
     //    if (!json || error) {
@@ -153,10 +154,17 @@
     // get items array
     NSArray* elements = [json objectForKey:@"elements"];
     
+    // remove old items
+    [_items removeAllObjects];
+    
     // map notes
     [self mapNoteItems:elements];
+    
+    // reload view
+    [_contentView setNeedsDisplay];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSData *)fileContents {
     [self exitEditMode];
     
