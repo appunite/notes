@@ -173,9 +173,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
     [self exitEditMode];
+    
+    [super viewWillDisappear:animated];
 }
 
 
@@ -290,8 +290,6 @@
     
     // reload content view
     [_contentView setNeedsDisplay];
-    
-    [self saveNoteItems];
     
     // select item
     [self enterEditModeOfItem:item];
@@ -789,7 +787,7 @@
         }
         // if last object
         else if (idx == [_items count] -1) {
-            // egit edit mode
+            // exit edit mode
             [self exitEditMode];
         }
     }];
