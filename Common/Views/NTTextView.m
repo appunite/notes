@@ -149,13 +149,13 @@
     // set item text from UITextView
     [self.item setText:_textView.text];
     
+    // Draw context with new text
+    [self setNeedsDisplay];
+    
     // remove other things like frame etc
     if ([_noteViewDelegate respondsToSelector:@selector(textViewDelegate:requestedEndEditionOfItem:)]) {
         [_noteViewDelegate textViewDelegate:self requestedEndEditionOfItem:self.item];
     }
-    
-    // Draw context with new text
-    [self setNeedsDisplay];
 }
 
 
