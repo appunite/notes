@@ -11,7 +11,6 @@
 
 //Views
 #import "NTNoteContentView.h"
-#import "NTUserResizableView.h"
 #import "NTTextView.h"
 
 @protocol NTNoteDelegate <NSObject>

@@ -10,7 +10,6 @@
 #import <Foundation/Foundation.h>
 
 //Views
-#import "NTUserResizableView.h"
 #import "NTSelfDownloadingView.h"
 
 //Items

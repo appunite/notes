@@ -69,23 +69,24 @@
 		24D885B716BA878B001E9B07 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D885B616BA878A001E9B07 /* AVFoundation.framework */; };
 		24D885B816BA879D001E9B07 /* NTNoteAudioView.h in Headers */ = {isa = PBXBuildFile; fileRef = 24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24D885BA16BA9499001E9B07 /* NTNoteAudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */; };
-		AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE831BDA170E41F70097D2B4 /* NTRosetteView.h */; };
+		4C809D2217395408009B9D4D /* NTNoteDownloadableItem.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA1F39817301FAF0083BE59 /* NTNoteDownloadableItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE831BDA170E41F70097D2B4 /* NTRosetteView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE831BDD170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
 		AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
 		AEA1F39717301F550083BE59 /* NTSelfDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA1F39617301F550083BE59 /* NTSelfDownloadingView.m */; };
 		AEA1F39A17301FB00083BE59 /* NTNoteDownloadableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA1F39917301FAF0083BE59 /* NTNoteDownloadableItem.m */; };
 		AEA1F39B173028840083BE59 /* NTNoteDownloadableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA1F39917301FAF0083BE59 /* NTNoteDownloadableItem.m */; };
 		AEA1F39C173028890083BE59 /* NTSelfDownloadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA1F39617301F550083BE59 /* NTSelfDownloadingView.m */; };
-		AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */; };
+		AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEAD37A3170EE0B90049BDC4 /* NTAudioNoteTimeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEAD37A6170EE0B90049BDC4 /* NTAudioNoteTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */; };
 		AEBBBE1F170F452A00726B5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBBBE1E170F452A00726B5D /* QuartzCore.framework */; };
 		AEBBBE21170F453900726B5D /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBBBE20170F453900726B5D /* CoreImage.framework */; };
 		AEBBBE22170F45AE00726B5D /* NTNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 208489F41668E6590071AAC4 /* NTNoteViewController.m */; };
 		AEBBBE23170F45AE00726B5D /* NTAudioNoteTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAD37A4170EE0B90049BDC4 /* NTAudioNoteTimeView.m */; };
-		AEBBBE3B1710595E00726B5D /* AURosetteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = AEBBBE371710595E00726B5D /* AURosetteItem.h */; };
+		AEBBBE3B1710595E00726B5D /* AURosetteItem.h in Headers */ = {isa = PBXBuildFile; fileRef = AEBBBE371710595E00726B5D /* AURosetteItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEBBBE3C1710595E00726B5D /* AURosetteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBBBE381710595E00726B5D /* AURosetteItem.m */; };
 		AEBBBE3D1710595E00726B5D /* AURosetteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBBBE381710595E00726B5D /* AURosetteItem.m */; };
-		AEBBBE3E1710595E00726B5D /* AURosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEBBBE391710595E00726B5D /* AURosetteView.h */; };
+		AEBBBE3E1710595E00726B5D /* AURosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEBBBE391710595E00726B5D /* AURosetteView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEBBBE3F1710595E00726B5D /* AURosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBBBE3A1710595E00726B5D /* AURosetteView.m */; };
 		AEBBBE401710595E00726B5D /* AURosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBBBE3A1710595E00726B5D /* AURosetteView.m */; };
 		AEF270CE1704E21B00C54E0C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEF270CB1704E1C100C54E0C /* libz.dylib */; };
@@ -396,6 +397,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C809D2217395408009B9D4D /* NTNoteDownloadableItem.h in Headers */,
 				24310BB416B45F9600587E65 /* NTNoteItem.h in Headers */,
 				24310BB516B45F9600587E65 /* NTNoteTextItem.h in Headers */,
 				24310BB616B45F9600587E65 /* NTNoteImageItem.h in Headers */,
@@ -409,10 +411,10 @@
 				24310BBE16B45F9F00587E65 /* NTImageView.h in Headers */,
 				24D885B816BA879D001E9B07 /* NTNoteAudioView.h in Headers */,
 				24310C3A16B460D200587E65 /* SPUserResizableView.h in Headers */,
+				AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */,
 				244A823116D04226007A279F /* NTPathView.h in Headers */,
 				240DBC4216E4B65B00F7D179 /* NTInteractionDelegate.h in Headers */,
 				AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */,
-				AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */,
 				AEBBBE3B1710595E00726B5D /* AURosetteItem.h in Headers */,
 				AEBBBE3E1710595E00726B5D /* AURosetteView.h in Headers */,
 			);
@@ -503,7 +505,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		24310C3F16B461DD00587E65 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (

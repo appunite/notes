@@ -7,6 +7,7 @@
 //
 
 #import "NTImageView.h"
+#import "NTUserResizableView.h"
 
 @implementation NTImageView
 

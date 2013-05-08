@@ -11,6 +11,8 @@
 //Views
 #import "NTTextView.h"
 #import "NTImageView.h"
+#import "NTUserResizableView.h"
+
 
 static const CGFloat kPointMinDistance = 5;
 static const CGFloat kPointMinDistanceSquared = 10;

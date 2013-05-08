@@ -15,6 +15,8 @@
 #import "NTImageView.h"
 #import "NTNoteAudioView.h"
 #import "NTPathView.h"
+#import "NTUserResizableView.h"
+
 //Items
 #import "NTNoteTextItem.h"
 #import "NTNoteImageItem.h"
