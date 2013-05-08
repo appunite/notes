@@ -87,7 +87,11 @@ enum type{
         _lineWidth = 1.0f;
         
         // set line color
-        _lineColor = [UIColor blackColor];
+        if ([attributes objectForKey:@"color"]) {
+            _lineColor = [attributes objectForKey:@"color"];
+        } else {
+            _lineColor = [UIColor blackColor];
+        }
         
         // set opacity
         _opacity = 1.0f;
