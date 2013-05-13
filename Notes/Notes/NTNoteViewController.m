@@ -274,6 +274,12 @@
     //set default font
     [item setFont:[UIFont systemFontOfSize:20]];
     
+    // Set default color
+    // Get Brush Atrributes from Delegate
+    NSDictionary *brushAtr= [[NSDictionary alloc] initWithDictionary:[_delegate getBrushAtributes]];
+    // Get color
+    [item setColor:[brushAtr objectForKey:@"color"] ?: [UIColor blackColor]];
+    
     // calculate rect
     CGRect rect;
     CGSize size = [item.text sizeWithFont:item.font constrainedToSize:CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
