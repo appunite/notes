@@ -339,6 +339,7 @@
     _stopItemEnabled = YES;
     _playItemEnabled = YES;
     _recordItemEnabled = YES;
+    _recording = NO;
     
     if (audioRecorder.recording)
     {
@@ -397,7 +398,7 @@
 
     NSString * currentTime = [NSString stringWithFormat:@"%d:%02d / %d:%02d", minutes, seconds, endMinutes, endSeconds];
     [_timeView setCurrentTime:currentTime recording:_recording];
- 
+     
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -409,6 +410,11 @@
     
     NSString * currentTime = [NSString stringWithFormat:@"%d:%02d", endMinutes, endSeconds];
     [_timeView setCurrentTime:currentTime recording:_recording];
+    
+    if (self.automaticStop && audioRecorder.currentTime >= self.automaticStopInterval) {
+        [self stopAudioNote];
+        [self updateButtons];
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

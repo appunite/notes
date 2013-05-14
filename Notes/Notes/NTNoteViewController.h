@@ -36,6 +36,8 @@
 @property id <NTNoteDelegate> delegate;
 @property (strong, nonatomic) NSString *filePath;
 @property (strong, nonatomic) NSData *fileContents;
+@property (nonatomic, assign) BOOL automaticStop;
+@property (nonatomic, assign) NSTimeInterval automaticStopInterval;
 
 // setFilePath
 - (void)setFilePath:(NSString *)filePath saveCurrent:(BOOL)saveCurrent;

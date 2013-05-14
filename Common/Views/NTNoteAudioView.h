@@ -45,6 +45,8 @@
 }
 
 @property UISegmentedControl *playerControl;
+@property (nonatomic, assign) BOOL automaticStop;
+@property (nonatomic, assign) NSTimeInterval automaticStopInterval;
 
 // redefine model object
 -(NTNoteAudioItem *)item;

@@ -635,6 +635,8 @@
         //create audio view
         [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 264.0f, 220.0f)];
         _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:(NTNoteAudioItem *)item];
+        [(NTNoteAudioView*)_currentNoteView setAutomaticStop:self.automaticStop];
+        [(NTNoteAudioView*)_currentNoteView setAutomaticStopInterval:self.automaticStopInterval];
         [_contentView removeGestureRecognizer:_tapGestureRecognizer];
         [_currentNoteView setResizableViewDelegate:self];
     }
