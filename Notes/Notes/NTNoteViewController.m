@@ -180,6 +180,14 @@
     [super viewWillDisappear:animated];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    // reload content view
+    [_contentView setNeedsDisplay];
+}
+
 
 #pragma mark - Class methods
 
