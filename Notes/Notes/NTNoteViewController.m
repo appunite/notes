@@ -370,6 +370,21 @@
     [self saveNoteItems];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)textNotesArray {
+    NSMutableArray *textNotes = [[NSMutableArray alloc] init];
+    
+    for(NTNoteItem *item in _items){
+        if([item isKindOfClass:[NTNoteTextItem class]]) {
+            NTNoteTextItem *itemt = (NTNoteTextItem *)item;
+            if (itemt.text && ![itemt.text isEqualToString:@""]) {
+                [textNotes addObject:itemt.text];
+            }
+        }
+    }
+    
+    return textNotes;
+}
 
 #pragma mark - Private
 
@@ -532,7 +547,7 @@
     for(NTNoteItem *item in _items){
                 [jsonString appendString:@"{"];
         if([item isKindOfClass:[NTNoteTextItem class]]) {
-            NTNoteTextItem *itemt = item;
+            NTNoteTextItem *itemt = (NTNoteTextItem *)item;
             
             // save for json
             NSString *stringJSON = itemt.text;
@@ -547,7 +562,7 @@
             [jsonString appendFormat:@"\"font\":\"%@\",", itemt.font.fontName];
         }
         else if([item isKindOfClass:[NTNoteImageItem class]]){
-            NTNoteImageItem *itemt = item;
+            NTNoteImageItem *itemt = (NTNoteImageItem *)item;
             [jsonString appendString:@"\"type\":\"image\","];
             [jsonString appendFormat:@"\"id\":\"%@\",", itemt.uid];
             [jsonString appendFormat:@"\"url\":\"%@\",", [itemt.remotePath absoluteString]];
@@ -555,7 +570,7 @@
             hasPicture = YES;
         }
         else if([item isKindOfClass:[NTNoteAudioItem class]]){
-            NTNoteAudioItem *itemt = item;
+            NTNoteAudioItem *itemt = (NTNoteAudioItem *)item;
             [jsonString appendString:@"\"type\":\"voice\","];
             [jsonString appendFormat:@"\"id\":\"%@\",", itemt.uid];
             [jsonString appendFormat:@"\"url\":\"%@\",", [itemt.remotePath absoluteString]];
@@ -563,7 +578,7 @@
             hasSound = YES;
         }
         else if([item isKindOfClass:[NTNotePathItem class]]){
-            NTNotePathItem *itemt = item;
+            NTNotePathItem *itemt = (NTNotePathItem *)item;
             [jsonString appendString:@"\"type\":\"path\","];
             [jsonString appendFormat:@"\"lineColor\":\"%@\",", [self colorToWeb:itemt.lineColor]];
             [jsonString appendFormat:@"\"lineWidth\":\"%.2f\",", itemt.lineWidth];

@@ -55,6 +55,7 @@
 -(void)deleteCurrentPath;
 -(void)clearContent;
 -(void)saveNoteItems;
+-(NSArray*)textNotesArray;
 
 // Flags getters
 -(BOOL)hasPicture;
