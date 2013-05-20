@@ -797,7 +797,7 @@
     [_items enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NTNoteItem* item, NSUInteger idx, BOOL *stop) {
         
         // check if rect of item contain touch point
-        if ((!item.editingMode || delete) &&  CGRectContainsPoint(item.rect, point)) {
+        if ((!item.editingMode || delete) &&  CGRectContainsPoint(CGRectInset(item.rect, -10.0f, -10.0f), point)) {
             
             if (delete) {
                 if ([self.delegate respondsToSelector:@selector(willDeleteNoteItem:)]) {

@@ -48,7 +48,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [_deleteButton setFrame:CGRectMake(0, 0, 26.0f, 30.0f)];
+    [_deleteButton setFrame:CGRectMake(15.0f, 15.0f, 26.0f, 30.0f)];
     [self bringSubviewToFront:_deleteButton];
 }
 

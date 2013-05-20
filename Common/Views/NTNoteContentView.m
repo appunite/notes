@@ -119,7 +119,7 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-  
+    
     if(_noteContentMode == NTNoteContentModeDrawing){
 
         _currentNotePathItem = [_delegate requestNewNotePathItem];
@@ -180,6 +180,8 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
     [self setNeedsDisplayInRect:drawBox];
     
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     
     if (_noteContentMode != NTNoteContentModeDrawing && ([_delegate respondsToSelector:@selector(touchesEnded:withEvent:)])) {
@@ -189,12 +191,25 @@ CGPoint midPoint(CGPoint p1, CGPoint p2) {
   
     // get rect from current note path
     CGRect rect = CGPathGetBoundingBox(_currentNotePathItem.path);
+    // fix position that was outside of scrollView
+    if (rect.origin.x < 0.0f) {
+        rect.origin.x = 0.0f;
+    }
+    if (rect.origin.y < 0.0f) {
+        rect.origin.y = 0.0f;
+    }
 
     // save rect to item
     [_currentNotePathItem setRect:CGRectInset(rect, -kInsetBox, -kInsetBox)];
     
     // save content view state
     [_delegate saveCurrentNoteItemPath];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    // we still need to save current path, so we do same action as in touchesEnded
+    [self touchesEnded:touches withEvent:nil];
 }
 
 
