@@ -796,6 +796,11 @@
     // enumerate all items
     [_items enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NTNoteItem* item, NSUInteger idx, BOOL *stop) {
         
+        // fix bug with _currentNoteView not receiving neither touchCancelled nor touchEnded - as a result not saving new frame
+        if ([_currentNoteView.item isEqual:item] && item.editingMode) {
+            [_currentNoteView touchesEnded:nil withEvent:nil];
+        }
+        
         // check if rect of item contain touch point
         if ((!item.editingMode || delete) &&  CGRectContainsPoint(CGRectInset(item.rect, -10.0f, -10.0f), point)) {
             

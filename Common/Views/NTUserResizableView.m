@@ -70,15 +70,17 @@
 #pragma mark - Touches
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesCancelled:touches withEvent:event];
-    NSLog(@"cancelled");
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     NSLog(@"began");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+    NSLog(@"cancelled");
+    // even if cancelled we still want to save current position
+    [_resizableViewDelegate viewDidChangePosition:self.frame];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,6 +90,7 @@
     // Notify the delegate we've ended our editing session.
     [_resizableViewDelegate viewDidChangePosition:self.frame];
 }
+
 
 #pragma mark - Actions
 
