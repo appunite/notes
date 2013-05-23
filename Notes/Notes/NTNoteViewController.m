@@ -21,6 +21,10 @@
 #import "NTNoteTextItem.h"
 #import "NTNoteImageItem.h"
 
+//Categories
+#import "UIColor+Additions.h"
+#import "NSString+Additions.h"
+
 @interface NTNoteViewController ()
 //mapping items
 - (void)mapNoteItems:(NSArray *)jsonItems;
@@ -522,7 +526,7 @@
                 [path setLineColor:[UIColor blackColor]];
             }
             else{
-                [path setLineColor:[self colorFromHexString:[item objectForKey:@"lineColor"]]];
+                [path setLineColor:[[item objectForKey:@"lineColor"] colorWithHexString]];
             }
             
             // add to items array
@@ -557,7 +561,7 @@
             
             [jsonString appendString:@"\"type\":\"html\","];
             [jsonString appendFormat:@"\"html\":\"%@\",", stringJSON];
-            [jsonString appendFormat:@"\"textColor\":\"#%@\",", [self colorToWeb:itemt.color]];
+            [jsonString appendFormat:@"\"textColor\":\"#%@\",", [itemt.color stringWithHexColorWithoutAlpha]];
             [jsonString appendFormat:@"\"textSize\":\"%f\",", itemt.font.pointSize];
             [jsonString appendFormat:@"\"font\":\"%@\",", itemt.font.fontName];
         }
@@ -580,7 +584,7 @@
         else if([item isKindOfClass:[NTNotePathItem class]]){
             NTNotePathItem *itemt = (NTNotePathItem *)item;
             [jsonString appendString:@"\"type\":\"path\","];
-            [jsonString appendFormat:@"\"lineColor\":\"%@\",", [self colorToWeb:itemt.lineColor]];
+            [jsonString appendFormat:@"\"lineColor\":\"%@\",", [itemt.lineColor stringWithHexColorWithoutAlpha]];
             [jsonString appendFormat:@"\"lineWidth\":\"%.2f\",", itemt.lineWidth];
             [jsonString appendFormat:@"\"opacity\":\"%.2f\",", itemt.opacity];
             [jsonString appendString:[self pointsFromPath:itemt.path]];
@@ -883,35 +887,6 @@
 
 
 #pragma mark - other
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
--(NSString*)colorToWeb:(UIColor*)color {
-    NSString *webColor = nil;
-    
-    if (color && CGColorGetNumberOfComponents(color.CGColor) == 4) {
-        const CGFloat *components = CGColorGetComponents(color.CGColor);
-        
-        // These components range from 0.0 till 1.0 and need to be converted to 0 till 255
-        CGFloat red, green, blue;
-        red = roundf(components[0] * 255.0);
-        green = roundf(components[1] * 255.0);
-        blue = roundf(components[2] * 255.0);
-        
-        // Convert with %02x (use 02 to always get two chars)
-        webColor = [[NSString alloc]initWithFormat:@"%02x%02x%02x", (int)red, (int)green, (int)blue];
-    }
-    
-    return webColor;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-- (UIColor *)colorFromHexString:(NSString *)hexString {
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner scanHexInt:&rgbValue];
-    
-    return [[UIColor alloc] initWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0  blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void SaveCGPathApplierFunc(void *info, const CGPathElement *element) {

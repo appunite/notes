@@ -70,6 +70,12 @@
 		24D885B816BA879D001E9B07 /* NTNoteAudioView.h in Headers */ = {isa = PBXBuildFile; fileRef = 24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24D885BA16BA9499001E9B07 /* NTNoteAudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */; };
 		4C809D2217395408009B9D4D /* NTNoteDownloadableItem.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA1F39817301FAF0083BE59 /* NTNoteDownloadableItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		64167E14174E40E5001F11C4 /* UIColor+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 64167E12174E40E5001F11C4 /* UIColor+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		64167E15174E40E5001F11C4 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 64167E13174E40E5001F11C4 /* UIColor+Additions.m */; };
+		64167E16174E40E5001F11C4 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 64167E13174E40E5001F11C4 /* UIColor+Additions.m */; };
+		64167E1E174E45A2001F11C4 /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 64167E1C174E45A2001F11C4 /* NSString+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		64167E1F174E45A2001F11C4 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 64167E1D174E45A2001F11C4 /* NSString+Additions.m */; };
+		64167E20174E45A2001F11C4 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 64167E1D174E45A2001F11C4 /* NSString+Additions.m */; };
 		AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE831BDA170E41F70097D2B4 /* NTRosetteView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE831BDD170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
 		AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
@@ -156,6 +162,10 @@
 		24D8858216B9E35B001E9B07 /* NTNoteAudioView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTNoteAudioView.h; path = ../../Common/Views/NTNoteAudioView.h; sourceTree = "<group>"; };
 		24D8858316B9E35B001E9B07 /* NTNoteAudioView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTNoteAudioView.m; path = ../../Common/Views/NTNoteAudioView.m; sourceTree = "<group>"; };
 		24D885B616BA878A001E9B07 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		64167E12174E40E5001F11C4 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Additions.h"; path = "Categories/UIColor+Additions.h"; sourceTree = "<group>"; };
+		64167E13174E40E5001F11C4 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Additions.m"; path = "Categories/UIColor+Additions.m"; sourceTree = "<group>"; };
+		64167E1C174E45A2001F11C4 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Additions.h"; path = "Categories/NSString+Additions.h"; sourceTree = "<group>"; };
+		64167E1D174E45A2001F11C4 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "Categories/NSString+Additions.m"; sourceTree = "<group>"; };
 		AE831BDA170E41F70097D2B4 /* NTRosetteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTRosetteView.h; path = ../../Common/Views/NTRosetteView.h; sourceTree = "<group>"; };
 		AE831BDB170E41F70097D2B4 /* NTRosetteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NTRosetteView.m; path = ../../Common/Views/NTRosetteView.m; sourceTree = "<group>"; };
 		AEA1F39517301F550083BE59 /* NTSelfDownloadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NTSelfDownloadingView.h; path = ../../Common/Views/NTSelfDownloadingView.h; sourceTree = "<group>"; };
@@ -207,7 +217,6 @@
 		208489CC1668E6590071AAC4 = {
 			isa = PBXGroup;
 			children = (
-				AEBBBE20170F453900726B5D /* CoreImage.framework */,
 				208489E11668E6590071AAC4 /* Classes */,
 				20848A041668E74A0071AAC4 /* Resources */,
 				24310B9816B45EE600587E65 /* AUNotes */,
@@ -230,11 +239,12 @@
 			isa = PBXGroup;
 			children = (
 				AEBBBE361710594800726B5D /* AURosetteView */,
-				AEBBBE1E170F452A00726B5D /* QuartzCore.framework */,
+				20848ACB16691FC90071AAC4 /* SPUserResizableView */,
 				AEF270CB1704E1C100C54E0C /* libz.dylib */,
+				AEBBBE1E170F452A00726B5D /* QuartzCore.framework */,
+				AEBBBE20170F453900726B5D /* CoreImage.framework */,
 				24D885B616BA878A001E9B07 /* AVFoundation.framework */,
 				20848B22166A351C0071AAC4 /* CoreText.framework */,
-				20848ACB16691FC90071AAC4 /* SPUserResizableView */,
 				208489DB1668E6590071AAC4 /* UIKit.framework */,
 				208489DD1668E6590071AAC4 /* Foundation.framework */,
 				208489DF1668E6590071AAC4 /* CoreGraphics.framework */,
@@ -251,6 +261,7 @@
 				20848ADF166938620071AAC4 /* Models */,
 				20848A071668E8120071AAC4 /* Controllers */,
 				20848A081668E81F0071AAC4 /* Views */,
+				64167E11174E406E001F11C4 /* Categories */,
 				20848AD316692A590071AAC4 /* Others */,
 			);
 			name = Classes;
@@ -379,6 +390,17 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		64167E11174E406E001F11C4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				64167E12174E40E5001F11C4 /* UIColor+Additions.h */,
+				64167E13174E40E5001F11C4 /* UIColor+Additions.m */,
+				64167E1C174E45A2001F11C4 /* NSString+Additions.h */,
+				64167E1D174E45A2001F11C4 /* NSString+Additions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		AEBBBE361710594800726B5D /* AURosetteView */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +439,8 @@
 				AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */,
 				AEBBBE3B1710595E00726B5D /* AURosetteItem.h in Headers */,
 				AEBBBE3E1710595E00726B5D /* AURosetteView.h in Headers */,
+				64167E1E174E45A2001F11C4 /* NSString+Additions.h in Headers */,
+				64167E14174E40E5001F11C4 /* UIColor+Additions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +569,8 @@
 				AEBBBE3F1710595E00726B5D /* AURosetteView.m in Sources */,
 				AEA1F39717301F550083BE59 /* NTSelfDownloadingView.m in Sources */,
 				AEA1F39A17301FB00083BE59 /* NTNoteDownloadableItem.m in Sources */,
+				64167E15174E40E5001F11C4 /* UIColor+Additions.m in Sources */,
+				64167E1F174E45A2001F11C4 /* NSString+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +599,8 @@
 				AEBBBE401710595E00726B5D /* AURosetteView.m in Sources */,
 				AEA1F39B173028840083BE59 /* NTNoteDownloadableItem.m in Sources */,
 				AEA1F39C173028890083BE59 /* NTSelfDownloadingView.m in Sources */,
+				64167E16174E40E5001F11C4 /* UIColor+Additions.m in Sources */,
+				64167E20174E45A2001F11C4 /* NSString+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
