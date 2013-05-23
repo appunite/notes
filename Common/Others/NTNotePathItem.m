@@ -56,17 +56,17 @@ enum type{
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)setBrushAttributes:(NSDictionary *)attributes{
     // if type is brush
-    if([[attributes objectForKey:@"type"] isEqual:@"brush"]){
+    if([[attributes objectForKey:@"type"] isEqualToString:@"brush"]){
         
         // set brush type
         _type = brush;
         
         // set line width
-        if([[attributes objectForKey:@"size"] isEqual:@"small"])
+        if([[attributes objectForKey:@"size"] isEqualToString:@"Small"])
             _lineWidth = 2.0f;
-        if([[attributes objectForKey:@"size"] isEqual:@"medium"])
+        if([[attributes objectForKey:@"size"] isEqualToString:@"Medium"])
             _lineWidth = 4.0f;
-        if([[attributes objectForKey:@"size"] isEqual:@"large"])
+        if([[attributes objectForKey:@"size"] isEqualToString:@"Large"])
             _lineWidth = 10.0f;
         
         // set line color
@@ -78,7 +78,7 @@ enum type{
     }
     
     //if type is pencil
-    if([[attributes objectForKey:@"type"] isEqual:@"pencil"]){
+    if([[attributes objectForKey:@"type"] isEqualToString:@"pencil"]){
         
         // set brush type
         _type = pencil;
@@ -96,7 +96,7 @@ enum type{
         // set opacity
         _opacity = 1.0f;
     }
-    if([[attributes objectForKey:@"type"] isEqual:@"eraser"]){
+    if([[attributes objectForKey:@"type"] isEqualToString:@"eraser"]){
         
         // set brush type
         _type = eraser;
@@ -112,7 +112,7 @@ enum type{
     }
     
     // if type is highlighter
-    if([[attributes objectForKey:@"type"] isEqual:@"highlighter"])
+    if([[attributes objectForKey:@"type"] isEqualToString:@"highlighter"])
     {
         // set brush type
         _type = highlighter;
