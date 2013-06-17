@@ -76,6 +76,7 @@
 		64167E1E174E45A2001F11C4 /* NSString+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 64167E1C174E45A2001F11C4 /* NSString+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		64167E1F174E45A2001F11C4 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 64167E1D174E45A2001F11C4 /* NSString+Additions.m */; };
 		64167E20174E45A2001F11C4 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 64167E1D174E45A2001F11C4 /* NSString+Additions.m */; };
+		64EFB495176F45D500342F2B /* NTSelfDownloadingView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEA1F39517301F550083BE59 /* NTSelfDownloadingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE831BDA170E41F70097D2B4 /* NTRosetteView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE831BDD170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
 		AE831BDE170E41F70097D2B4 /* NTRosetteView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE831BDB170E41F70097D2B4 /* NTRosetteView.m */; };
@@ -435,6 +436,7 @@
 				24310C3A16B460D200587E65 /* SPUserResizableView.h in Headers */,
 				AEAD37A5170EE0B90049BDC4 /* NTAudioNoteTimeView.h in Headers */,
 				244A823116D04226007A279F /* NTPathView.h in Headers */,
+				64EFB495176F45D500342F2B /* NTSelfDownloadingView.h in Headers */,
 				240DBC4216E4B65B00F7D179 /* NTInteractionDelegate.h in Headers */,
 				AE831BDC170E41F70097D2B4 /* NTRosetteView.h in Headers */,
 				AEBBBE3B1710595E00726B5D /* AURosetteItem.h in Headers */,

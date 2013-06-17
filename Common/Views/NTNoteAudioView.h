@@ -15,9 +15,12 @@
 #import "NTSelfDownloadingView.h"
 #import "NTAudioNoteTimeView.h"
 
-@class SPGripViewBorderView;
+@class SPGripViewBorderView, NTNoteAudioView;
 
 @protocol NTUserResizableViewDelegate;
+@protocol NoteAudioViewDelegate <NSObject>
+- (void)audioView:(NTNoteAudioView*)audioView hasFinishedRecording:(BOOL)finished;
+@end
 
 @interface NTNoteAudioView : NTSelfDownloadingView <AVAudioPlayerDelegate, AVAudioRecorderDelegate, UIAlertViewDelegate>{
     
@@ -47,6 +50,7 @@
 @property UISegmentedControl *playerControl;
 @property (nonatomic, assign) BOOL automaticStop;
 @property (nonatomic, assign) NSTimeInterval automaticStopInterval;
+@property (nonatomic, weak) id noteDelegate;
 
 // redefine model object
 -(NTNoteAudioItem *)item;

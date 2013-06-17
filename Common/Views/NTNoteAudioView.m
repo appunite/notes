@@ -341,9 +341,13 @@
     _recordItemEnabled = YES;
     _recording = NO;
     
-    if (audioRecorder.recording)
-    {
+    if (audioRecorder.recording) {
         [audioRecorder stop];
+        
+        // inform about new content
+        if ([_noteDelegate respondsToSelector:@selector(audioView:hasFinishedRecording:)]) {
+            [_noteDelegate audioView:self hasFinishedRecording:YES];
+        }
     } else if (audioPlayer.playing) {
         [audioPlayer stop];
     }

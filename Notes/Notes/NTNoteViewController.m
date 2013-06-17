@@ -13,7 +13,6 @@
 #import "NTImageView.h"
 #import "NTTextView.h"
 #import "NTImageView.h"
-#import "NTNoteAudioView.h"
 #import "NTPathView.h"
 #import "NTUserResizableView.h"
 
@@ -267,9 +266,7 @@
     [_items addObject:image];
 
     // inform controller that photo was added
-    if ([self.delegate respondsToSelector:@selector(willUpdateNoteItem:)]) {
-        [self.delegate willUpdateNoteItem:image];
-    }
+    [self updateDownloadableItem:image];
     
     // reload content view
     [_contentView setNeedsDisplay];
@@ -662,6 +659,7 @@
         //create audio view
         [item setRect:CGRectMake(item.rect.origin.x, item.rect.origin.y, 264.0f, 220.0f)];
         _currentNoteView = [[NTNoteAudioView alloc] initWithAudioItem:(NTNoteAudioItem *)item];
+        [(NTNoteAudioView*)_currentNoteView setNoteDelegate:self];
         [(NTNoteAudioView*)_currentNoteView setAutomaticStop:self.automaticStop];
         [(NTNoteAudioView*)_currentNoteView setAutomaticStopInterval:self.automaticStopInterval];
         [_contentView removeGestureRecognizer:_tapGestureRecognizer];
@@ -690,10 +688,6 @@
 - (void)exitEditMode {
     
     if (_currentNoteView) {
-        if ([self.delegate respondsToSelector:@selector(willUpdateNoteItem:)]) {
-            [self.delegate willUpdateNoteItem:_currentNoteView.item];
-        }
-        
         // if is in text mode, have to break because this method will be called on textViewDidEndEditing:
         if([_currentNoteView isKindOfClass:[NTTextView class]] && [_currentNoteView isFirstResponder]) {
             [(NTTextView*)_currentNoteView resignFirstResponder];
@@ -785,6 +779,13 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)updateDownloadableItem:(NTNoteItem*)item {
+    if ([self.delegate respondsToSelector:@selector(willUpdateNoteItem:)]) {
+        [self.delegate willUpdateNoteItem:item];
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)tapGestureAction:(UITapGestureRecognizer *)gestureRecognizer {
     // get touch point
     CGPoint point = [gestureRecognizer locationInView:_contentView];
@@ -867,6 +868,15 @@
     [super touchesEnded:touches withEvent:event];
     _draggedItem = nil;
 }
+
+
+#pragma mark - NoteAudioViewDelegate
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)audioView:(NTNoteAudioView *)audioView hasFinishedRecording:(BOOL)finished {
+    [self updateDownloadableItem:_currentNoteView.item];
+}
+
 
 #pragma mark - flags getters
 

@@ -12,6 +12,7 @@
 //Views
 #import "NTNoteContentView.h"
 #import "NTTextView.h"
+#import "NTNoteAudioView.h"
 
 @protocol NTNoteDelegate <NSObject>
 
@@ -24,7 +25,7 @@
 
 @protocol NTTextViewDelegate;
 
-@interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate, NTInteractionDelegate, NTTextViewDelegate> {
+@interface NTNoteViewController : UIViewController <NTNoteContentViewDelegate, NTUserResizableViewDelegate, NTInteractionDelegate, NTTextViewDelegate, NoteAudioViewDelegate> {
     UIView * _draggedItem;
     NSData * _fileContents;
 }
